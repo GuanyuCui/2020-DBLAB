@@ -13,7 +13,6 @@ def demo(request,paperID):
         'paperID':paperID,
         'paper':paper
     }
-    print(paper.paperid,paper.content)
     return render(request,'demo/layout.html',context=context)
 
 def interact(request):
