@@ -1,0 +1,31 @@
+<!--
+ * @Description: 
+ * @Author: rainym00d
+ * @Github: https://github.com/rainym00d
+ * @Date: 2020-11-08 16:36:10
+ * @LastEditors: rainym00d
+ * @LastEditTime: 2020-11-08 18:19:57
+-->
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-12">
+                <div class="content has-text-centered">
+                    <h1 class="title">Log in</h1>
+
+                    <form action="." method="post">
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+
+                        <button class="button is-success" type="submit">Log in </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

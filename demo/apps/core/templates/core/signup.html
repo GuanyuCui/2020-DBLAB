@@ -1,0 +1,29 @@
+<!--
+ * @Description: 
+ * @Author: rainym00d
+ * @Github: https://github.com/rainym00d
+ * @Date: 2020-11-08 17:12:32
+ * @LastEditors: rainym00d
+ * @LastEditTime: 2020-11-08 18:20:50
+-->
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-12">
+                <h1 class="title">Sign up</h1>
+                
+                <form action="." method="post">
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <button class="button is-success" type="submit">Sign up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
