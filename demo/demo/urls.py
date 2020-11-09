@@ -25,7 +25,7 @@ urlpatterns = [
     #
 
     url('^$', frontpage, name='frontpage'),
-    url('^signup/', signup, name="signup"),
+    url('^signup/', signup, name='signup'),
     url('^logout/', views.LogoutView.as_view(), name='logout'),
     url('^login/', views.LoginView.as_view(template_name='core/login.html'), name='login'),
 

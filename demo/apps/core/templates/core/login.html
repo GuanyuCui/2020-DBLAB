@@ -14,14 +14,13 @@
         <div class="columns">
             <div class="column is-12">
                 <div class="content has-text-centered">
-                    <h1 class="title">Log in</h1>
+                    <h2 class="title">登录</h2>
 
                     <form action="." method="post">
                         {% csrf_token %}
 
                         {{ form.as_p }}
-
-                        <button class="button is-success" type="submit">Log in </button>
+                        <button class="button is-success" type="submit">登录</button>
                     </form>
                 </div>
             </div>
