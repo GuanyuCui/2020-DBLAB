@@ -1,15 +1,15 @@
 ## Instruction
-1. 安装django
+1. 安装django, pymysql, mysqlclient...
    ```shell
-    python -m pip install Django
+    pip3 install Django pymysql mysqlclient
    ```
 2. ```shell
-    cd 2020-DBLAB/demo
+    cd (GitHub repo 地址)/2020-DBLAB/demo
    ```
 3. ```shell
-    python manage.py migrate
+    python3 manage.py migrate
    ```
 4. ```shell
-    python manage.py runserver
+    python3 manage.py runserver
    ```
 5. 浏览器访问`http://127.0.0.1:8000/`
