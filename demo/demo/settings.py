@@ -82,17 +82,21 @@ WSGI_APPLICATION = 'demo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-
-        'USER': 'root',
-        
-        'PASSWORD': '123456',
-        
-        'HOST': 'localhost',
-
-        # name pf database
-        'NAME': 'dblab',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+
+    #     'USER': 'root',
+        
+    #     'PASSWORD': '123456',
+        
+    #     'HOST': 'localhost',
+
+    #     # name pf database
+    #     'NAME': 'dblab',
+    # }
 }
 
 
