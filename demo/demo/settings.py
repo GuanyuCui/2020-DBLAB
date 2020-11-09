@@ -86,11 +86,12 @@ DATABASES = {
 
         'USER': 'root',
         
-        'PASSWORD': '',
+        'PASSWORD': '123456',
         
         'HOST': 'localhost',
 
-        'NAME': 'demo',
+        # name pf database
+        'NAME': 'dblab',
     }
 }
 
