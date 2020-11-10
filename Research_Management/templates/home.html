@@ -79,25 +79,27 @@
         <div class="col-md-2">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title text-center">个人信息</h3>
+                    <h3 style="font-size:22px" class="panel-title text-center">个人信息</h3>
                 </div>
                 <div class="panel-body text-center">
-                    <img src="/media/avatar/sign.png" class="img-responsive" alt="Cinque Terre">
+                    <a href = "/set_img/">
+                    <img src="/media/avatar/sign.png" class="img-responsive" alt="用户头像">
+                    </a>
                     <p></p>
                     {% if request.user.is_authenticated %}
-                        <a href='/home'>{{ request.user.username }}</a> 
+                        <a style="font-size:18px" href='/home'>{{ request.user.username }}</a> 
                     {% endif %}
                 </div>
             </div>
             
             <div class="panel panel-warning">
                 <div class="panel-heading">
-                    <h3 class="panel-title text-center">用户导航</h3>
+                    <h3 style="font-size:22px" class="panel-title text-center">用户导航</h3>
                 </div>
                 
                 <ul class="nav nav-pills nav-stacked text-center">
-                    <li><a href="/home">添加项目</a></li>
-                    <li><a href="/home">查询/筛选/导出已有项目</a></li>
+                    <li><a style="font-size:16px" href="/home">添加项目</a></li>
+                    <li><a style="font-size:16px" href="/home">查询/筛选/导出已有项目</a></li>
                 </ul>
             </div>
             <!--
@@ -111,15 +113,16 @@
             </div>
         -->
         </div>
-        <div class="col-md-6">
+        <div class="col-md-10">
             <table class="table table-striped">
-                <h1> 当前位置: 主页 </h1>
-                <h3>尚未审核</h3>
+                <h4 class="text-center"> (当前位置: 主页) </h4>
+                <h3 class="text-center">尚未审核</h3>
                 <thead>
                   <tr>
                     <th>名称</th>
                     <th>城市</th>
                     <th>邮编</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -127,6 +130,7 @@
                     <td>Tanmay</td>
                     <td>Bangalore</td>
                     <td>560001</td>
+                    <td><button type="button" class="btn btn-default">修改</button></td>
                   </tr>
                 </tbody>
               </table>
