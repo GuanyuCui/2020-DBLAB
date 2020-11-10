@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>中国人民大学信息学院 科研成果管理系统</title>
     {% load static %}
     <script src="{% static 'bootstrap/js/jquery.js' %}"></script>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
@@ -20,20 +20,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">BBS</a>
+            <a class="navbar-brand" href="/home">中国人民大学信息学院 科研成果管理系统</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">文章 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">随笔</a></li>
+                <li class="active"><a href="/home/"> 主页 <span class="sr-only">(current)</span></a></li>
+                <li><a href="/home/">添加项目</a></li>
+                <li><a href="/home/">查询/筛选/导出已有项目</a></li>
+                <!--
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">更多 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">修改密码</a></li>
+                        <li><a href="/set_img">修改头像</a></li>
                         <li><a href="#">Something else here</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Separated link</a></li>
@@ -41,13 +43,16 @@
                         <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
+                -->
             </ul>
+            <!--
             <form class="navbar-form navbar-left">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default">确定</button>
             </form>
+            -->
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.is_authenticated %}
                     <li><a href="#">{{ request.user.username }}</a></li>
@@ -57,7 +62,6 @@
                         <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">修改密码</a></li>
                             <li><a href="#">修改头像</a></li>
-                            <li><a href="#">后台管理</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/logout/">注销</a></li>
                         </ul>
@@ -75,20 +79,28 @@
         <div class="col-md-2">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">重金求子</h3>
+                    <h3 class="panel-title text-center">个人信息</h3>
                 </div>
-                <div class="panel-body">
-                    事成之后，上海别墅一套
+                <div class="panel-body text-center">
+                    <img src="/media/avatar/sign.png" class="img-responsive" alt="Cinque Terre">
+                    <p></p>
+                    {% if request.user.is_authenticated %}
+                        <a href='/home'>{{ request.user.username }}</a> 
+                    {% endif %}
                 </div>
             </div>
+            
             <div class="panel panel-warning">
                 <div class="panel-heading">
-                    <h3 class="panel-title">百万大奖</h3>
+                    <h3 class="panel-title text-center">用户导航</h3>
                 </div>
-                <div class="panel-body">
-                    赶紧拨打电话领取把
-                </div>
+                
+                <ul class="nav nav-pills nav-stacked text-center">
+                    <li><a href="/home">添加项目</a></li>
+                    <li><a href="/home">查询/筛选/导出已有项目</a></li>
+                </ul>
             </div>
+            <!--
             <div class="panel panel-danger">
                 <div class="panel-heading">
                     <h3 class="panel-title">在线直播</h3>
@@ -97,6 +109,27 @@
                     点我点我，有你好看~
                 </div>
             </div>
+        -->
+        </div>
+        <div class="col-md-6">
+            <table class="table table-striped">
+                <h1> 当前位置: 主页 </h1>
+                <h3>尚未审核</h3>
+                <thead>
+                  <tr>
+                    <th>名称</th>
+                    <th>城市</th>
+                    <th>邮编</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Tanmay</td>
+                    <td>Bangalore</td>
+                    <td>560001</td>
+                  </tr>
+                </tbody>
+              </table>
         </div>
         <div class="col-md-8">
             <ul class="media-list">
@@ -122,6 +155,7 @@
             </ul>
         {{ page_obj.page_html|safe }}
         </div>
+        <!--
         <div class="col-md-2">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -148,6 +182,7 @@
                 </div>
             </div>
         </div>
+    -->
     </div>
 </div>
 
