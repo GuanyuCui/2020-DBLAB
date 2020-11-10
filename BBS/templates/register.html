@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <script src="{% static 'bootstrap/js/jquery.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h2 class="text-center">注册</h2>
+            <form id="myform" novalidate>
+                {% csrf_token %}
+                {% for foo in form_obj %}
+                    <div class="form-group">
+                        <label for="{{ foo.auto_id }}">{{ foo.label }}</label>
+                        {{ foo }}
+                        <span style="color: red" class="pull-right"></span>
+                    </div>
+                {% endfor %}
+                <div class="form-group">
+                    <label for="myfile">头像
+                        <img src="/static/img/default.png" alt="" width="80" style="margin-left: 10px" id="myimg">
+                    </label>
+                    <input type="file" id="myfile" name="avatar" style="display: none">
+                </div>
+                <input type="button" class="btn btn-success pull-right" value="注册" id="commit">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#myfile').change(function () {
+        // 文件阅读器
+        //1 产生一个文件阅读器对象
+        var fileReader = new FileReader();
+        //2 获取用户上传的文件
+        var fileObj = $(this)[0].files[0];
+        //3 让文件阅读器读取该文件
+        fileReader.readAsDataURL(fileObj);  // 这一步是异步 提交完之后直接运行下一行
+        //4 利用文件阅读器将文件展示出来
+        fileReader.onload = function () {
+            $('#myimg').attr('src', fileReader.result)
+        }
+    });
+
+    $('#commit').click(function () {
+        // 由于你要发送的数据即有普通的键值 又有文件 所以考虑使用内置对象FormData
+        var formDataObj = new FormData();
+        // 1 朝对象中添加普通的键值对
+        // $('#myform').serializeArray()自动获取到内部所有的普通键值对
+        $.each($('#myform').serializeArray(),function (index,obj) {
+            formDataObj.append(obj.name,obj.value)
+        });
+        // 2 手动添加文件数据
+        formDataObj.append('avatar',$('#myfile')[0].files[0]);
+
+        // 发送ajax请求
+        $.ajax({
+            url:'',
+            type:'post',
+            data:formDataObj,
+
+            // 发送文件 需要修改两个参数
+            contentType:false,
+            processData:false,
+
+            success:function (data) {
+                if (data.code == 1000){
+                    window.location.href = data.url
+                }else{
+                    $.each(data.msg,function (index,obj) {
+                        // index就是一个个的报错字段名  obj就是数组 里面是报错信息
+                        // 手动拼接对应的input框的id值
+                        var targetId = '#id_' + index;
+                        // $('#id_username') $('#id_password')
+                        $(targetId).next().text(obj[0]).parent().addClass('has-error')
+                    })
+                }
+            }
+
+        })
+
+    });
+    $('input').focus(function () {
+        $(this).next().text('').parent().removeClass('has-error')
+    })
+
+</script>
+</body>
+</html>

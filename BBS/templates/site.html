@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+            <ul class="media-list">
+                {% for article in article_list %}
+                    <li class="media"><a href="/{{ username }}/article/{{ article.pk }}/"><h4 class="media-heading">{{ article.title }}</h4></a>
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object" src="/media/{{ article.blog.userinfo.avatar }}" alt="..." width="60">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            {{ article.desc }}
+                        </div>
+{#                        posted @ 2019-09-28 17:42 武沛齐 阅读 (1607) 评论 (2) 编辑#}
+                        <br>
+                        <div class="pull-right">
+                            <span>posted&nbsp;@&nbsp;{{ article.create_time|date:'Y-m-d' }}&nbsp;&nbsp;</span>
+                        <span>{{ article.blog.userinfo.username }}&nbsp;&nbsp;</span>
+                        <span><span class="glyphicon glyphicon-comment"></span>评论数({{ article.comment_num }})&nbsp;&nbsp;</span>
+                        <span><span class="glyphicon glyphicon-thumbs-up"></span>点赞数({{ article.up_num }})</span>
+                        <span><a href="#">编辑</a></span>
+                        </div>
+                    </li>
+                    <hr>
+                {% endfor %}
+            </ul>
+{% endblock %}
