@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-12">
+                <div class="content has-text-centered">
+                    <h1 class="title">现在位置：论文查询页面</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+        <ul class="nav sidebar-nav">
+            <li> <a href="/"> 主页 </a> </li>
+            <li> <a href="/feed"> 添加新项目 </a> </li>
+            <li> <a href="/feed"> 查询/导出现有项目 </a> </li>
+        </ul>
+    </nav>
+
+    <nav class="panel">
+        <p class="panel-heading">
+          论文查询
+        </p>
+        <div class="panel-block">
+            <label class="label">论文标题</label>
+            <p class="control has-icons-left">
+              <input class="input" type="text" placeholder="Search">
+              <span class="icon is-left">
+                <i class="fas fa-search" aria-hidden="true"></i>
+              </span>
+            </p>
+        </div>
+        <div class="panel-block">
+            <label class="label">期刊/会议名称</label>
+            <p class="control has-icons-left">
+              <input class="input" type="text" placeholder="Search">
+              <span class="icon is-left">
+                <i class="fas fa-search" aria-hidden="true"></i>
+              </span>
+            </p>
+        </div>
+        <label class="panel-block">
+            <input type="checkbox">
+            第一作者
+        </label>
+        <label class="panel-block">
+            <input type="checkbox">
+            通讯作者
+        </label>
+        <label class="panel-block">
+            <input type="checkbox">
+            正刊
+        </label>
+        <label class="panel-block">
+            <input type="checkbox">
+            专刊
+        </label>
+        <label class="panel-block">
+            <input type="checkbox">
+            长文
+        </label>
+        <label class="panel-block">
+            <input type="checkbox">
+            短文
+        </label>
+        <label class="panel-block">
+            <input type="checkbox">
+            demo
+        </label>
+
+        <div class="panel-block">
+          <button class="button is-link is-outlined is-fullwidth">
+            Reset all
+          </button>
+        </div>
+
+        <dl>
+            <dt>开始日期</dt>
+            <dd><select id="year">
+                    <script>
+                        for (var i = 1980; i <= 2020; i++) {
+                            document.write("<option value=" + i + ">" + i + "</option>");
+                        }
+                    </script>
+                </select>年
+                <select id="month">
+                    <script>
+                        for (var i = 1; i <= 12; i++) {
+                            document.write("<option value=" + i + ">" + i + "</option>");
+                        }
+                    </script>
+                </select>月
+                <select id="day">
+                    <script>
+                        for (var i = 1; i <= 31; i++) {
+                            document.write("<option value=" + i + ">" + i + "</option>");
+                        }
+                    </script>
+                </select>日</dd>
+        </dl>
+
+        <dl>
+            <dt>结束日期</dt>
+            <dd><select id="year">
+                    <script>
+                        for (var i = 1980; i <= 2020; i++) {
+                            document.write("<option value=" + i + ">" + i + "</option>");
+                        }
+                    </script>
+                </select>年
+                <select id="month">
+                    <script>
+                        for (var i = 1; i <= 12; i++) {
+                            document.write("<option value=" + i + ">" + i + "</option>");
+                        }
+                    </script>
+                </select>月
+                <select id="day">
+                    <script>
+                        for (var i = 1; i <= 31; i++) {
+                            document.write("<option value=" + i + ">" + i + "</option>");
+                        }
+                    </script>
+                </select>日</dd>
+        </dl>
+    </nav>
+    
+    <div class="field">
+        <label class="label">论文标题</label>
+        <div class="control has-icons-left">
+            <input class="input" type="text">
+            <span class="icon is-left">
+                <i class="fas fa-search" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">期刊/会议名称</label>
+        <div class="control has-icons-left">
+            <input class="input" type="text">
+            <span class="icon is-left">
+                <i class="fas fa-search" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+
+
+
+{% endblock %}

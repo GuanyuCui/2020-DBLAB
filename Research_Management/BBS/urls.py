@@ -33,6 +33,10 @@ urlpatterns = [
     # 修改密码
     url(r'^set_password/',views.set_password),
 
+    # 查询
+    url(r'^query/', views.query),
+
+
     # 暴露给外界的后端文件资源
     url(r'^media/(?P<path>.*)',serve,{'document_root':settings.MEDIA_ROOT}),
     # 慎重使用

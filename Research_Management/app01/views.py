@@ -129,6 +129,8 @@ def home(request):
     page_queryset = article_list[page_obj.start:page_obj.end]
     return render(request,'home.html',locals())
 
+def query(request):
+    return render(request,'query.html',locals())
 
 @login_required
 def logout(request):

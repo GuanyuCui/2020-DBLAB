@@ -83,7 +83,7 @@
                 </div>
                 <div class="panel-body text-center">
                     <a href = "/set_img/">
-                    <img src="/media/avatar/sign.png" class="img-responsive" alt="用户头像">
+                    <img src="/media/avatar/admin.jpg" style="max-width:50%" class="img-responsive img-thumbnail" alt="用户头像">
                     </a>
                     <p></p>
                     {% if request.user.is_authenticated %}
@@ -99,7 +99,7 @@
                 
                 <ul class="nav nav-pills nav-stacked text-center">
                     <li><a style="font-size:16px" href="/home">添加项目</a></li>
-                    <li><a style="font-size:16px" href="/home">查询/筛选/导出已有项目</a></li>
+                    <li><a style="font-size:16px" href="/query">查询/筛选/导出已有项目</a></li>
                 </ul>
             </div>
             <!--
@@ -119,18 +119,21 @@
                 <h3 class="text-center">尚未审核</h3>
                 <thead>
                   <tr>
-                    <th>名称</th>
+                    <th>序号</th>
                     <th>城市</th>
                     <th>邮编</th>
-                    <th></th>
+                    <th>操作</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Tanmay</td>
+                    <td>1</td>
                     <td>Bangalore</td>
                     <td>560001</td>
-                    <td><button type="button" class="btn btn-default">修改</button></td>
+                    <td>
+                        <a href="/home" class="btn btn-default" role="button">修改</a>
+                        <a href="/home" class="btn btn-default" role="button">查看</a>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -159,34 +162,6 @@
             </ul>
         {{ page_obj.page_html|safe }}
         </div>
-        <!--
-        <div class="col-md-2">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">重金求子</h3>
-                </div>
-                <div class="panel-body">
-                    事成之后，上海别墅一套
-                </div>
-            </div>
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h3 class="panel-title">百万大奖</h3>
-                </div>
-                <div class="panel-body">
-                    赶紧拨打电话领取把
-                </div>
-            </div>
-            <div class="panel panel-danger">
-                <div class="panel-heading">
-                    <h3 class="panel-title">在线直播</h3>
-                </div>
-                <div class="panel-body">
-                    点我点我，有你好看~
-                </div>
-            </div>
-        </div>
-    -->
     </div>
 </div>
 
