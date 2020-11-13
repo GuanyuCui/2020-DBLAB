@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <script src="{% static 'bootstrap/js/jquery.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h2 class="text-center">登录</h2>
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" name="username" id="username" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" name="password" id="password" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="code">验证码</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" id="code" name="code" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <img src="/get_code/" alt="" height="35" width="310" id="img">
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="b1">登录</button>
+            <span id="error" style="color: red"></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#img').click(function () {
+        // 点击  修改src原来值
+        var oldVal = $(this).attr('src');
+        if (oldVal.endsWith('?')){
+            $(this).attr('src','/get_code/')
+        }else{
+            $(this).attr('src',oldVal += '?')
+        }
+    });
+    $('#b1').click(function () {
+        $.ajax({
+            url:'',
+            type:'post',
+            data:{
+                'username':$('#username').val(),
+                'password':$('#password').val(),
+                'code':$('#code').val(),
+                'csrfmiddlewaretoken':'{{ csrf_token }}'
+            },
+            success:function (data) {
+                if (data.code == 1000){
+                    window.location.href = data.url
+                }else{
+                    // 渲染错误信息
+                    $('#error').text(data.msg)
+                }
+            }
+        })
+    })
+</script>
+
+
+
+</body>
+</html>
