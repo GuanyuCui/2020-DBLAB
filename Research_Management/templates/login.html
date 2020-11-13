@@ -41,12 +41,13 @@
 <script>
     $('#img').click(function () {
         // 点击  修改src原来值
-        var oldVal = $(this).attr('src');
-        if (oldVal.endsWith('?')){
-            $(this).attr('src','/get_code/')
-        }else{
-            $(this).attr('src',oldVal += '?')
-        }
+        $(this).attr('src', '/get_code/'+'?'+Math.random())
+        // var oldVal = $(this).attr('src');
+        // if (oldVal.endsWith('?')){
+        //     $(this).attr('src','/get_code/')
+        // }else{
+        //     $(this).attr('src',oldVal += '?')
+        // }
     });
     $('#b1').click(function () {
         $.ajax({
