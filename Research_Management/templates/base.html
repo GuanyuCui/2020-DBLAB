@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>中国人民大学信息学院 科研成果管理系统</title>
     {% load static %}
     <script src="{% static 'bootstrap/js/jquery.js' %}"></script>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
@@ -24,7 +24,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/home">中国人民大学信息学院 科研成果管理系统</a>
+            <a class="navbar-brand" href="/home/">中国人民大学信息学院 科研成果管理系统</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -32,7 +32,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/home/"> 主页 <span class="sr-only">(current)</span></a></li>
                 <li><a href="/home/">添加项目</a></li>
-                <li><a href="/home/">查询/筛选/导出已有项目</a></li>
+                <li><a href="/query/">查询/筛选/导出已有项目</a></li>
                 <!--
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -70,6 +70,7 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
@@ -94,8 +95,8 @@
                 </div>
                 
                 <ul class="nav nav-pills nav-stacked text-center">
-                    <li><a style="font-size:16px" href="/home">添加项目</a></li>
-                    <li><a style="font-size:16px" href="/home">查询/筛选/导出已有项目</a></li>
+                    <li><a style="font-size:16px" href="/home/">添加项目</a></li>
+                    <li><a style="font-size:16px" href="/query/">查询/筛选/导出已有项目</a></li>
                 </ul>
             </div>
             <!--
@@ -109,27 +110,13 @@
             </div>
         -->
         </div>
-    </div>
-</div>
-
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3">
-            这里干嘛的还没搞清
-            {% comment %} {% load mytag %}
-            {% index username %} {% endcomment %}
-        </div>
-        <div class="col-md-9">
         {% block content %}
-
         {% endblock %}
-        </div>
     </div>
 </div>
 
-    {% block js %}
+{% block js %}
 
-    {% endblock %}
+{% endblock %}
 </body>
 </html>
