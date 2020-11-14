@@ -1,0 +1,421 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-md-10">
+
+    <div class="container">
+
+        <div class="columns">
+
+            <div class="column is-12">
+
+                <div class="content has-text-centered">
+
+                    <h1 class="title">现在位置：论文添加页面</h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <nav class="panel">
+
+        <p class="panel-heading">
+
+          论文添加
+
+        </p>
+
+        <div class="panel-block">
+
+            <label class="label">论文标题</label>
+
+            <p class="control has-icons-left">
+
+              <input class="input" type="text" placeholder="Title">
+
+              <span class="icon is-left">
+
+                <i class="fas fa-search" aria-hidden="true"></i>
+
+              </span>
+
+            </p>
+
+        </div>
+        
+
+        <div class="panel-block">
+
+            <label class="label" style="margin-right:145px;">论文作者</label>
+
+            <p class="control has-icons-left">
+
+              <input class="input" type="text" placeholder="Author" style="margin-right:40px;">
+
+              <span class="icon is-left">
+
+                <i class="fas fa-search" aria-hidden="true"></i>
+
+              </span>
+
+            </p>
+
+        </div>
+
+        <div>
+
+            <p class="control has-icons-left">
+
+                <label class="label" style="margin-right:50px;">是否独立作者：</label>
+
+                <input type="radio" name="judge" value="yes">是
+
+                <input type="radio" name="judge" value="no" style="margin-left:50px;">否
+
+                <span class="icon is-left">
+
+                    <i class="fas fa-search" aria-hidden="true"></i>
+
+                </span>
+
+            </p>
+
+        </div>
+
+        <div class="panel-block">
+
+            <p class="control has-icons-left">
+
+                <label class="label">第一作者</label>
+
+                <input class="input" type="text" placeholder="First Author" style="margin-right:40px;">
+
+                <label class="label">通讯作者</label>
+
+                <input class="input" type="text" placeholder="Corresponding Author">
+
+                <span class="icon is-left">
+
+                    <i class="fas fa-search" aria-hidden="true"></i>
+
+                </span>
+
+            </p>
+
+        </div>
+
+        <div class="panel-block">
+
+            <p class="control has-icons-left">
+
+                <label class="label">第一作者单位</label>
+
+                <input class="input" type="text" placeholder="Unit">
+
+                <span class="icon is-left">
+
+                    <i class="fas fa-search" aria-hidden="true"></i>
+
+                </span>
+
+            </p>
+
+        </div>
+
+        <div>
+
+            <p class="control has-icons-left">
+
+                <label class="label" style="margin-right:50px;">论文类型：</label>
+
+                <input type="radio" name="type" value="journal">期刊
+
+                <input type="radio" name="type" value="conference" style="margin-left:50px;">会议
+
+                <span class="icon is-left">
+
+                    <i class="fas fa-search" aria-hidden="true"></i>
+
+                </span>
+
+            </p>
+
+        </div>
+
+        <div>
+
+            <p class="control has-icons-left">
+
+                <label class="label" style="margin-right:50px;">期刊论文：</label>
+
+                <input type="radio" name="type" value="正刊">正刊
+
+                <input type="radio" name="type" value="专刊" style="margin-left:50px;">专刊
+
+                <input type="radio" name="type" value="增刊" style="margin-left:50px;">增刊
+
+                <span class="icon is-left">
+
+                    <i class="fas fa-search" aria-hidden="true"></i>
+
+                </span>
+
+            </p>
+
+        </div>
+
+        <div>
+
+            <p class="control has-icons-left">
+
+                <label class="label" style="margin-right:50px;">会议论文：</label>
+
+                <input type="radio" name="type" value="长文">长文
+
+                <input type="radio" name="type" value="短文" style="margin-left:50px;">短文
+
+                <input type="radio" name="type" value="demo" style="margin-left:50px;">demo
+
+                <span class="icon is-left">
+
+                    <i class="fas fa-search" aria-hidden="true"></i>
+
+                </span>
+
+            </p>
+
+        </div>
+
+        <div class="panel-block">
+
+            <label class="label">期刊/会议名称</label>
+
+            <p class="control has-icons-left">
+
+              <input class="input" type="text" placeholder="Journal/Conference">
+
+              <span class="icon is-left">
+
+                <i class="fas fa-search" aria-hidden="true"></i>
+
+              </span>
+
+            </p>
+
+        </div>
+
+        <div class="panel-block">
+
+            <label class="label">举办国家</label>
+
+            <input class="input" type="text" placeholder="Country">
+
+            <label class="label">城市</label>
+
+            <input class="input" type="text" placeholder="City">
+
+            <p class="control has-icons-left">
+
+            <span class="icon is-left">
+
+                <i class="fas fa-search" aria-hidden="true"></i>
+
+            </span>
+
+            </p>
+
+        </div>
+
+        
+        <div class="panel-block">
+
+            <label class="label">期刊：</label>
+
+            <input class="input" type="text" size="1">卷
+
+            <input class="input" type="text" size="1">期
+
+            <label class="label" style="margin-left:50px;">页码范围：第</label>
+
+            <input class="input" type="text" size="1">页到
+
+            <input class="input" type="text" size="1">页
+
+            <label class="label" style="margin-left:50px;">ISBN号</label>
+
+            <input class="input" type="text" placeholder="自动匹配">
+
+            <p class="control has-icons-left">
+
+              <span class="icon is-left">
+
+                <i class="fas fa-search" aria-hidden="true"></i>
+
+              </span>
+
+            </p>
+
+        </div>
+
+        <div class="panel-block">
+
+            <label class="label">会议：</label>
+
+            <label class="label" style="margin-left:175px;">页码范围：第</label>
+
+            <input class="input" type="text" size="1">页到
+
+            <input class="input" type="text" size="1">页
+
+            <p class="control has-icons-left">
+
+              <span class="icon is-left">
+
+                <i class="fas fa-search" aria-hidden="true"></i>
+
+              </span>
+
+            </p>
+
+        </div>
+
+        <div class="panel-block">
+
+            <label class="label" style="margin-right: 55px;">发表时间：</label>
+
+            <select id="year">
+
+                <script>
+
+                    for (var i = 1980; i <= 2020; i++) {
+
+                        document.write("<option value=" + i + ">" + i + "</option>");
+
+                    }
+
+                </script>
+
+            </select>年
+
+            <select id="month">
+
+                <script>
+
+                    for (var i = 1; i <= 12; i++) {
+
+                        document.write("<option value=" + i + ">" + i + "</option>");
+
+                    }
+
+                </script>
+
+            </select>月
+
+            <select id="day">
+
+                <script>
+
+                    for (var i = 1; i <= 31; i++) {
+
+                        document.write("<option value=" + i + ">" + i + "</option>");
+
+                    }
+
+                </script>
+
+            </select>日
+
+
+            <p class="control has-icons-left">
+
+              <span class="icon is-left">
+
+                <i class="fas fa-search" aria-hidden="true"></i>
+
+              </span>
+
+            </p>
+
+        </div>
+
+        <div>
+
+            <p class="control has-icons-left">
+                
+                <label class="label" style="margin-right:50px;">论文语言：</label>
+
+                <input type="radio" name="type" value="journal">中文
+                
+                <input type="radio" name="type" value="conference" style="margin-left:50px;">英文
+
+                <span class="icon is-left">
+
+                    <i class="fas fa-search" aria-hidden="true"></i>
+
+                </span>
+
+            </p>
+
+        </div>
+
+        <div class="panel-block">
+
+            <label class="label">关键词</label>
+
+            <p class="control has-icons-left">
+
+              <input class="input" type="text" placeholder="可以为空，后续补充：如教师的研究方向" size="40">
+
+              <span class="icon is-left">
+
+                <i class="fas fa-search" aria-hidden="true"></i>
+
+              </span>
+
+            </p>
+
+        </div>
+
+        <div class="panel-block">
+
+            <label class="label">选择文件上传</label>
+
+            <p class="control has-icons-left">
+
+                <form>
+                    <input type="file" name="paper" accept="document" />
+                </form>
+                    
+              <span class="icon is-left">
+
+                <i class="fas fa-search" aria-hidden="true"></i>
+
+              </span>
+
+            </p>
+
+        </div>
+
+        <div class="panel-block">
+
+            <p class="control has-icons-left">
+
+            <button type="button">提交</button>
+                    
+              <span class="icon is-left">
+
+                <i class="fas fa-search" aria-hidden="true"></i>
+
+              </span>
+
+            </p>
+
+        </div>
+
+
+{% endblock %}
