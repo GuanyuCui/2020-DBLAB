@@ -60,6 +60,10 @@ def login(request):
         return JsonResponse(back_dic)
     return render(request, 'login.html')
 
+# 添加
+def insert(request):
+    return render(request, 'insert.html', locals())
+
 # 查询
 def query(request):
     return render(request, 'query.html', locals())

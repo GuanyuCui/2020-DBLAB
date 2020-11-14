@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^$', views.test), # 测试
     url(r'^login/', views.login),
     url(r'^home/', views.home),
+    url(r'^insert/', views.insert),
     url(r'^query/',views.query),
     # 
     # API
