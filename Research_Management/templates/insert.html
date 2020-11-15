@@ -34,7 +34,7 @@
 
               <h4><span class="label label-primary">论文标题</span>
 
-              <input class="input" type="text" placeholder="Title"></h4>
+              <input class="input" type="text" placeholder="Title" style="margin-right: 80px;"></h4>
 
               <span class="icon is-left">
 
@@ -45,63 +45,18 @@
             </p>
 
         </div>
-        
 
-        <div class="panel-block">
+        <div>
 
             <p class="control has-icons-left">
+ 
+                <h4><span class="label label-primary">论文语言</span>
 
-            <h4><span class="label label-primary">论文作者</span>
-
-              <input class="input" type="text" placeholder="Author" style="margin-right:50px;">
+                <input type="radio" name="type" value="journal" style="margin-left: 50px;">中文
                 
-              <span class="label label-primary" style="margin-right:50px;">是否独立作者:</span>
-
-                <input type="radio" name="judge" value="yes">是
-
-                <input type="radio" name="judge" value="no" style="margin-left:50px;">否
+                <input type="radio" name="type" value="conference" style="margin-left:50px;">英文
             
-            </h4>
-
-              <span class="icon is-left">
-
-                <i class="fas fa-search" aria-hidden="true"></i>
-
-              </span>
-
-            </p>
-
-        </div>
-
-        <div class="panel-block">
-
-            <p class="control has-icons-left">
-
-                <h4><span class="label label-primary">第一作者</span>
-
-                <input class="input" type="text" placeholder="First Author" style="margin-right:50px;">
-
-                <span class="label label-primary">通讯作者</span>
-
-                <input class="input" type="text" placeholder="Corresponding Author"></h4>
-
-                <span class="icon is-left">
-
-                    <i class="fas fa-search" aria-hidden="true"></i>
-
-                </span>
-
-            </p>
-
-        </div>
-
-        <div class="panel-block">
-
-            <p class="control has-icons-left">
-
-                <h4><span class="label label-primary">作者单位</span>
-
-                <input class="input" type="text" placeholder="unit of the first author"></h4>
+                </h4>
 
                 <span class="icon is-left">
 
@@ -116,10 +71,10 @@
         <div>
 
             <p class="control has-icons-left">
+ 
+                <h4><span class="label label-primary">论文类型</span>
 
-                <h4><span class="label label-primary" style="margin-right:50px;">论文类型</span>
-
-                <input type="radio" name="type" value="journal">期刊
+                <input type="radio" name="type" value="journal" style="margin-left: 50px;">期刊
 
                 <input type="radio" name="type" value="conference" style="margin-left:50px;">会议</h4>
 
@@ -132,12 +87,40 @@
             </p>
 
         </div>
+        
+        <div class="panel-block">
+
+            <p class="control has-icons-left">
+
+            <h4><span class="label label-primary">期刊名称</span>
+
+              <input class="input" type="text" placeholder="Journal" style="margin-right: 50px;">卷
+            
+              <input class="input" type="text" size="1" style="margin-right: 10px;">期
+
+              <input class="input" type="text" size="1" style="margin-right:20px;">页
+            
+              <input class="input" type="text" size="1" style="margin-left:10px;">~
+
+              <input class="input" type="text" size="1">
+
+            </h4>
+
+              <span class="icon is-left">
+
+                <i class="fas fa-search" aria-hidden="true"></i>
+
+              </span>
+
+            </p>
+
+        </div>
 
         <div>
 
             <p class="control has-icons-left">
 
-                <h4><span class="label label-primary" style="margin-right:50px;">期刊论文</span>
+                <h4><span class="label label-primary" style="margin-right:50px;">期刊等级</span>
 
                 <input type="radio" name="type" value="正刊">正刊
 
@@ -153,130 +136,6 @@
 
             </p>
 
-        </div>
-
-        <div>
-
-            <p class="control has-icons-left">
-
-                <h4><span class="label label-primary" style="margin-right:50px;">会议论文</span>
-
-                <input type="radio" name="type" value="长文">长文
-
-                <input type="radio" name="type" value="短文" style="margin-left:50px;">短文
-
-                <input type="radio" name="type" value="demo" style="margin-left:50px;">demo</h4>
-
-                <span class="icon is-left">
-
-                    <i class="fas fa-search" aria-hidden="true"></i>
-
-                </span>
-
-            </p>
-
-        </div>
-
-        <div class="panel-block">
-
-            <p class="control has-icons-left">
-
-            <h4><span class="label label-primary">期刊名称</span>
-
-              <input class="input" type="text" placeholder="Journal">
-
-              <span class="icon is-left">
-
-                <i class="fas fa-search" aria-hidden="true"></i>
-
-              </span>
-
-            </p>
-
-        </div>
-
-        <div class="panel-block">
-
-            <h4><span class="label label-primary" style="margin-right: 5px;">期刊卷期</span>第
-
-            <input class="input" type="text" size="1">卷第
-
-            <input class="input" type="text" size="1">期
-
-            <span class="label label-primary" style="margin-left:90px;"> ISBN号  </span>
-
-            <input class="input" type="text" placeholder="自动匹配" style="margin-left: 8px;"></h4>
-
-            <p class="control has-icons-left">
-
-              <span class="icon is-left">
-
-                <i class="fas fa-search" aria-hidden="true"></i>
-
-              </span>
-
-            </p>
-
-        </div>
-
-        <div class="panel-block">
-
-            <p class="control has-icons-left">
-
-            <h4><span class="label label-primary">会议名称</span>
-
-              <input class="input" type="text" placeholder="Conference"></h4>
-
-              <span class="icon is-left">
-
-                <i class="fas fa-search" aria-hidden="true"></i>
-
-              </span>
-
-            </p>
-
-        </div>
-
-
-        <div class="panel-block">
-
-            <h4><span class="label label-primary">举办国家</span>
-
-            <input class="input" type="text" placeholder="Country" style="margin-right: 50px;">
-
-            <span class="label label-primary">举办城市</span>
-
-            <input class="input" type="text" placeholder="City"></h4>
-
-            <p class="control has-icons-left">
-
-            <span class="icon is-left">
-
-                <i class="fas fa-search" aria-hidden="true"></i>
-
-            </span>
-
-            </p>
-
-        </div>
-
-        <div class="panel-block">
-
-            <h4><span class="label label-primary" style="margin-right: 5px;">页码范围</span>第
-
-            <input class="input" type="text" size="1">页到
-
-            <input class="input" type="text" size="1">页</h4>
-
-            <p class="control has-icons-left">
-
-              <span class="icon is-left">
-
-                <i class="fas fa-search" aria-hidden="true"></i>
-
-              </span>
-
-            </p>
 
         </div>
 
@@ -339,69 +198,14 @@
 
         </div>
 
-        <div>
-
-            <p class="control has-icons-left">
- 
-                <h4><span class="label label-primary">论文语言</span>
-
-                <input type="radio" name="type" value="journal" style="margin-left: 50px;">中文
-                
-                <input type="radio" name="type" value="conference" style="margin-left:50px;">英文</h4>
-
-                <span class="icon is-left">
-
-                    <i class="fas fa-search" aria-hidden="true"></i>
-
-                </span>
-
-            </p>
-
-        </div>
 
         <div class="panel-block">
 
             <p class="control has-icons-left">
 
-            <h4><span class="label label-primary" style="margin-right: 15px;">关键词 </span>
+                <button type="button" class="btn btn-default" data-toggle="button" style="margin-left: 900px;">添加</button>
 
-              <input class="input" type="text" placeholder="可以为空，后续补充：如教师的研究方向" size="59"></h4>
-
-              <span class="icon is-left">
-
-                <i class="fas fa-search" aria-hidden="true"></i>
-
-              </span>
-
-            </p>
-
-        </div>
-
-        <div class="panel-block">
-
-            <h4><span class="label label-primary">文件上传</span>
-
-            <p class="control has-icons-left">
-
-                <form>
-                    <input type="file" name="paper" accept="document" />
-                </form></h4>
-                    
-              <span class="icon is-left">
-
-                <i class="fas fa-search" aria-hidden="true"></i>
-
-              </span>
-
-            </p>
-
-        </div>
-
-        <div class="panel-block">
-
-            <p class="control has-icons-left">
-
-                <button type="button" class="btn btn-default" data-toggle="button" style="margin-left: 310px;">提交</button>
+                <button type="button" class="btn btn-default" data-toggle="button" style="margin-left: 5px;">删除</button>
                
               <span class="icon is-left">
 
@@ -412,6 +216,70 @@
             </p>
 
         </div>
+
+        
+        <div>
+
+        <ul class="list-group">
+
+            <li class="list-group-item">1、姓名
+
+                <input class="input" type="text" style="margin-right: 40px;">
+                身份
+                <select id="身份" style="margin-right: 40px;">
+
+                    <option>独立作者</option>
+                    <option>第一作者</option>
+                    <option>通讯作者</option>
+                    <option>其他</option>
+    
+                </select>
+
+                类型
+                <select id="类型">
+
+                    <option>本院教师</option>
+                    <option>本院学生</option>
+                    <option>校外人员</option>
+                    <option>其他</option>
+    
+                </select>
+
+                <button type="button" class="btn btn-default btn-sm" style="margin-left: 365px;">
+                    <span class="glyphicon glyphicon-arrow-up"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-sm" style="margin-left: 18px;">
+                    <span class="glyphicon glyphicon-arrow-down"></span>
+                </button>
+
+
+            </li>
+            <li class="list-group-item">条目2</li>
+            <li class="list-group-item">条目3</li>
+
+        </ul>
+
+        </div>
+
+
+        <div class="panel-block">
+
+            <p class="control has-icons-left">
+
+                <button type="button" class="btn btn-default" data-toggle="button" style="margin-left: 400px;">上传论文</button>
+
+                <button type="button" class="btn btn-default" data-toggle="button" style="margin-left: 30px;">提交</button>
+               
+              <span class="icon is-left">
+
+                <i class="fas fa-search" aria-hidden="true"></i>
+
+              </span>
+
+            </p>
+
+        </div>
+
 
 
 {% endblock %}
