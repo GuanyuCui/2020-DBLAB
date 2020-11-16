@@ -12,7 +12,7 @@
 
                 <div class="content has-text-centered">
 
-                    <h1 class="title">现在位置：论文添加页面</h1>
+                    <h1 class="title" style="margin-left: 350px;">论文添加</h1>
 
                 </div>
 
@@ -23,8 +23,6 @@
     </div>
 
     <nav class="panel">
-
-        <h3 class="title" style="margin-left: 310px;">论文添加</h3>
 
         <hr class="simple" color="#d9edf7" /> 
 
@@ -74,9 +72,9 @@
  
                 <h4><span class="label label-primary">论文类型</span>
 
-                <input type="radio" name="type" value="journal" style="margin-left: 50px;">期刊
+                <input type="radio" name="type" value="journal" onclick="ch('j')" style="margin-left: 50px;">期刊
 
-                <input type="radio" name="type" value="conference" style="margin-left:50px;">会议</h4>
+                <input type="radio" name="type" value="conference" onclick="ch('c')" style="margin-left:50px;">会议</h4>
 
                 <span class="icon is-left">
 
@@ -87,6 +85,121 @@
             </p>
 
         </div>
+
+        <div>
+            <div id="0">
+
+                <p class="control has-icons-left">
+
+                    <h4><span class="label label-primary">期刊名称</span>
+        
+                      <input class="input" type="text" placeholder="Journal" style="margin-right: 50px;">卷
+                    
+                      <input class="input" type="text" size="1" style="margin-right: 10px;">期
+        
+                      <input class="input" type="text" size="1" style="margin-right:20px;">页
+                    
+                      <input class="input" type="text" size="1" style="margin-left:10px;">~
+        
+                      <input class="input" type="text" size="1">
+        
+                    </h4>
+        
+                      <span class="icon is-left">
+        
+                        <i class="fas fa-search" aria-hidden="true"></i>
+        
+                      </span>
+        
+                    </p> 
+                
+                <p class="control has-icons-left">
+
+                        <h4><span class="label label-primary" style="margin-right:50px;">期刊等级</span>
+        
+                        <input type="radio" name="type" value="正刊">正刊
+        
+                        <input type="radio" name="type" value="专刊" style="margin-left:50px;">专刊
+        
+                        <input type="radio" name="type" value="增刊" style="margin-left:50px;">增刊</h4>
+        
+                        <span class="icon is-left">
+        
+                            <i class="fas fa-search" aria-hidden="true"></i>
+        
+                        </span>
+        
+                </p>
+
+            </div>
+
+            <div id="1">
+
+                <p class="control has-icons-left">
+
+                    <h4><span class="label label-primary">会议名称</span>
+        
+                      <input class="input" type="text" placeholder="Conference" style="margin-right: 50px;">页
+        
+                      <input class="input" type="text" size="1">~
+        
+                      <input class="input" type="text" size="1">
+        
+                    </h4>
+        
+                      <span class="icon is-left">
+        
+                        <i class="fas fa-search" aria-hidden="true"></i>
+        
+                      </span>
+        
+                    </p> 
+                
+                <p class="control has-icons-left">
+
+                        <h4><span class="label label-primary" style="margin-right:50px;">论文类型</span>
+        
+                        <input type="radio" name="type" value="正刊" onclick="ch1('l')">长文
+        
+                        <input type="radio" name="type" value="专刊" onclick="ch1('s')" style="margin-left:50px;">短文
+        
+                        <input type="radio" name="type" value="增刊" onclick="ch1('d')" style="margin-left:50px;">demo</h4>
+        
+                        <span class="icon is-left">
+        
+                            <i class="fas fa-search" aria-hidden="true"></i>
+        
+                        </span>
+        
+                </p>
+
+            </div>
+
+            <div id="2">
+
+                <p class="control has-icons-left">
+
+                    <h4><span class="label label-primary" style="margin-right:50px;">展示形式</span>
+    
+                    <input type="radio" name="type" value="oral">Oral
+    
+                    <input type="radio" name="type" value="poster" style="margin-left:50px;">poster</h4>
+    
+                    <span class="icon is-left">
+    
+                        <i class="fas fa-search" aria-hidden="true"></i>
+    
+                    </span>
+    
+            </p>
+
+            </div>
+
+            <div id="3"></div>
+
+        </div>
+
+<!--
         
         <div class="panel-block">
 
@@ -138,6 +251,8 @@
 
 
         </div>
+
+    -->
 
         <div class="panel-block">
 
@@ -245,10 +360,10 @@
     
                 </select>
 
-                <button type="button" class="btn btn-default btn-sm" style="margin-left: 365px;">
+                <button type="button" class="btn btn-default btn-sm" style="margin-left: 340px;">
                     <span class="glyphicon glyphicon-arrow-up"></span>
                 </button>
-                <button type="button" class="btn btn-default btn-sm" style="margin-left: 18px;">
+                <button type="button" class="btn btn-default btn-sm" style="margin-left: 15px;">
                     <span class="glyphicon glyphicon-arrow-down"></span>
                 </button>
 
@@ -279,6 +394,36 @@
             </p>
 
         </div>
+
+        <script>
+            function ch(tag){
+                var a=document.getElementById("0");
+                var b=document.getElementById("1");
+                
+                if(tag=='j'){
+                    a.style.display="block";
+                    b.style.display="none";
+                }
+                else{
+                    a.style.display="none";
+                    b.style.display="block";
+                }
+            }
+
+            function ch1(tag){
+                var a=document.getElementById("2");
+                var b=document.getElementById("3");
+                
+                if(tag=='s' || tag=='l'){
+                    a.style.display="block";
+                    b.style.display="none";
+                }
+                else{
+                    a.style.display="none";
+                    b.style.display="block";
+                }
+            }
+        </script>
 
 
 
