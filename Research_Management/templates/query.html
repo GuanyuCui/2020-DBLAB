@@ -2,141 +2,296 @@
 
 {% block content %}
 
+
+<script src='jquery.js' type="text/javascript">
+    $("#add_form .radio input").bind("click", function () {
+        var $radio = $(this);
+        // if this was previously checked
+        if ($radio.data('waschecked') == true) {
+            $radio.prop('checked', false);
+            $radio.data('waschecked', false);
+        } else {
+            $radio.prop('checked', true);
+            $radio.data('waschecked', true);
+        }
+        // remove was checked from other radios
+        $radio.siblings('input[type="radio"]').data('waschecked', false);
+    });
+</script>
+
 <div class="col-md-10">
-    <div class="container">
-        <div class="columns">
-            <div class="column is-12">
-                <div class="content has-text-centered">
-                    <h1 class="title">现在位置：论文查询页面</h1>
+    <!-- <div class="container-fluid"> -->
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 条件查找
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <section class="col-md-12 control-label">
+                        <form class="form-horizontal" role="form">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+
+                                        <select onchange="selectOnchang(this)" class="form-control" style="
+                                    width:100px;
+                                    padding:3px 10px;
+                                    border-top-left-radius: 5px;
+                                    border-bottom-left-radius: 5px;
+                                    background-size:13px 13px;
+                                    appearance:yes;
+                                    -moz-appearance:yes;
+                                    -webkit-appearance:yes;
+                                    ">
+                                            <option>AND</option>
+                                            <option>OR</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group-btn">
+                                        <select onchange="selectOnchang(this)" class="form-control" style="
+                width:100px;
+                padding:3px 10px;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+                background-size:13px 13px;
+                appearance:yes;
+                -moz-appearance:yes;
+                -webkit-appearance:yes;
+                ">
+                                            <option>论文题目</option>
+                                            <option>期刊名称</option>
+                                            <option>会议名称</option>
+                                        </select>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="请输入...">
+                                    <span class="input-group-btn">
+                                        <!-- <button class="btn btn-default" type="button">search</button> -->
+                                        <button class="btn btn-info" type="button" data-toggle="tooltip" title="新增"
+                                            id="addSelectBtn" onclick="addSelect(this)" disabled><span
+                                                class="glyphicon glyphicon-plus"></span></button>
+                                        <button class="btn btn-info" type="button" data-toggle="tooltip" title="减少"
+                                            id="minusSelectBtn" onclick="minusSelect(this)" disabled><span
+                                                class="glyphicon glyphicon-minus"></span></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
                 </div>
             </div>
-        </div>
-    </div>
-    <nav class="panel">
-        <p class="panel-heading">
-          论文查询
-        </p>
-        <div class="panel-block">
-            <label class="label">论文标题</label>
-            <p class="control has-icons-left">
-              <input class="input" type="text" placeholder="Search">
-              <span class="icon is-left">
-                <i class="fas fa-search" aria-hidden="true"></i>
-              </span>
-            </p>
-        </div>
-        <div class="panel-block">
-            <label class="label">期刊/会议名称</label>
-            <p class="control has-icons-left">
-              <input class="input" type="text" placeholder="Search">
-              <span class="icon is-left">
-                <i class="fas fa-search" aria-hidden="true"></i>
-              </span>
-            </p>
-        </div>
-        <label class="panel-block">
-            <input type="checkbox">
-            第一作者
-        </label>
-        <label class="panel-block">
-            <input type="checkbox">
-            通讯作者
-        </label>
-        <label class="panel-block">
-            <input type="checkbox">
-            正刊
-        </label>
-        <label class="panel-block">
-            <input type="checkbox">
-            专刊
-        </label>
-        <label class="panel-block">
-            <input type="checkbox">
-            长文
-        </label>
-        <label class="panel-block">
-            <input type="checkbox">
-            短文
-        </label>
-        <label class="panel-block">
-            <input type="checkbox">
-            demo
-        </label>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-8 col-xs-8 col-xxs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                作者类型
+                            </div>
+                            <div class="panel-body">
+                                <!-- <div class="col-md-4 control-label" for="select">作者类型：</div> -->
+                                <label class="radio-inline">
+                                    <input type="radio" value="option2" name="sex">全选
+                                </label>
+                                <br>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option1">第一作者
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option2">通讯作者
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option3">其他作者
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-8 col-xs-8 col-xxs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                论文类型
+                            </div>
+                            <div class="panel-body">
+                                <!-- <div class="col-md-4 control-label" for="select">作者类型：</div> -->
+                                <label class="radio-inline">
+                                    <input type="radio" value="option2" name="sex">全选
+                                </label>
+                                <br>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option1">正刊
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option2">专刊
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option3">长文
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option1">短文
+                                </label>
+                                <br>
 
-        <div class="panel-block">
-          <button class="button is-link is-outlined is-fullwidth">
-            Reset all
-          </button>
-        </div>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option2">Demo
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option3">Oral
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-8 col-xs-8 col-xxs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                论文等级
+                            </div>
+                            <div class="panel-body">
+                                <label class="radio-inline">
+                                    <input type="radio" value="option2" name="sex">全选
+                                </label>
+                                <br>
+                                <div class="col-md-3" for="select">CCF：</div>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option1">A+
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option2">A
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option3">A-
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option3">B
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option3">C
+                                </label>
+                                <br>
+                                <div class="col-md-3 control-label" for="select">RUC：</div>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option1">A+
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option2">A
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option3">A-
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option3">B
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="option3">C
+                                </label>
+                                <br>
 
-        <dl>
-            <dt>开始日期</dt>
-            <dd><select id="year">
-                    <script>
-                        for (var i = 1980; i <= 2020; i++) {
-                            document.write("<option value=" + i + ">" + i + "</option>");
-                        }
-                    </script>
-                </select>年
-                <select id="month">
-                    <script>
-                        for (var i = 1; i <= 12; i++) {
-                            document.write("<option value=" + i + ">" + i + "</option>");
-                        }
-                    </script>
-                </select>月
-                <select id="day">
-                    <script>
-                        for (var i = 1; i <= 31; i++) {
-                            document.write("<option value=" + i + ">" + i + "</option>");
-                        }
-                    </script>
-                </select>日</dd>
-        </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <dl>
-            <dt>结束日期</dt>
-            <dd><select id="year">
-                    <script>
-                        for (var i = 1980; i <= 2020; i++) {
-                            document.write("<option value=" + i + ">" + i + "</option>");
-                        }
-                    </script>
-                </select>年
-                <select id="month">
-                    <script>
-                        for (var i = 1; i <= 12; i++) {
-                            document.write("<option value=" + i + ">" + i + "</option>");
-                        }
-                    </script>
-                </select>月
-                <select id="day">
-                    <script>
-                        for (var i = 1; i <= 31; i++) {
-                            document.write("<option value=" + i + ">" + i + "</option>");
-                        }
-                    </script>
-                </select>日</dd>
-        </dl>
-    </nav>
-    
-    <div class="field">
-        <label class="label">论文标题</label>
-        <div class="control has-icons-left">
-            <input class="input" type="text">
-            <span class="icon is-left">
-                <i class="fas fa-search" aria-hidden="true"></i>
-            </span>
-        </div>
-    </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-3 control-label" for="select">开始日期</div>
+                                    <div class="col-md-9">
+                                        <div class="col-md-3">
+                                            <select ID="select_IsVIP" class="form-control">
+                                                <script>
+                                                    for (var i = 1980; i <= 2020; i++) {
+                                                        document.write("<option value=" + i + ">" + i + "</option>");
+                                                    }
+                                                </script>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1 control-label" for="select">年</div>
 
-    <div class="field">
-        <label class="label">期刊/会议名称</label>
-        <div class="control has-icons-left">
-            <input class="input" type="text">
-            <span class="icon is-left">
-                <i class="fas fa-search" aria-hidden="true"></i>
-            </span>
+                                        <div class="col-md-3">
+                                            <select ID="select_IsVIP" runat="server" AutoPostBack="True"
+                                                class="form-control">
+                                                <script>
+                                                    for (var i = 1; i <= 12; i++) {
+                                                        document.write("<option value=" + i + ">" + i + "</option>");
+                                                    }
+                                                </script>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1 control-label" for="select">月</div>
+
+                                        <div class="col-md-3">
+                                            <select ID="select_IsVIP" runat="server" AutoPostBack="True"
+                                                class="form-control">
+                                                <script>
+                                                    for (var i = 1; i <= 31; i++) {
+                                                        document.write("<option value=" + i + ">" + i + "</option>");
+                                                    }
+                                                </script>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1 control-label" for="select">日</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-3 control-label" for="select">结束日期</div>
+                                    <div class="col-md-9">
+                                        <div class="col-md-3">
+                                            <select ID="select_IsVIP" class="form-control">
+                                                <script>
+                                                    for (var i = 1980; i <= 2020; i++) {
+                                                        document.write("<option value=" + i + ">" + i +
+                                                            "</option>");
+                                                    }
+                                                </script>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1 control-label" for="select">年</div>
+
+                                        <div class="col-md-3">
+                                            <select ID="select_IsVIP" runat="server" AutoPostBack="True"
+                                                class="form-control">
+                                                <script>
+                                                    for (var i = 1; i <= 12; i++) {
+                                                        document.write("<option value=" + i + ">" + i +
+                                                            "</option>");
+                                                    }
+                                                </script>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1 control-label" for="select">月</div>
+
+                                        <div class="col-md-3">
+                                            <select ID="select_IsVIP" runat="server" AutoPostBack="True"
+                                                class="form-control">
+                                                <script>
+                                                    for (var i = 1; i <= 31; i++) {
+                                                        document.write("<option value=" + i + ">" + i +
+                                                            "</option>");
+                                                    }
+                                                </script>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1 control-label" for="select">日</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-offset-5">
+                    <input type="button" ID="btnSearch" value="查   询" class="btn btn-success col-md-3 " />
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>
