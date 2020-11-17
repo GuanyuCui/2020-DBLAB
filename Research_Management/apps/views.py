@@ -16,7 +16,7 @@ def test(request):
 
 # 注册
 # todo：只有管理员可以注册，因此后期还得加一个if判断
-def register(request):
+def createuser(request):
     # 产生一个空对象
     form_obj = myforms.MyRegForm()
     if request.method == 'POST':
@@ -34,7 +34,7 @@ def register(request):
             back_dic['code'] = 2000
             back_dic['msg'] = form_obj.errors
         return JsonResponse(back_dic)
-    return render(request, 'register.html', locals())
+    return render(request, 'createuser.html', locals())
     
 # 登录
 def login(request):

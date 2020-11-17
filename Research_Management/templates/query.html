@@ -96,7 +96,7 @@
 <head>
 
 
-    <meta charset="utf-8">
+    <!--<meta charset="utf-8"> -->
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Add or Remove Input Fields Dynamically using jQuery - MyNotePaper</title>
 
@@ -144,14 +144,14 @@
 
 <body>
 
-
+    <h3 class="col-md-3 col-md-offset-4">项目查询</h3>
     <div class="col-md-10">
         <!-- <div class="container-fluid"> -->
 
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 条件查找
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 按条件查询
                 </div>
                 <div class="panel-body">
                     <form method="post" action="">
@@ -167,6 +167,7 @@
                                                 <option>论文题目</option>
                                                 <option>期刊名称</option>
                                                 <option>会议名称</option>
+                                                <option>作者姓名</option>
                                             </select>
                                         </div>
                                         <input type="text" class="form-control" placeholder="请输入...">
@@ -280,7 +281,7 @@
                                         <input type="checkbox" name="rankType" value="option3">C
                                     </label>
                                     <br>
-                                    <div class="col-md-4" for="select">CCF中：</div>
+                                    <div class="col-md-4" for="select">CCF中文：</div>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" name="rankType" value="option1">A+
                                     </label>
@@ -353,7 +354,7 @@
                         </div>
                     </div>
                     <div class="col-md-offset-5">
-                        <input type="button" ID="btnSearch" value="查   询" class="btn btn-success col-md-3 " />
+                        <input type="button" ID="btnSearch" value="查询" class="btn btn-success col-md-1 " />
                     </div>
                 </div>
 
@@ -394,6 +395,7 @@
         html += '<option>论文题目</option>';
         html += '<option>期刊名称</option>';
         html += '<option>会议名称</option>';
+        html += '<option>作者姓名</option>';
         html += '</select>';
         html += '</div>';
         html += '<input type="text" class="form-control" placeholder="请输入...">';

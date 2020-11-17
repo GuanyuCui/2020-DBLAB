@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    {% load static %}
-    <script src="{% static 'bootstrap/js/jquery.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
+
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <h2 class="text-center">注册</h2>
+        <div class="col-md-3 col-md-offset-3">
+            <h3 class="text-center">创建新用户</h3>
             <form id="myform" novalidate>
                 {% csrf_token %}
                 {% for foo in form_obj %}
@@ -28,7 +21,7 @@
                     </label>
                     <input type="file" id="myfile" name="avatar" style="display: none">
                 </div> -->
-                <input type="button" class="btn btn-success pull-right" value="注册" id="commit">
+                <input type="button" class="btn btn-success pull-center" value="创建" id="commit">
             </form>
         </div>
     </div>
@@ -93,5 +86,5 @@
     })
 
 </script>
-</body>
-</html>
+
+{% endblock %}

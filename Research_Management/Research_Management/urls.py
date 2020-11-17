@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^home/', views.home),
     url(r'^insert/', views.insert),
     url(r'^query/',views.query),
-    url(r'^register/', views.register),
+    url(r'^createuser/', views.createuser),
 
     
     # 
