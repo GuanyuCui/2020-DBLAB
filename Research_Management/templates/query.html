@@ -2,6 +2,16 @@
 
 {% block content %}
 
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+    rel="stylesheet">
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="https://js.cybozu.cn/momentjs/2.29.1/moment-with-locales.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="static/js/moment-with-locales.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
 
 <script src='jquery.js' type="text/javascript">
     $("#add_form .radio input").bind("click", function () {
@@ -19,280 +29,387 @@
     });
 </script>
 
-<div class="col-md-10">
-    <!-- <div class="container-fluid"> -->
-    <div class="row">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 条件查找
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <section class="col-md-12 control-label">
-                        <form class="form-horizontal" role="form">
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <div class="input-group-btn">
+<script type="text/javascript">
+    $(function () {
+        var picker1 = $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn'),
+            //minDate: '2016-7-1'
+        });
+        var picker2 = $('#datetimepicker2').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+        //动态设置最小值
+        picker1.on('dp.change', function (e) {
+            picker2.data('DateTimePicker').minDate(e.date);
+        });
+        //动态设置最大值
+        picker2.on('dp.change', function (e) {
+            picker1.data('DateTimePicker').maxDate(e.date);
+        });
+    });
+    $('#datetimepicker1').datetimepicker({
+        format: 'YYYY-MM-DD',
+        locale: moment.locale('zh-cn'),
+        defaultDate: "1990-1-1"
+    });
 
-                                        <select onchange="selectOnchang(this)" class="form-control" style="
-                                    width:100px;
-                                    padding:3px 10px;
-                                    border-top-left-radius: 5px;
-                                    border-bottom-left-radius: 5px;
-                                    background-size:13px 13px;
-                                    appearance:yes;
-                                    -moz-appearance:yes;
-                                    -webkit-appearance:yes;
-                                    ">
-                                            <option>AND</option>
-                                            <option>OR</option>
-                                        </select>
-                                    </div>
+    // add row
+    $("#addRow").click(function () {
+        var html = '';
+        html += '<div id="inputFormRow">';
+        html += '<div class="input-group mb-3">';
+        html += '<div class="input-group-btn">';
+        html +=
+            '<select onchange="selectOnchang(this)" class="form-control" style="width:100px; padding:3px 10px;">';
+        html += '<option>论文题目</option>';
+        html += '<option>期刊名称</option>';
+        html += '<option>会议名称</option>';
+        html += '</select>';
+        html += '</div>';
+        html += '<input type="text" class="form-control" placeholder="请输入...">';
+        html += '<div class="input-group-append">';
+        html += '<button id="removeRow" type="button" class="btn btn-danger">  删  除  </button>';
+        html += '</div>';
+        html += '</div>';
 
-                                    <div class="input-group-btn">
-                                        <select onchange="selectOnchang(this)" class="form-control" style="
-                width:100px;
-                padding:3px 10px;
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-                background-size:13px 13px;
-                appearance:yes;
-                -moz-appearance:yes;
-                -webkit-appearance:yes;
-                ">
-                                            <option>论文题目</option>
-                                            <option>期刊名称</option>
-                                            <option>会议名称</option>
-                                        </select>
+        $('#newRow').append(html);
+    });
+
+    // remove row
+    $(document).on('click', '#removeRow', function () {
+        $(this).closest('#inputFormRow').remove();
+    });
+</script>
+
+<style>
+    .col-xs-1 {
+        width: 18% !important;
+    }
+
+    .col-xs-2 {
+        width: 38% !important;
+    }
+</style>
+
+<head>
+
+
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Add or Remove Input Fields Dynamically using jQuery - MyNotePaper</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
+
+    <title>checkbox的全选和取消全选</title>
+    <script type="text/javascript">
+        //页面加载的时候,所有的复选框都是未选中的状态
+        function checkOrCancelAll(id, type) {
+            //1.获取checkbo的元素对象
+            var chElt = document.getElementById(id);
+            //2.获取选中状态
+            var checkedElt = chElt.checked;
+            console.log(checkedElt)
+            //3.若checked=true,将所有的复选框选中,checked=false,将所有的复选框取消
+            var allCheck = document.getElementsByName(type);
+            //4.循环遍历取出每一个复选框中的元素
+            //var mySpan=document.getElementById("mySpan");
+            if (checkedElt) {
+                //全选
+                for (var i = 0; i < allCheck.length; i++) {
+                    //设置复选框的选中状态
+                    allCheck[i].checked = true;
+                }
+                //mySpan.innerHTML="取消全选";
+            } else {
+                //取消全选
+                for (var i = 0; i < allCheck.length; i++) {
+                    allCheck[i].checked = false;
+                }
+                //mySpan.innerHTML="全选";
+            }
+        };
+    </script>
+</head>
+
+<body>
+
+
+    <div class="col-md-10">
+        <!-- <div class="container-fluid"> -->
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 条件查找
+                </div>
+                <div class="panel-body">
+                    <form method="post" action="">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div id="inputFormRow">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"
+                                            style="width:100px; padding:3px 10px;">筛选条件</span>
+                                        <div class="input-group-btn">
+                                            <select onchange="selectOnchang(this)" class="form-control"
+                                                style="width:100px; padding:3px 10px;">
+                                                <option>论文题目</option>
+                                                <option>期刊名称</option>
+                                                <option>会议名称</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="请输入...">
                                     </div>
-                                    <input type="text" class="form-control" placeholder="请输入...">
-                                    <span class="input-group-btn">
-                                        <!-- <button class="btn btn-default" type="button">search</button> -->
-                                        <button class="btn btn-info" type="button" data-toggle="tooltip" title="新增"
-                                            id="addSelectBtn" onclick="addSelect(this)" disabled><span
-                                                class="glyphicon glyphicon-plus"></span></button>
-                                        <button class="btn btn-info" type="button" data-toggle="tooltip" title="减少"
-                                            id="minusSelectBtn" onclick="minusSelect(this)" disabled><span
-                                                class="glyphicon glyphicon-minus"></span></button>
-                                    </span>
                                 </div>
+
+                                <div id="newRow"></div>
+                                <button id="addRow" type="button" class="btn btn-info"> 添 加 </button>
                             </div>
-                        </form>
-                    </section>
+                        </div>
+                    </form>
                 </div>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-4 col-sm-8 col-xs-8 col-xxs-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                作者类型
-                            </div>
-                            <div class="panel-body">
-                                <!-- <div class="col-md-4 control-label" for="select">作者类型：</div> -->
-                                <label class="radio-inline">
-                                    <input type="radio" value="option2" name="sex">全选
-                                </label>
-                                <br>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option1">第一作者
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option2">通讯作者
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option3">其他作者
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-8 col-xs-8 col-xxs-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                论文类型
-                            </div>
-                            <div class="panel-body">
-                                <!-- <div class="col-md-4 control-label" for="select">作者类型：</div> -->
-                                <label class="radio-inline">
-                                    <input type="radio" value="option2" name="sex">全选
-                                </label>
-                                <br>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option1">正刊
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option2">专刊
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option3">长文
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option1">短文
-                                </label>
-                                <br>
-
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option2">Demo
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option3">Oral
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-8 col-xs-8 col-xxs-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                论文等级
-                            </div>
-                            <div class="panel-body">
-                                <label class="radio-inline">
-                                    <input type="radio" value="option2" name="sex">全选
-                                </label>
-                                <br>
-                                <div class="col-md-3" for="select">CCF：</div>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option1">A+
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option2">A
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option3">A-
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option3">B
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option3">C
-                                </label>
-                                <br>
-                                <div class="col-md-3 control-label" for="select">RUC：</div>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option1">A+
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option2">A
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option3">A-
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option3">B
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="option3">C
-                                </label>
-                                <br>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-9">
-                            <div class="form-horizontal">
-                                <div class="form-group">
-                                    <div class="col-md-3 control-label" for="select">开始日期</div>
-                                    <div class="col-md-9">
-                                        <div class="col-md-3">
-                                            <select ID="select_IsVIP" class="form-control">
-                                                <script>
-                                                    for (var i = 1980; i <= 2020; i++) {
-                                                        document.write("<option value=" + i + ">" + i + "</option>");
-                                                    }
-                                                </script>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-1 control-label" for="select">年</div>
-
-                                        <div class="col-md-3">
-                                            <select ID="select_IsVIP" runat="server" AutoPostBack="True"
-                                                class="form-control">
-                                                <script>
-                                                    for (var i = 1; i <= 12; i++) {
-                                                        document.write("<option value=" + i + ">" + i + "</option>");
-                                                    }
-                                                </script>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-1 control-label" for="select">月</div>
-
-                                        <div class="col-md-3">
-                                            <select ID="select_IsVIP" runat="server" AutoPostBack="True"
-                                                class="form-control">
-                                                <script>
-                                                    for (var i = 1; i <= 31; i++) {
-                                                        document.write("<option value=" + i + ">" + i + "</option>");
-                                                    }
-                                                </script>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-1 control-label" for="select">日</div>
+                        <div class="col-md-2">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    作者类型
+                                </div>
+                                <div class="panel-body">
+                                    <!-- <div class="col-md-4 control-label" for="select">作者类型：</div> -->
+                                    <!-- <label class="radio-inline">
+                                    <input type="radio" value="option2" name="sex">全选
+                                </label> -->
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="authorAll"
+                                                onclick="checkOrCancelAll('authorAll','authorType');" /><span
+                                                id="mySpan">全选</span>
+                                        </label>
                                     </div>
+                                    <!-- <br> -->
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="authorType" value="option1">第一作者
+                                    </label>
+                                    <br>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="authorType" value="option2">通讯作者
+                                    </label>
+                                    <br>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="authorType" value="option3">其他作者
+                                    </label>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="form-horizontal">
-                                <div class="form-group">
-                                    <div class="col-md-3 control-label" for="select">结束日期</div>
-                                    <div class="col-md-9">
-                                        <div class="col-md-3">
-                                            <select ID="select_IsVIP" class="form-control">
-                                                <script>
-                                                    for (var i = 1980; i <= 2020; i++) {
-                                                        document.write("<option value=" + i + ">" + i +
-                                                            "</option>");
-                                                    }
-                                                </script>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-1 control-label" for="select">年</div>
-
-                                        <div class="col-md-3">
-                                            <select ID="select_IsVIP" runat="server" AutoPostBack="True"
-                                                class="form-control">
-                                                <script>
-                                                    for (var i = 1; i <= 12; i++) {
-                                                        document.write("<option value=" + i + ">" + i +
-                                                            "</option>");
-                                                    }
-                                                </script>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-1 control-label" for="select">月</div>
-
-                                        <div class="col-md-3">
-                                            <select ID="select_IsVIP" runat="server" AutoPostBack="True"
-                                                class="form-control">
-                                                <script>
-                                                    for (var i = 1; i <= 31; i++) {
-                                                        document.write("<option value=" + i + ">" + i +
-                                                            "</option>");
-                                                    }
-                                                </script>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-1 control-label" for="select">日</div>
+                        <div class="col-xs-1">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    论文类型
+                                </div>
+                                <div class="panel-body">
+                                    <!-- <div class="col-md-4 control-label" for="select">作者类型：</div> -->
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="paperAll"
+                                                onclick="checkOrCancelAll('paperAll','paperType');" /><span
+                                                id="mySpan2">全选</span>
+                                        </label>
                                     </div>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="paperType" value="option1">正刊
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="paperType" value="option2">专刊
+                                    </label>
+                                    <br>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="paperType" value="option3">长文
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="paperType" value="option1">短文
+                                    </label>
+                                    <br>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="paperType" value="option2">Demo
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="paperType" value="option3">Oral
+                                    </label>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xs-2">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    论文等级
+                                </div>
+                                <div class="panel-body">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="rankAll"
+                                                onclick="checkOrCancelAll('rankAll','rankType');" /><span
+                                                id="mySpan2">全选</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-4" for="select">CCF：</div>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option1">A+
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option2">A
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option3">A-
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option3">B
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option3">C
+                                    </label>
+                                    <br>
+                                    <div class="col-md-4" for="select">CCF中：</div>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option1">A+
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option2">A
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option3">A-
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option3">B
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option3">C
+                                    </label>
+                                    <br>
+                                    <div class="col-md-4 control-label" for="select">RUC：</div>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option1">A+
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option2">A
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option3">A-
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option3">B
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="rankType" value="option3">C
+                                    </label>
+                                    <br>
 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    论文发布日期
+                                </div>
+                                <div class="panel-body">
+                                    <div class='col-sm-12'>
+                                        <div class="form-group">
+                                            <div for="select">开始日期</div>
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class='col-sm-12'>
+                                        <div class="form-group">
+                                            <div for="select">结束日期</div>
+                                            <div class='input-group date' id='datetimepicker2'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-5">
+                        <input type="button" ID="btnSearch" value="查   询" class="btn btn-success col-md-3 " />
                     </div>
                 </div>
-                <div class="col-md-offset-5">
-                    <input type="button" ID="btnSearch" value="查   询" class="btn btn-success col-md-3 " />
-                </div>
+
+
             </div>
-
-
         </div>
     </div>
-</div>
+
+</body>
+
+<!-- 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Add or Remove Input Fields Dynamically using jQuery - MyNotePaper</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head> -->
+
+
+<script type="text/javascript">
+    // add row
+    $("#addRow").click(function () {
+        var html = '';
+        html += '<div id="inputFormRow">';
+        html += '<div class="input-group">';
+        html += '<div class="input-group-btn">';
+        html +=
+            '<select onchange="selectOnchang(this)" class="form-control" style="width:100px;padding:3px 10px;">';
+        html += '<option>AND</option>';
+        html += '<option>OR</option>';
+        html += '</select>';
+        html += '</div>';
+        html += '<div class="input-group-btn">';
+        html +=
+            '<select onchange="selectOnchang(this)" class="form-control" style="width:100px; padding:3px 10px;">';
+        html += '<option>论文题目</option>';
+        html += '<option>期刊名称</option>';
+        html += '<option>会议名称</option>';
+        html += '</select>';
+        html += '</div>';
+        html += '<input type="text" class="form-control" placeholder="请输入...">';
+        html += '<div class="input-group-btn">';
+        html += '<div class="input-group-append">';
+        html += '<button id="removeRow" type="button" class="btn btn-danger">  删  除  </button>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+
+        $('#newRow').append(html);
+    });
+
+    // remove row
+    $(document).on('click', '#removeRow', function () {
+        $(this).closest('#inputFormRow').remove();
+    });
+</script>
 {% endblock %}
