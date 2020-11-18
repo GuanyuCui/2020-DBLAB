@@ -86,7 +86,7 @@
                     </div>
 
                     <div id="jj_row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
                                     页码范围
@@ -96,7 +96,7 @@
                                     <form class="form-inline">
                                         卷
 
-                                        <input class="form-control" type="text" style="width:40px;
+                                        <input class="form-control" type="text" style="width:30px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
@@ -107,7 +107,7 @@
                             margin-right:5px;
                             ">期
 
-                                        <input class="form-control" type="text" style="width:40px;
+                                        <input class="form-control" type="text" style="width:30px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
@@ -115,19 +115,18 @@
                             appearance:yes;
                             -moz-appearance:yes;
                             -webkit-appearance:yes;
-                            margin-right: 10px;">页
+                            margin-right: 5px;">页
 
-                                        <input class="form-control" type="text" style="width:45px;
+                                        <input class="form-control" type="text" style="width:30px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
                             background-size:13px 13px;
                             appearance:yes;
                             -moz-appearance:yes;
-                            -webkit-appearance:yes;
-                            margin-right: 5px;">~
+                            -webkit-appearance:yes;">~
 
-                                        <input class="form-control" type="text" style="width:45px;
+                                        <input class="form-control" type="text" style="width:30px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
@@ -245,9 +244,7 @@
                 -->
 
 
-                </div>
-
-                <div class="row">
+                
                     <div id="jj_row_1">
                         <div class="col-md-2">
                             <div class="panel panel-info">
@@ -263,7 +260,7 @@
                                     <label class="radio-inline">
                                         <input type="radio" name="j_type" value="专刊">专刊
                                     </label>
-                                    <br>
+                                    
                                     <label class="radio-inline">
                                         <input type="radio" name="j_type" value="专刊">增刊
                                     </label>
@@ -279,8 +276,8 @@
 
 
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-3">
+                   <!-- <div class="row"> -->
+                        <div class="col-md-2">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
                                     论文发布日期
@@ -445,13 +442,13 @@
         var html = '';
         var html_1 = '';
         html += '<div id="c_row">';
-        html += '<div class="col-md-4">';
+        html += '<div class="col-md-2">';
         html += '<div class="panel panel-info">';
         html += '<div class="panel-heading">页码范围</div>';
         html += '<div class="panel-body">';
         html += '<form class="form-inline">页';
-        html += '<input class="form-control" type="text" style="width:45px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;">~';
-        html += '<input class="form-control" type="text" style="width:45px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+        html += '<input class="form-control" type="text" style="width:30px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;">~';
+        html += '<input class="form-control" type="text" style="width:30px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '</form>';
         html += '</div>';
         html += '</div>';
@@ -459,7 +456,7 @@
         html += '</div>';
 
         html_1 += '<div id="c_row_1">';
-        html_1 += '<div class="col-md-2">';
+        html_1 += '<div class="col-md-3">';
         html_1 += '<div class="panel panel-info">';
         html_1 += '<div class="panel-heading">会议论文类型</div>';
         html_1 += '<div class="panel-body">';
@@ -468,9 +465,9 @@
         html_1 += '<br>';
         html_1 += '<label class="radio-inline">';
         html_1 += '<input type="radio" name="c_type" value="短文" id="short_essay">短文</label>';
-        html_1 += '<br>';
+        
         html_1 += '<label class="radio-inline">';
-        html_1 += ' <input type="radio" name="c_type" value="Demo" id="demo">Demo</label>';                           
+        html_1 += '<input type="radio" name="c_type" value="Demo" id="demo">Demo</label>';                           
         html_1 += '</div>';
         html_1 += '</div>';
         html_1 += '</div>';
@@ -495,15 +492,15 @@
         var html = '';
         var html_1 = '';
         html += '<div id="j_row">';
-        html += '<div class="col-md-4">';
+        html += '<div class="col-md-3">';
         html += '<div class="panel panel-info">';
         html += '<div class="panel-heading">页码范围</div>';
         html += '<div class="panel-body">';
         html += '<form class="form-inline">卷';
-        html += '<input class="form-control" type="text" style="width:40px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;margin-right:5px;">期';
-        html += '<input class="form-control" type="text" style="width:40px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-right:10px;margin-left:5px;">页';
-        html += '<input class="form-control" type="text" style="width:45px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;">~';
-        html += '<input class="form-control" type="text" style="width:45px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+        html += '<input class="form-control" type="text" style="width:30px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;margin-right:5px;">期';
+        html += '<input class="form-control" type="text" style="width:30px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-right:10px;margin-left:5px;">页';
+        html += '<input class="form-control" type="text" style="width:30px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">~';
+        html += '<input class="form-control" type="text" style="width:30px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '</form>';
         html += '</div>';
         html += '</div>';
@@ -520,7 +517,7 @@
         html_1 += '<br>';
         html_1 += '<label class="radio-inline">';
         html_1 += '<input type="radio" name="j_type" value="专刊">专刊</label>';
-        html_1 += '<br>';
+        
         html_1 += '<label class="radio-inline">';
         html_1 += ' <input type="radio" name="j_type" value="专刊">增刊</label>';                           
         html_1 += '</div>';
@@ -546,7 +543,7 @@
         html += '<div id="demo_row">';
         html += '<div class="col-md-2">';
         html += '<div class="panel panel-info">';
-        html += '<div class="panel-heading">会议论文展示形式</div>';
+        html += '<div class="panel-heading">展示形式</div>';
         html += '<div class="panel-body">';
         html += '<label class="radio-inline">';
         html += '<input type="radio" name="s_type" value="Oral" checked/>Oral</label>';
