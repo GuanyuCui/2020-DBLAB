@@ -55,7 +55,7 @@
                             <div class="panel-body">
                                 <!-- <br> -->
                                 <label class="radio-inline">
-                                    <input type="radio" name="language_type" value="Chinese">中文
+                                    <input type="radio" name="language_type" value="Chinese" checked/>中文
                                 </label>
                                 <br>
                                 <label class="radio-inline">
@@ -74,25 +74,86 @@
                             <div class="panel-body">
                                 <!-- <br> -->
                                 <label class="radio-inline">
-                                    <input type="radio" name="p_type" value="journal" onclick="ch('j')">期刊
+                                    <input type="radio" name="p_type" value="journal" id="journal" checked/>期刊
                                 </label>
                                 <br>
                                 <label class="radio-inline">
-                                    <input type="radio" name="p_type" value="conference" onclick="ch('c')">会议
+                                    <input type="radio" name="p_type" value="conference" id="conference">会议
                                 </label>
                                 <br>
                             </div>
                         </div>
                     </div>
 
-                    <div id="0">
+                    <div id="jj_row">
                         <div class="col-md-4">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
                                     页码范围
                                 </div>
                                 <div class="panel-body">
-                                    <!-- <br> -->
+                                
+                                    <form class="form-inline">
+                                        卷
+
+                                        <input class="form-control" type="text" style="width:40px;
+                            padding:3px 10px;
+                            border-top-left-radius: 5px;
+                            border-bottom-left-radius: 5px;
+                            background-size:13px 13px;
+                            appearance:yes;
+                            -moz-appearance:yes;
+                            -webkit-appearance:yes;
+                            margin-right:5px;
+                            ">期
+
+                                        <input class="form-control" type="text" style="width:40px;
+                            padding:3px 10px;
+                            border-top-left-radius: 5px;
+                            border-bottom-left-radius: 5px;
+                            background-size:13px 13px;
+                            appearance:yes;
+                            -moz-appearance:yes;
+                            -webkit-appearance:yes;
+                            margin-right: 10px;">页
+
+                                        <input class="form-control" type="text" style="width:45px;
+                            padding:3px 10px;
+                            border-top-left-radius: 5px;
+                            border-bottom-left-radius: 5px;
+                            background-size:13px 13px;
+                            appearance:yes;
+                            -moz-appearance:yes;
+                            -webkit-appearance:yes;
+                            margin-right: 5px;">~
+
+                                        <input class="form-control" type="text" style="width:45px;
+                            padding:3px 10px;
+                            border-top-left-radius: 5px;
+                            border-bottom-left-radius: 5px;
+                            background-size:13px 13px;
+                            appearance:yes;
+                            -moz-appearance:yes;
+                            -webkit-appearance:yes;
+                            ">
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="journal_choice"></div>
+                    <div id="conference_choice"></div>
+<!--
+                    <div id="j_row">
+                        <div class="col-md-4">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    页码范围
+                                </div>
+                                <div class="panel-body">
+                                
                                     <form class="form-inline">
                                         卷
 
@@ -141,7 +202,10 @@
                             </div>
                         </div>
                     </div>
+                -->
 
+
+                    <!--
                     <div id="1">
                         <div class="col-md-4">
                             <div class="panel panel-info">
@@ -149,7 +213,7 @@
                                     页码范围
                                 </div>
                                 <div class="panel-body">
-                                    <!-- <br> -->
+                                    
                                     <form class="form-inline">
                                         页
 
@@ -178,12 +242,13 @@
                             </div>
                         </div>
                     </div>
+                -->
 
 
                 </div>
 
                 <div class="row">
-                    <div id="4">
+                    <div id="jj_row_1">
                         <div class="col-md-2">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
@@ -192,7 +257,7 @@
                                 <div class="panel-body">
                                     <!-- <br> -->
                                     <label class="radio-inline">
-                                        <input type="radio" name="j_type" value="正刊">正刊
+                                        <input type="radio" name="j_type" value="正刊" checked/>正刊
                                     </label>
                                     <br>
                                     <label class="radio-inline">
@@ -207,56 +272,11 @@
                         </div>
                     </div>
 
-                    <div id="5">
-                        <div class="col-md-2">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    会议论文类型
-                                </div>
-                                <div class="panel-body">
-                                    <!-- <br> -->
-                                    <label class="radio-inline">
-                                        <input type="radio" name="c_type" value="长文" onclick="ch1('l')">长文
-                                    </label>
-                                    <br>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="c_type" value="短文" onclick="ch1('s')">短文
-                                    </label>
-                                    <br>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="c_type" value="Demo" onclick="ch1('d')">Demo
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="journal_choice_1"></div>
+                    <div id="conference_choice_1"></div>
+                    <div id="demo_choice"></div>
 
-                    <div id="2">
-                        <div class="col-md-2">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    会议论文展示形式
-                                </div>
-                                <div class="panel-body">
-                                    <!-- <br> -->
-                                    <label class="radio-inline">
-                                        <input type="radio" name="s_type" value="Oral">Oral
-                                    </label>
-                                    <br>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="s_type" value="Poster">Poster
-                                    </label>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div id="3">
-
-                    </div>
-
-                </div>
 
                 <div class="panel-body">
                     <div class="row">
@@ -380,42 +400,6 @@
 </div>
 
 <script>
-    function ch(tag) {
-        var a = document.getElementById("0");
-        var b = document.getElementById("1");
-        var c = document.getElementById("4");
-        var d = document.getElementById("5");
-        var e = document.getElementById("2");
-
-        if (tag == 'j') {
-            a.style.display = "block";
-            b.style.display = "none";
-            c.style.display = "block";
-            d.style.display = "none";
-            e.style.display = "none";
-        }
-        else {
-            a.style.display = "none";
-            b.style.display = "block";
-            c.style.display = "none";
-            d.style.display = "block";
-            e.style.display = "block";
-        }
-    }
-
-    function ch1(tag) {
-        var a = document.getElementById("2");
-        var b = document.getElementById("3");
-
-        if (tag == 's' || tag == 'l') {
-            a.style.display = "block";
-            b.style.display = "none";
-        }
-        else {
-            a.style.display = "none";
-            b.style.display = "block";
-        }
-    }
 
     // add row
     $("#addRow").click(function () {
@@ -453,6 +437,142 @@
         html += '</div>';
 
         $('#newRow').append(html);
+    });
+
+    //点击会议
+    $(document).on('click', '#conference', function () {
+
+        var html = '';
+        var html_1 = '';
+        html += '<div id="c_row">';
+        html += '<div class="col-md-4">';
+        html += '<div class="panel panel-info">';
+        html += '<div class="panel-heading">页码范围</div>';
+        html += '<div class="panel-body">';
+        html += '<form class="form-inline">页';
+        html += '<input class="form-control" type="text" style="width:45px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;">~';
+        html += '<input class="form-control" type="text" style="width:45px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+        html += '</form>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+
+        html_1 += '<div id="c_row_1">';
+        html_1 += '<div class="col-md-2">';
+        html_1 += '<div class="panel panel-info">';
+        html_1 += '<div class="panel-heading">会议论文类型</div>';
+        html_1 += '<div class="panel-body">';
+        html_1 += '<label class="radio-inline">';
+        html_1 += '<input type="radio" name="c_type" value="长文" id="long_essay" checked/>长文</label>';
+        html_1 += '<br>';
+        html_1 += '<label class="radio-inline">';
+        html_1 += '<input type="radio" name="c_type" value="短文" id="short_essay">短文</label>';
+        html_1 += '<br>';
+        html_1 += '<label class="radio-inline">';
+        html_1 += ' <input type="radio" name="c_type" value="Demo" id="demo">Demo</label>';                           
+        html_1 += '</div>';
+        html_1 += '</div>';
+        html_1 += '</div>';
+        
+        
+        $('#c_row').remove();
+        $('#c_row_1').remove();
+        $('#jj_row').remove();
+        $('#j_row_1').remove();
+        $('#jj_row_1').remove();
+        $('#demo_row').remove();
+        $('#conference_choice').append(html);
+        $('#conference_choice_1').append(html_1);
+        $('#j_row').remove();
+        
+
+        
+    });
+
+    //点击期刊
+    $(document).on('click', '#journal', function () {
+        var html = '';
+        var html_1 = '';
+        html += '<div id="j_row">';
+        html += '<div class="col-md-4">';
+        html += '<div class="panel panel-info">';
+        html += '<div class="panel-heading">页码范围</div>';
+        html += '<div class="panel-body">';
+        html += '<form class="form-inline">卷';
+        html += '<input class="form-control" type="text" style="width:40px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;margin-right:5px;">期';
+        html += '<input class="form-control" type="text" style="width:40px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-right:10px;margin-left:5px;">页';
+        html += '<input class="form-control" type="text" style="width:45px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;">~';
+        html += '<input class="form-control" type="text" style="width:45px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+        html += '</form>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+
+        html_1 += '<div id="j_row_1">';
+        html_1 += '<div class="col-md-2">';
+        html_1 += '<div class="panel panel-info">';
+        html_1 += '<div class="panel-heading">期刊论文类型</div>';
+        html_1 += '<div class="panel-body">';
+        html_1 += '<label class="radio-inline">';
+        html_1 += '<input type="radio" name="j_type" value="正刊" checked/>正刊</label>';
+        html_1 += '<br>';
+        html_1 += '<label class="radio-inline">';
+        html_1 += '<input type="radio" name="j_type" value="专刊">专刊</label>';
+        html_1 += '<br>';
+        html_1 += '<label class="radio-inline">';
+        html_1 += ' <input type="radio" name="j_type" value="专刊">增刊</label>';                           
+        html_1 += '</div>';
+        html_1 += '</div>';
+        html_1 += '</div>';
+      
+        $('#j_row').remove();
+        $('#j_row_1').remove();
+        $('#c_row_1').remove();
+        $('#jj_row').remove();
+        $('#jj_row_1').remove();
+        $('#demo_row').remove();
+        $('#journal_choice').append(html);
+        $('#journal_choice_1').append(html_1);
+        $('#c_row').remove();
+        
+    });
+    
+    //点击demo
+    $(document).on('click', '#demo', function () {
+
+        var html = '';
+        html += '<div id="demo_row">';
+        html += '<div class="col-md-2">';
+        html += '<div class="panel panel-info">';
+        html += '<div class="panel-heading">会议论文展示形式</div>';
+        html += '<div class="panel-body">';
+        html += '<label class="radio-inline">';
+        html += '<input type="radio" name="s_type" value="Oral" checked/>Oral</label>';
+        html += '<br>';
+        html += '<label class="radio-inline">';
+        html += '<input type="radio" name="s_type" value="Oral">Poster</label>';
+        html += '<br>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+
+        $('#demo_row').remove();
+        $('#demo_choice').append(html);
+
+
+    });
+
+    $(document).on('click', '#long_essay', function () {
+        $('#demo_row').remove();
+    });
+
+    // remove row
+    $(document).on('click', '#short_essay', function () {
+        $('#demo_row').remove();
     });
 
     // remove row
