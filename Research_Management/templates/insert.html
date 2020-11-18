@@ -37,34 +37,22 @@
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 添加项目
             </div>
-            <div class="panel-body col-lg-12">
-                <div id="inputFormRow">
-                    <div class="input-group">
-                        <span class="input-group-addon" style="width:100px; padding:3px 10px;">论文标题</span>
-                        <input type="text" class="form-control" placeholder="Title">
-                    </div>
-                </div>
+           
+        <div class="panel-body">
+        <div class="row">
+            <div>
+                <label class="form-inline" style="margin-left: 18px;">论文标题
+                <input type="text" class="form-control" style="margin-right: 20px;"></label>
+                <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
+                <input type="radio" name="language_type" value="Chinese" style="margin-right: 10px;margin-left: 10px;" checked/>中文
+                <input type="radio" name="language_type" value="English" style="margin-right: 10px;margin-left: 10px;">英文
+
             </div>
+        </div>
+        </div>
+
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-2">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                论文语言
-                            </div>
-                            <div class="panel-body">
-                                <!-- <br> -->
-                                <label class="radio-inline">
-                                    <input type="radio" name="language_type" value="Chinese" checked/>中文
-                                </label>
-                                <br>
-                                <label class="radio-inline">
-                                    <input type="radio" name="language_type" value="English">英文
-                                </label>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="col-md-2">
                         <div class="panel panel-info">
@@ -246,7 +234,7 @@
 
                 
                     <div id="jj_row_1">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
                                     期刊论文类型
@@ -275,7 +263,7 @@
 
 
 
-                <div class="panel-body">
+                
                    <!-- <div class="row"> -->
                         <div class="col-md-2">
                             <div class="panel panel-info">
@@ -300,7 +288,7 @@
 
                         </div>
                     </div>
-                </div>
+                
 
 
                 <div class="panel-body">
@@ -442,7 +430,7 @@
         var html = '';
         var html_1 = '';
         html += '<div id="c_row">';
-        html += '<div class="col-md-2">';
+        html += '<div class="col-md-3">';
         html += '<div class="panel panel-info">';
         html += '<div class="panel-heading">页码范围</div>';
         html += '<div class="panel-body">';
@@ -508,7 +496,7 @@
         html += '</div>';
 
         html_1 += '<div id="j_row_1">';
-        html_1 += '<div class="col-md-2">';
+        html_1 += '<div class="col-md-3">';
         html_1 += '<div class="panel panel-info">';
         html_1 += '<div class="panel-heading">期刊论文类型</div>';
         html_1 += '<div class="panel-body">';
