@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+    rel="stylesheet">
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="https://js.cybozu.cn/momentjs/2.29.1/moment-with-locales.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="static/js/moment-with-locales.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<style>
+    .col-xs-1 {
+        width: 15% !important;
+    }
+
+    .col-xs-2 {
+        width: 35% !important;
+    }
+</style>
+
+
+<div class="col-md-10">
+    <!-- <div class="container-fluid"> -->
+    <div class="row">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 添加项目
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div>
+                        <label class="form-inline" style="margin-left: 18px;">论文标题：
+                            <!-- <input type="text" class="form-control" style="width:600px; margin-right: 18px"></label> -->
+                            <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
+                            <!-- <input type="radio" name="language_type" value="Chinese"
+                            style="margin-right: 10px;margin-left: 10px;" checked />中文
+                        <input type="radio" name="language_type" value="English"
+                            style="margin-right: 10px;margin-left: 10px;">英文 -->
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                发布期刊/会议信息
+                            </div>
+                            <div class="panel-body">
+                                <!-- need information from backend  -->
+                                发布期刊：TPDS (IEEE Transactions on Parallel and Distributed Systems) <br>
+                                ISSN：
+                                <br>
+                                发布会议：VLDB (Very Large Data Base) <br>
+                                会议举办地点：
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="jj_row">
+                        <div class="col-xs-2">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    页码范围
+                                </div>
+                                <div class="panel-body">
+                                    <form class="form-inline">
+                                        卷
+                                        <input class="form-control" type="text" style="width:50px;
+                            padding:3px 10px;
+                            border-top-left-radius: 5px;
+                            border-bottom-left-radius: 5px;
+                            background-size:13px 13px;
+                            appearance:yes;
+                            -moz-appearance:yes;
+                            -webkit-appearance:yes;
+                            margin-right:5px;
+                            ">期
+
+                                        <input class="form-control" type="text" style="width:50px;
+                            padding:3px 10px;
+                            border-top-left-radius: 5px;
+                            border-bottom-left-radius: 5px;
+                            background-size:13px 13px;
+                            appearance:yes;
+                            -moz-appearance:yes;
+                            -webkit-appearance:yes;
+                            margin-right: 5px;">页
+
+                                        <input class="form-control" type="text" style="width:60px;
+                            padding:3px 10px;
+                            border-top-left-radius: 5px;
+                            border-bottom-left-radius: 5px;
+                            background-size:13px 13px;
+                            appearance:yes;
+                            -moz-appearance:yes;
+                            -webkit-appearance:yes;">~
+
+                                        <input class="form-control" type="text" style="width:60px;
+                            padding:3px 10px;
+                            border-top-left-radius: 5px;
+                            border-bottom-left-radius: 5px;
+                            background-size:13px 13px;
+                            appearance:yes;
+                            -moz-appearance:yes;
+                            -webkit-appearance:yes;
+                            ">
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="journal_choice"></div>
+                    <div id="conference_choice"></div>
+
+                    <!-- <div id="jj_row_1">
+                        <div class="col-md-3">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    期刊论文类型
+                                </div>
+                                <div class="panel-body">
+                                 need information from backend  -->
+<!-- 
+                                </div>
+                            </div>
+                        </div>
+                    </div> --> 
+
+                    <div id="journal_choice_1"></div>
+                    <div id="conference_choice_1"></div>
+                    <div id="demo_choice"></div>
+
+
+
+
+                    <!-- <div class="row"> -->
+                    <div class="col-md-3">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                论文发布日期
+                            </div>
+                            <div class="panel-body">
+                                <!-- need information from backend  -->
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">作者信息</h3>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-striped" style="table-layout:fixed;">
+                                    <thead>
+                                        <tr>
+                                            <th>姓名</th>
+                                            <th>身份</th>
+                                            <th>类型</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="inputFormRow">
+                                        <tr>
+                                            <td>
+                                                <!-- need information from backend  -->
+                                            </td>
+                                            <td>
+                                                <!-- need information from backend  -->
+                                            </td>
+                                            <td>
+                                                <!-- need information from backend  -->
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div id="newRow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-0">
+                        <a class="btn btn-primary" href="#" rel="external nofollow" role="button"
+                            style="margin-left: 400px;">下载电子版</a>
+                        <a class="btn btn-primary" href="#" rel="external nofollow" role="button"
+                            style="margin-left: 30px;">导出论文信息</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
