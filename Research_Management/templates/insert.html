@@ -12,7 +12,15 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="static/js/moment-with-locales.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<style>
+    .col-xs-1 {
+        width: 15% !important;
+    }
 
+    .col-xs-2 {
+        width: 35% !important;
+    }
+</style>
 
 <script type="text/javascript">
     $(function () {
@@ -40,8 +48,8 @@
             <div class="panel-body">
                 <div class="row">
                     <div>
-                        <label class="form-inline" style="margin-left: 18px;">论文标题
-                            <input type="text" class="form-control" style="margin-right: 20px;"></label>
+                        <label class="form-inline" style="margin-left: 18px;">论文标题：
+                            <input type="text" class="form-control" style="width:600px; margin-right: 18px"></label>
                         <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
                         <input type="radio" name="language_type" value="Chinese"
                             style="margin-right: 10px;margin-left: 10px;" checked />中文
@@ -55,7 +63,7 @@
             <div class="panel-body">
                 <div class="row">
 
-                    <div class="col-md-2">
+                    <div class="col-xs-1">
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 论文类型
@@ -75,7 +83,7 @@
                     </div>
 
                     <div id="jj_row">
-                        <div class="col-md-4">
+                        <div class="col-xs-2">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
                                     页码范围
@@ -104,7 +112,7 @@
                             -webkit-appearance:yes;
                             margin-right: 5px;">页
 
-                                        <input class="form-control" type="text" style="width:50px;
+                                        <input class="form-control" type="text" style="width:60px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
@@ -113,7 +121,7 @@
                             -moz-appearance:yes;
                             -webkit-appearance:yes;">~
 
-                                        <input class="form-control" type="text" style="width:50px;
+                                        <input class="form-control" type="text" style="width:60px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
@@ -305,7 +313,7 @@
                                     <h3 class="panel-title">作者信息录入</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" style="table-layout:fixed;">
                                         <thead>
                                             <tr>
                                                 <th>姓名</th>
@@ -364,8 +372,6 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <button id="removeRow" type="button" class="btn btn-danger">删
-                                                        除</button>
                                                 </td>
 
                                             </tr>
@@ -393,7 +399,7 @@
     $("#addRow").click(function () {
         var html = '';
         html += '<div id="inputFormRow">';
-        html += '<table class="table table-striped ">';
+        html += '<table class="table table-striped" style="table-layout:fixed;">';
         html += '<tbody>';
         html += '<tr>';
         html += '<td>';
@@ -435,15 +441,15 @@
         var html = '';
         var html_1 = '';
         html += '<div id="c_row">';
-        html += '<div class="col-md-4">';
+        html += '<div class="col-xs-2">';
         html += '<div class="panel panel-info">';
         html += '<div class="panel-heading">页码范围</div>';
         html += '<div class="panel-body">';
         html += '<form class="form-inline">页';
         html +=
-            '<input class="form-control" type="text" style="width:50px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;">~';
+            '<input class="form-control" type="text" style="width:60px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;">~';
         html +=
-            '<input class="form-control" type="text" style="width:50px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            '<input class="form-control" type="text" style="width:60px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '</form>';
         html += '</div>';
         html += '</div>';
@@ -484,19 +490,19 @@
         var html = '';
         var html_1 = '';
         html += '<div id="j_row">';
-        html += '<div class="col-md-4">';
+        html += '<div class="col-xs-2">';
         html += '<div class="panel panel-info">';
         html += '<div class="panel-heading">页码范围</div>';
         html += '<div class="panel-body">';
         html += '<form class="form-inline">卷';
         html +=
-            '<input class="form-control" type="text" style="width:50px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;margin-right:5px;">期';
+            '<input class="form-control" type="text" style="width:40px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;margin-right:5px;">期';
         html +=
-            '<input class="form-control" type="text" style="width:50px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-right:10px;margin-left:5px;">页';
+            '<input class="form-control" type="text" style="width:40px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-right:10px;margin-left:5px;">页';
         html +=
-            '<input class="form-control" type="text" style="width:50px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">~';
+            '<input class="form-control" type="text" style="width:60px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">~';
         html +=
-            '<input class="form-control" type="text" style="width:50px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            '<input class="form-control" type="text" style="width:60px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '</form>';
         html += '</div>';
         html += '</div>';
