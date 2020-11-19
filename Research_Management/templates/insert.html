@@ -27,7 +27,6 @@
         locale: moment.locale('zh-cn'),
         defaultDate: "1990-1-1"
     });
-
 </script>
 
 <div class="col-md-10">
@@ -37,19 +36,21 @@
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 添加项目
             </div>
-           
-        <div class="panel-body">
-        <div class="row">
-            <div>
-                <label class="form-inline" style="margin-left: 18px;">论文标题
-                <input type="text" class="form-control" style="margin-right: 20px;"></label>
-                <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
-                <input type="radio" name="language_type" value="Chinese" style="margin-right: 10px;margin-left: 10px;" checked/>中文
-                <input type="radio" name="language_type" value="English" style="margin-right: 10px;margin-left: 10px;">英文
 
+            <div class="panel-body">
+                <div class="row">
+                    <div>
+                        <label class="form-inline" style="margin-left: 18px;">论文标题
+                            <input type="text" class="form-control" style="margin-right: 20px;"></label>
+                        <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
+                        <input type="radio" name="language_type" value="Chinese"
+                            style="margin-right: 10px;margin-left: 10px;" checked />中文
+                        <input type="radio" name="language_type" value="English"
+                            style="margin-right: 10px;margin-left: 10px;">英文
+
+                    </div>
+                </div>
             </div>
-        </div>
-        </div>
 
             <div class="panel-body">
                 <div class="row">
@@ -62,7 +63,7 @@
                             <div class="panel-body">
                                 <!-- <br> -->
                                 <label class="radio-inline">
-                                    <input type="radio" name="p_type" value="journal" id="journal" checked/>期刊
+                                    <input type="radio" name="p_type" value="journal" id="journal" checked />期刊
                                 </label>
                                 <br>
                                 <label class="radio-inline">
@@ -74,17 +75,15 @@
                     </div>
 
                     <div id="jj_row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
                                     页码范围
                                 </div>
                                 <div class="panel-body">
-                                
                                     <form class="form-inline">
                                         卷
-
-                                        <input class="form-control" type="text" style="width:30px;
+                                        <input class="form-control" type="text" style="width:50px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
@@ -95,7 +94,7 @@
                             margin-right:5px;
                             ">期
 
-                                        <input class="form-control" type="text" style="width:30px;
+                                        <input class="form-control" type="text" style="width:50px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
@@ -105,7 +104,7 @@
                             -webkit-appearance:yes;
                             margin-right: 5px;">页
 
-                                        <input class="form-control" type="text" style="width:30px;
+                                        <input class="form-control" type="text" style="width:50px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
@@ -114,7 +113,7 @@
                             -moz-appearance:yes;
                             -webkit-appearance:yes;">~
 
-                                        <input class="form-control" type="text" style="width:30px;
+                                        <input class="form-control" type="text" style="width:50px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
@@ -132,7 +131,7 @@
 
                     <div id="journal_choice"></div>
                     <div id="conference_choice"></div>
-<!--
+                    <!--
                     <div id="j_row">
                         <div class="col-md-4">
                             <div class="panel panel-info">
@@ -232,7 +231,7 @@
                 -->
 
 
-                
+
                     <div id="jj_row_1">
                         <div class="col-md-3">
                             <div class="panel panel-info">
@@ -242,13 +241,11 @@
                                 <div class="panel-body">
                                     <!-- <br> -->
                                     <label class="radio-inline">
-                                        <input type="radio" name="j_type" value="正刊" checked/>正刊
+                                        <input type="radio" name="j_type" value="正刊" checked />正刊
                                     </label>
-                                    <br>
                                     <label class="radio-inline">
                                         <input type="radio" name="j_type" value="专刊">专刊
                                     </label>
-                                    
                                     <label class="radio-inline">
                                         <input type="radio" name="j_type" value="专刊">增刊
                                     </label>
@@ -263,32 +260,32 @@
 
 
 
-                
-                   <!-- <div class="row"> -->
-                        <div class="col-md-2">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    论文发布日期
-                                </div>
-                                <div class="panel-body">
-                                    <div class='col-sm-12'>
-                                        <div class="form-group">
-                                            <div class='input-group date' id='datetimepicker1'>
-                                                <input type='text' class="form-control" />
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
-                                            </div>
+
+                    <!-- <div class="row"> -->
+                    <div class="col-md-3">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                论文发布日期
+                            </div>
+                            <div class="panel-body">
+                                <div class='col-sm-12'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            <input type='text' class="form-control" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
                                         </div>
                                     </div>
-                                    <br>
                                 </div>
-
+                                <br>
                             </div>
 
                         </div>
+
                     </div>
-                
+                </div>
+
 
 
                 <div class="panel-body">
@@ -308,16 +305,16 @@
                                     <h3 class="panel-title">作者信息录入</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <table class="table table-striped ">
+                                    <table class="table table-striped">
                                         <thead>
                                             <tr>
                                                 <th>姓名</th>
                                                 <th>身份</th>
                                                 <th>类型</th>
+                                                <th>操作</th>
                                             </tr>
                                         </thead>
-
-                                        <tbody>
+                                        <tbody id="inputFormRow">
                                             <tr>
                                                 <td>
                                                     <input class="form-control" type="text" style="width:100px;
@@ -328,7 +325,7 @@
                 appearance:yes;
                 -moz-appearance:yes;
                 -webkit-appearance:yes;
-                ">
+                " placeholder="请输入姓名">
                                                 </td>
                                                 <td>
                                                     <select id="身份" onchange="selectOnchang(this)" class="form-control"
@@ -366,6 +363,11 @@
                                                         <option>其他</option>
                                                     </select>
                                                 </td>
+                                                <td>
+                                                    <button id="removeRow" type="button" class="btn btn-danger">删
+                                                        除</button>
+                                                </td>
+
                                             </tr>
                                         </tbody>
                                     </table>
@@ -373,10 +375,12 @@
                                 </div>
                             </div>
                         </div>
-                        <p><a class="btn btn-primary" href="#" rel="external nofollow" role="button"
+                        <div class="col-md-offset-0">
+                            <a class="btn btn-primary" href="#" rel="external nofollow" role="button"
                                 style="margin-left: 450px;">上传电子版</a>
                             <a class="btn btn-success" href="#" rel="external nofollow" role="button"
-                                style="margin-left: 30px;">提交</a></p>
+                                style="margin-left: 30px;">提 交</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -385,7 +389,6 @@
 </div>
 
 <script>
-
     // add row
     $("#addRow").click(function () {
         var html = '';
@@ -394,27 +397,29 @@
         html += '<tbody>';
         html += '<tr>';
         html += '<td>';
-        html += '<input class="form-control" type="text" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
+        html +=
+            '<input class="form-control" placeholder="请输入姓名" type="text" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
         html += '</td>';
         html += '<td>';
-        html += '<select id="身份" onchange="selectOnchang(this)" class="form-control" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+        html +=
+            '<select id="身份" onchange="selectOnchang(this)" class="form-control" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '<option>独立作者</option>';
         html += '<option>第一作者</option>';
         html += '<option>通讯作者</option>';
         html += '<option>其他</option>';
-
         html += '</select>';
         html += '</td>';
         html += '<td>';
-        html += '<select id="类型" onchange="selectOnchang(this)" class="form-control" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+        html +=
+            '<select id="类型" onchange="selectOnchang(this)" class="form-control" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '<option>本院教师</option>';
         html += '<option>本院学生</option>';
         html += '<option>校外人员</option>';
         html += '<option>其他</option>';
-
         html += '</select>';
+        html += '</td>';
+        html += '<td>';
         html += '<button id="removeRow" type="button" class="btn btn-danger">删  除</button>';
-
         html += '</td>';
         html += '</tr>';
         html += '</tbody>';
@@ -430,19 +435,20 @@
         var html = '';
         var html_1 = '';
         html += '<div id="c_row">';
-        html += '<div class="col-md-3">';
+        html += '<div class="col-md-4">';
         html += '<div class="panel panel-info">';
         html += '<div class="panel-heading">页码范围</div>';
         html += '<div class="panel-body">';
         html += '<form class="form-inline">页';
-        html += '<input class="form-control" type="text" style="width:30px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;">~';
-        html += '<input class="form-control" type="text" style="width:30px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+        html +=
+            '<input class="form-control" type="text" style="width:50px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;">~';
+        html +=
+            '<input class="form-control" type="text" style="width:50px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '</form>';
         html += '</div>';
         html += '</div>';
         html += '</div>';
         html += '</div>';
-
         html_1 += '<div id="c_row_1">';
         html_1 += '<div class="col-md-3">';
         html_1 += '<div class="panel panel-info">';
@@ -450,17 +456,15 @@
         html_1 += '<div class="panel-body">';
         html_1 += '<label class="radio-inline">';
         html_1 += '<input type="radio" name="c_type" value="长文" id="long_essay" checked/>长文</label>';
-        html_1 += '<br>';
         html_1 += '<label class="radio-inline">';
         html_1 += '<input type="radio" name="c_type" value="短文" id="short_essay">短文</label>';
-        
         html_1 += '<label class="radio-inline">';
-        html_1 += '<input type="radio" name="c_type" value="Demo" id="demo">Demo</label>';                           
+        html_1 += '<input type="radio" name="c_type" value="Demo" id="demo">Demo</label>';
         html_1 += '</div>';
         html_1 += '</div>';
         html_1 += '</div>';
-        
-        
+
+
         $('#c_row').remove();
         $('#c_row_1').remove();
         $('#jj_row').remove();
@@ -470,9 +474,9 @@
         $('#conference_choice').append(html);
         $('#conference_choice_1').append(html_1);
         $('#j_row').remove();
-        
 
-        
+
+
     });
 
     //点击期刊
@@ -480,15 +484,19 @@
         var html = '';
         var html_1 = '';
         html += '<div id="j_row">';
-        html += '<div class="col-md-3">';
+        html += '<div class="col-md-4">';
         html += '<div class="panel panel-info">';
         html += '<div class="panel-heading">页码范围</div>';
         html += '<div class="panel-body">';
         html += '<form class="form-inline">卷';
-        html += '<input class="form-control" type="text" style="width:30px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;margin-right:5px;">期';
-        html += '<input class="form-control" type="text" style="width:30px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-right:10px;margin-left:5px;">页';
-        html += '<input class="form-control" type="text" style="width:30px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">~';
-        html += '<input class="form-control" type="text" style="width:30px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+        html +=
+            '<input class="form-control" type="text" style="width:50px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;margin-right:5px;">期';
+        html +=
+            '<input class="form-control" type="text" style="width:50px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-right:10px;margin-left:5px;">页';
+        html +=
+            '<input class="form-control" type="text" style="width:50px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">~';
+        html +=
+            '<input class="form-control" type="text" style="width:50px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '</form>';
         html += '</div>';
         html += '</div>';
@@ -502,16 +510,16 @@
         html_1 += '<div class="panel-body">';
         html_1 += '<label class="radio-inline">';
         html_1 += '<input type="radio" name="j_type" value="正刊" checked/>正刊</label>';
-        html_1 += '<br>';
+        // html_1 += '<br>';
         html_1 += '<label class="radio-inline">';
         html_1 += '<input type="radio" name="j_type" value="专刊">专刊</label>';
-        
+
         html_1 += '<label class="radio-inline">';
-        html_1 += ' <input type="radio" name="j_type" value="专刊">增刊</label>';                           
+        html_1 += ' <input type="radio" name="j_type" value="专刊">增刊</label>';
         html_1 += '</div>';
         html_1 += '</div>';
         html_1 += '</div>';
-      
+
         $('#j_row').remove();
         $('#j_row_1').remove();
         $('#c_row_1').remove();
@@ -521,9 +529,9 @@
         $('#journal_choice').append(html);
         $('#journal_choice_1').append(html_1);
         $('#c_row').remove();
-        
+
     });
-    
+
     //点击demo
     $(document).on('click', '#demo', function () {
 
