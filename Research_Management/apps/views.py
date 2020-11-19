@@ -68,6 +68,11 @@ def insert(request):
 def query(request):
     return render(request, 'query.html', locals())
 
+# 详细信息
+def detail(request):
+    return render(request, 'detail.html', locals())
+
+
 # 主页
 def home(request):
     # 这里以后要加上展现在主页的那些论文提交结果
