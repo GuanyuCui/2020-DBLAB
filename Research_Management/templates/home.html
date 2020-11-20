@@ -4,22 +4,30 @@
 
 <div class="col-md-10">
     <table class="table table-striped">
-        <h4 class="text-center"> (当前位置: 主页) </h4>
-        <h3 class="text-center">尚未审核</h3>
+        <!--<h4 class="text-center"> (当前位置: 主页) </h4>-->
+        {% if request.user.is_superuser %}
+            <h3 class="text-center">等待审核</h3>
+        {% else %}
+            <h3 class="text-center">审核中</h3>
+        {% endif %}
         <thead>
             <tr>
-            <th>名称</th>
-            <th>城市</th>
-            <th>邮编</th>
-            <th></th>
+            <th>项目名称</th>
+            <th>负责人</th>
+            <th>操作</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-            <td>Tanmay</td>
-            <td>Bangalore</td>
-            <td>560001</td>
-            <td><button type="button" class="btn btn-default">修改</button></td>
+            <td>项目1</td>
+            <td>教师1</td>
+            <td>
+                {% if request.user.is_superuser %}
+                    <a href="/check" class="btn btn-default" role="button">审核</a>
+                {% else %}
+                    <a href="/detail" class="btn btn-default" role="button">修改</a>
+                {% endif %}
+            </td>
             </tr>
         </tbody>
         </table>
