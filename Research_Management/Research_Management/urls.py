@@ -27,7 +27,8 @@ urlpatterns = [
     url(r'^logout/$', views.logout),
     url(r'^home/', views.home),
     url(r'^insert/', views.insert),
-    url(r'^detail/(?P<paperid>[0-9]+)/', views.detail),
+    # url(r'^detail/(?P<paperid>[0-9]+)/', views.detail),
+    url(r'^detail/(?P<paperid>.*)/', views.detail),
     url(r'^query/',views.query),
     url(r'^createuser/', views.createuser),
 

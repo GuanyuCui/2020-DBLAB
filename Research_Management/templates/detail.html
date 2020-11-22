@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 
 
-<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
     rel="stylesheet">
 
@@ -11,7 +12,7 @@
 <script src="https://js.cybozu.cn/momentjs/2.29.1/moment-with-locales.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="static/js/moment-with-locales.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script> -->
 <style>
     .col-xs-1 {
         width: 15% !important;
@@ -34,14 +35,12 @@
             <div class="panel-body">
                 <div class="row">
                     <div>
-                        <label class="form-inline" style="margin-left: 18px;">论文标题：
-                            <!-- <input type="text" class="form-control" style="width:600px; margin-right: 18px"></label> -->
-                            <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
-                            <!-- <input type="radio" name="language_type" value="Chinese"
-                            style="margin-right: 10px;margin-left: 10px;" checked />中文
-                        <input type="radio" name="language_type" value="English"
-                            style="margin-right: 10px;margin-left: 10px;">英文 -->
-
+                        <label class="form-inline" style="margin-left: 18px;">论文标题：</label> 
+                        <input type="text" class="form-control" style="width:500px; margin-right: 18px" value="{{ paper.title }}" readonly="readonly" />
+                        <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
+                        <input type="text" class="form-control" style="width:500px; margin-right: 18px" value="{{ paper.language }}" readonly="readonly" />
+                        <!-- <input type="radio" name="language_type" value="Chinese" style="margin-right: 10px;margin-left: 10px;" readonly="readonly"/>中文
+                        <input type="radio" name="language_type" value="English" style="margin-right: 10px;margin-left: 10px;" />英文 -->
                     </div>
                 </div>
             </div>
@@ -55,21 +54,22 @@
                                 发布期刊/会议信息
                             </div>
                             <div class="panel-body">
+                                <!-- 这里后边等统一了存的格式后需要修改！！！ -->
+                                {% if conferjournal.conferorjournal != 'c' %}
                                 <!-- need information from backend  -->
-                                发布期刊：TPDS (IEEE Transactions on Parallel and Distributed Systems) 
+                                发布期刊：{{ conferjournal.name }}
                                 <br>
-                                ISSN：
+                                ISSN：{{ conferjournal.issn }}
                                 <br>
-                                期刊等级：
+                                期刊等级：{{ conferjournal.ccflevel }}
+                                {% else %}
                                 <br>
-                                （或者下面三行）
+                                发布会议：{{ conferjournal.name }}
                                 <br>
-                                发布会议：VLDB (Very Large Data Base) 
+                                会议举办地点：{{ paper.conferencelocation }}
                                 <br>
-                                会议举办地点：
-                                <br>
-                                会议等级：
-
+                                会议等级：{{ conferjournal.ccflevel }}
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -82,6 +82,9 @@
                                 </div>
                                 <div class="panel-body">
                                     <form class="form-inline">
+                                        
+                            <!-- 这里后边等统一了存的格式后需要修改！！！ -->
+                            {% if conferjournal.conferorjournal != 'c' %}
                                         卷
                                         <input class="form-control" type="text" style="width:50px;
                             padding:3px 10px;
@@ -92,7 +95,7 @@
                             -moz-appearance:yes;
                             -webkit-appearance:yes;
                             margin-right:5px;
-                            ">期
+                            " value="{{ paper.volume }}">期
 
                                         <input class="form-control" type="text" style="width:50px;
                             padding:3px 10px;
@@ -102,7 +105,9 @@
                             appearance:yes;
                             -moz-appearance:yes;
                             -webkit-appearance:yes;
-                            margin-right: 5px;">页
+                            margin-right: 5px;" value="{{ paper.issue }}">
+                            {% endif %}
+                            页
 
                                         <input class="form-control" type="text" style="width:60px;
                             padding:3px 10px;
@@ -111,7 +116,7 @@
                             background-size:13px 13px;
                             appearance:yes;
                             -moz-appearance:yes;
-                            -webkit-appearance:yes;">~
+                            -webkit-appearance:yes;" value="{{ paper.startpage }}">~
 
                                         <input class="form-control" type="text" style="width:60px;
                             padding:3px 10px;
@@ -121,7 +126,7 @@
                             appearance:yes;
                             -moz-appearance:yes;
                             -webkit-appearance:yes;
-                            ">
+                            " value="{{ paper.endpage }}">
                                     </form>
 
                                 </div>
@@ -161,7 +166,7 @@
                             </div>
                             <div class="panel-body">
                                 <!-- need information from backend  -->
-
+                                {{ paper.publishtime }}
                             </div>
 
                         </div>
@@ -188,18 +193,21 @@
                                         </tr>
                                     </thead>
                                     <tbody id="inputFormRow">
+                                        <!-- {% for author in authors %} -->
                                         <tr>
                                             <td>
                                                 <!-- need information from backend  -->
+                                                <!-- {{ author.name }} -->
+                                            </td>
+                                            <td>
+                                                <!-- need information from backend  -->
+                                                <!-- {{ author.authoridentity }} -->
                                             </td>
                                             <td>
                                                 <!-- need information from backend  -->
                                             </td>
-                                            <td>
-                                                <!-- need information from backend  -->
-                                            </td>
-
                                         </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                                 <div id="newRow"></div>

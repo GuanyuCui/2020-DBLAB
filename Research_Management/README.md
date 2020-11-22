@@ -35,8 +35,15 @@ login
 **TODO**
 
 1.  最好能做一个index页面，然后把login.html和其整合在一起，就像obe一样，现在的login有点丑，以后的逻辑我设想的是一进来就是一个index页，然后登入进入home
+2.  css不要写在标签里 独立出来放到 block css
+3.  script，js不要二次引入，base里已经引入了，除非是不用base的页面，但这样的页面引入也要通过本地静态方式引入
+4.  详情页面的会议等级是要哪个等级？
 
 ## 数据库
 
 1. 添加页面的临时表，作者就全用字符串存，加分隔符
 2. 建议将papertype.typeid与paper.papertypeid改为paperid
+3. paper中某些二值变量字段需要统一，到底是存一个01变量，还是存它的全称
+4. 建议将paper中的location放入conferencejournal表；还有就是paper里加入了会议和期刊，那么为什么存期刊的地方还需要这个属性，建议只保留会议期刊表里的这个属性
+5. PA中的paid干啥的
+6. PA中根本没有存作者的类型，这个属性是不是不太需要（建议再问问老师）

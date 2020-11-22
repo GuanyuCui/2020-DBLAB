@@ -1,11 +1,3 @@
-'''
-Description: 
-Author: rainym00d
-Github: https://github.com/rainym00d
-Date: 2020-11-12 13:34:13
-LastEditors: rainym00d
-LastEditTime: 2020-11-12 20:43:33
-'''
 from django.db import models
 
 from django.contrib.auth.models import AbstractUser
@@ -51,6 +43,10 @@ class Conferjournal(models.Model):
         managed = False
         db_table = 'ConferJournal'
 
+    def __str__(self):
+        '''打印时会返回Conferjournal的name，方便阅读'''
+        return self.name
+
 
 class Pa(models.Model):
     paid = models.IntegerField(db_column='PAID', primary_key=True)  # Field name made lowercase.
@@ -81,6 +77,10 @@ class Paper(models.Model):
     class Meta:
         managed = False
         db_table = 'Paper'
+
+    def __str__(self):
+        '''打印时会返回Paper的title，方便阅读'''
+        return self.title
 
 
 class Papertype(models.Model):
