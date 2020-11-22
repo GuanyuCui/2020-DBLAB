@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 
 from django.contrib import auth
@@ -8,7 +8,9 @@ from apps import myforms
 from apps import models
 
 
-
+# 设置用户权限的一篇参考博文
+# https://www.cnblogs.com/xuchengcheng1215/p/9457950.html
+# 由于后期需要做出普通用户与管理员的区分
 
 # 测试函数
 def test(request):
@@ -16,6 +18,7 @@ def test(request):
 
 # 注册
 # todo：只有管理员可以注册，因此后期还得加一个if判断
+@login_required
 def createuser(request):
     # 产生一个空对象
     form_obj = myforms.MyRegForm()
@@ -60,24 +63,38 @@ def login(request):
         return JsonResponse(back_dic)
     return render(request, 'login.html')
 
+# 登出
+@login_required
+def logout(request):
+    # 删除用户session信息
+    auth.logout(request)  # request.session.flush()
+    return redirect('/login/')
+
 # 添加
+@login_required
 def insert(request):
     return render(request, 'insert.html', locals())
 
 # 查询
+@login_required
 def query(request):
     return render(request, 'query.html', locals())
 
 # 详细信息
-def detail(request):
+@login_required
+def detail(request, paperid):
+
     return render(request, 'detail.html', locals())
 
 
 # 主页
+@login_required
 def home(request):
     # 这里以后要加上展现在主页的那些论文提交结果
     
     return render(request,'home.html', locals())
+
+
 
 # 图片验证码相关
 

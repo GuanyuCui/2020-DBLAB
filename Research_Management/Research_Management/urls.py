@@ -24,9 +24,10 @@ urlpatterns = [
     
     url(r'^$', views.test), # 测试
     url(r'^login/', views.login),
+    url(r'^logout/$', views.logout),
     url(r'^home/', views.home),
     url(r'^insert/', views.insert),
-    url(r'^detail/', views.detail),
+    url(r'^detail/(?P<paperid>[0-9]+)/', views.detail),
     url(r'^query/',views.query),
     url(r'^createuser/', views.createuser),
 
