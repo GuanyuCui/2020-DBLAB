@@ -1,0 +1,700 @@
+﻿<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>中国人民大学信息学院 科研成果管理系统 登录</title>
+    
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            font-family: '微软雅黑', 'Helvetica', 'Helvetica neue', 'Microsoft YaHei', '黑体'
+        }
+
+        .container {
+            width: 960px;
+            margin: 0px auto;
+        }
+
+        section {
+            width: 100%;
+        }
+
+        #nav {
+            background-color: rgb(35, 45, 59);
+            height: 60px;
+            width: 100%;
+        }
+
+        #header-logo {
+            width: 180px;
+            height: 24px;
+            padding: 18px 0px;
+        }
+
+        #header-list {
+            display: inline-block;
+            float: right;
+            margin-top: 0px
+        }
+
+        #header-list>li {
+            display: inline-block;
+            font-weight: 12px;
+            height: 60px;
+            line-height: 60px;
+            padding: 0 35px;
+            position: relative;
+            list-style: none;
+        }
+
+        #header-list>li:hover {
+            background-color: #FAFAFA;
+            color: rgb(35, 45, 59);
+        }
+
+        #header-list>li>a {
+            color: rgb(127, 131, 136);
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        #header-list>li:hover a {
+            color: rgb(35, 45, 59);
+        }
+
+        #header-list>li .sublist {
+            position: absolute;
+            display: none;
+            right: 0px;
+        }
+
+        #header-list>li .sublist li {
+            background-color: #FAFAFA;
+            list-style: none;
+            list-style-position: outside;
+            line-height: 20px;
+            font-size: 13px;
+            float: left;
+            box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3);
+        }
+
+        #header-list>li .sublist li>a {
+            width: 100%;
+            height: 100%;
+            color: rgb(35, 45, 59);
+            text-decoration: none;
+            width: 200px;
+            height: 20px;
+            padding: 10px;
+            display: block;
+        }
+
+        #header-list>li .sublist li>a>* {
+            float: left;
+        }
+
+        #header-list>li .sublist li:hover {
+            background-color: #6FD3C5
+        }
+
+        #header-list>li .sublist li>a>img {
+            height: 20px;
+            margin-right: 5px
+        }
+
+        #header-list>li:hover .sublist {
+            display: block;
+        }
+
+        #header-list>li:hover #aboutbox1 {
+            display: block;
+        }
+
+        #header-list>li:hover #aboutbox2 {
+            display: block;
+        }
+
+        #aboutbox1 {
+            position: absolute;
+            display: none;
+            width: 800px;
+            padding: 20px;
+            top: 56px;
+            right: -90%;
+            float: right;
+            background-color: #FAFAFA;
+            box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3);
+            line-height: 35px;
+        }
+
+        #aboutbox2 {
+            position: absolute;
+            display: none;
+            width: 920px;
+            padding: 20px;
+            right: -138px;
+            float: right;
+            background-color: #FAFAFA;
+            box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3);
+            line-height: 35px;
+        }
+
+        #section-one {
+            height: 640px;
+            background-color: rgb(84, 196, 234);
+            text-align: center;
+        }
+
+        #section-one:before,
+        #section-one:after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 25px;
+            background-color: rgb(23, 162, 207);
+        }
+
+        #section-one:after {
+            margin-top: -30px;
+        }
+
+        #loginarea {
+            width: 640px;
+            padding: 60px 180px;
+            text-align: center;
+        }
+
+        #loginarea form {
+            text-align: center;
+        }
+
+        .inputbox {
+            position: relative;
+            width: 290px;
+            height: 40px;
+            margin: 20px 10px;
+            display: inline-block;
+        }
+
+        .inputbox input {
+            width: 240px;
+            height: 30px;
+            padding: 5px 5px 5px 45px;
+            border: none;
+            border-radius: 1px;
+            box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.3);
+        }
+
+        .inputbox .inputaddon {
+            position: absolute;
+            left: 14px;
+            top: 9px;
+        }
+
+        #loginarea button {
+            display: block;
+            width: 200px;
+            height: 40px;
+            line-height: 40px;
+            background-color: rgb(35, 45, 59);
+            color: #fff;
+            border: none;
+            margin: 10px auto 0px auto;
+            box-shadow: 0px 2px 1px rgba(51, 153, 153, 1);
+            cursor: pointer;
+        }
+
+        #loginarea button:hover {
+            background-color: rgb(45, 55, 69)
+        }
+
+        #login-logo {
+            margin: 40px auto 0px;
+        }
+
+        #login-logo img {
+            width: 180px;
+            height: 24px;
+        }
+
+        #login-title {
+            font-size: 40px;
+            color: #ffffff;
+        }
+
+        #login-logo {
+            display: none;
+        }
+
+        #login-pic img {
+            /*width:466px;*/
+            height: 200px;
+            margin-top: 45px;
+            margin-bottom: 25px
+        }
+
+        #login-title2 {
+            color: #FFF;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 40px;
+            display: none
+        }
+
+        #icon-login {
+            position: relative;
+            top: 5px;
+            margin-right: 5px;
+        }
+
+        #login-inputgroup {
+            position: relative;
+        }
+
+        #login-infos {
+            margin-top: 35px;
+            color: #FFF;
+        }
+
+        #login-infos a {
+            color: #FFF;
+            text-decoration: none;
+        }
+
+        #login-infos a:hover {
+            color: #FFFFFF;
+            text-shadow: 1px 1px 2px #3e3e00;
+        }
+
+        #section-two {
+            height: 500px;
+            background-color: rgb(245, 245, 245);
+            margin-top: 25px
+        }
+
+        #section-two .feature {
+            position: relative;
+            margin: 100px 27px 0px;
+            width: 180px;
+            height: 440px;
+            display: inline-block;
+            color: #5e5e5e;
+        }
+
+        #section-two .feature .title {
+            font-size: 36px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            padding: 50px 0px;
+        }
+
+        #section-two .feature .box {
+            width: 180px;
+            height: 180px;
+            position: relative;
+            border-radius: 5px;
+            z-index: 2
+        }
+
+        #section-two .feature .box img {
+            width: 105px;
+            height: 82px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -41px;
+            margin-left: -52.5px;
+        }
+
+        #section-two .feature .boxshadow {
+            border-radius: 5px;
+            height: 15px;
+            position: relative;
+            top: -10px;
+            z-index: 1
+        }
+
+        #section-three {
+            height: 680px;
+            background-color: #66cccc;
+            position: relative;
+            text-align: center;
+        }
+
+        #footer {
+            height: 180px;
+            background-color: rgb(21, 28, 39)
+        }
+
+        #footer .column {
+            width: 45%;
+            margin-left: 10%;
+            display: inline-block;
+        }
+
+        #footer .column:first-child {
+            margin-left: 0;
+        }
+
+        #footer .column:first-child img {
+            margin-top: 60px;
+            width: 180px;
+            height: 24px;
+        }
+
+        #footer .copyright {
+            color: rgb(76, 92, 116);
+            font-size: 14px
+        }
+
+        #layer {
+            background-color: rgba(0, 0, 0, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9998;
+        }
+
+
+        #section-two .feature:hover {
+            animation: jump 1s ease;
+            -webkit-animation: jump 1s ease;
+            -moz-animation: jump 1s ease;
+            -o-animation: jump 1s ease;
+        }
+
+        @keyframes jump {
+            0% {
+                top: 0px;
+            }
+
+            50% {
+                top: -100px;
+            }
+
+            100% {
+                top: 0px;
+            }
+        }
+
+        @-moz-keyframes jump {
+            0% {
+                top: 0px;
+            }
+
+            50% {
+                top: -100px;
+            }
+
+            100% {
+                top: 0px;
+            }
+        }
+
+        @-webkit-keyframes jump {
+            0% {
+                top: 0px;
+            }
+            50% {
+                top: -100px;
+            }
+            100% {
+                top: 0px;
+            }
+        }
+
+        @-o-keyframes jump {
+            0% {
+                top: 0px;
+            }
+
+            50% {
+                top: -100px;
+            }
+
+            100% {
+                top: 0px;
+            }
+        }
+
+        @media screen and (min-width:768px) and(max-width:1023px) {
+            .container {
+                width: 100%;
+            }
+        }
+
+        @media (max-width:767px) {
+            body {
+                background-color: rgb(84, 196, 234);
+            }
+
+            .container {
+                width: 100%;
+            }
+
+            #nav {
+                display: none;
+            }
+
+            #section-one:before,
+            #section-one:after {
+                content: "";
+                display: none;
+            }
+
+            #section-two {
+                display: none;
+            }
+
+            #loginarea {
+                width: 100%;
+                padding: 0px;
+            }
+
+            #login-logo {
+                display: block;
+            }
+
+            #loginarea .inputbox {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            #loginarea button {
+                width: 290px;
+            }
+
+            #login-title {
+                display: none;
+            }
+
+            #login-title2 {
+                display: block;
+            }
+
+            #footer {
+                background-color: transparent;
+                position: absolute;
+                bottom: 20px;
+                height: auto;
+                width: 100%;
+                display: none;
+            }
+
+            #footer img {
+                display: none;
+            }
+
+            #footer .column {
+                width: 100%;
+                text-align: center;
+            }
+
+            #footer p.copyright {
+                color: #FFF;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="nav">
+        <div class="container">
+            <img src="/Public/images/index/logo.png" id="header-logo" />
+            <ul id="header-list">
+                <li><a>关于本系统</a>
+                    <div id="aboutbox1">
+                        中国人民大学信息学院科研成果管理系统是由信息学院2018级五位学生合作完成，意在提高老师们录入科研成果的效率，方便老师们日常使用。
+                    </div>
+                </li>
+                <li><a>友情链接</a>
+                    <ul class="sublist">
+                        <li><a href="https://www.ruc.edu.cn" target="_blank">
+                            <!--<img src="/Public/images/index/renren.png" />-->
+                            中国人民大学
+                            </a>
+                        </li>
+                        <li><a href="https://info.ruc.edu.cn" target="_blank">
+                            <!--<img src="/Public/images/index/weibo.png" />-->
+                            中国人民大学信息学院
+                            </a>
+                        </li>
+                        <li><a href="https://v.ruc.edu.cn" target="_blank">
+                            <!--<img src="/Public/images/index/email.png" />-->
+                            微人大
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section id="section-one">
+        <div class="container">
+            <div id="loginarea">
+                <div id="login-title">科研成果管理系统</div>
+                <div id="login-logo">
+                    <img src="/Public/images/index/logo.png" />
+                </div>
+                <div id="login-pic">
+                    <img src="/Public/images/index/cloud.png">
+                </div>
+                <div id="login-title2">
+                    让教学变得简单有趣
+                </div>
+                <div id="login-form">
+                    <form id="loginform">
+                        <div id="login-inputgroup" style="margin:-5px">
+                            <div class="inputbox">
+                                <img src="/static/img/user.png" class="inputaddon" />
+                                <input type="text" placeholder="账号" id="inUsr" required autofocus />
+                            </div>
+                            <div class="inputbox">
+                                <img src="/static/img/pwd.png" class="inputaddon" />
+                                <input type="password" placeholder="密码" id="inPw" required />
+                            </div>
+                        </div>
+                        <div>
+                            <button id="loginButton" title="用UniCourse账号登录">
+                                <img src="/static/img/login.png" id="icon-login" /><span>登录</span><span
+                                    style="display:none">登录中...</span></button>
+                        </div>
+                        <div id="login-infos" style="margin:20px">
+                            <span style="position:relative;right:15%">
+                                <span
+                                    style="background-color:#FFF;display:inline-block;width:20px;height:20px;border-radius:10px;line-height:20px;color:rgb(23,162,207);font-weight:bold">+</span>
+                                <span>
+                                    <a href="/index/register/index.html">&nbsp;注册账号</a>
+                                </span>
+                            </span>
+                            <span style="position:relative;left:20%">
+                                <span
+                                    style="background-color:#FFF;display:inline-block;width:20px;height:20px;border-radius:10px;line-height:20px;color:rgb(23,162,207);font-weight:bold">i</span>
+                                <span>
+                                    <a href="/index/rgst/forgetpwpage.html">&nbsp;忘记密码？</a>
+                                </span>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </script>
+    <footer id="footer">
+        <div class="container">
+            <div class="column">
+                <img src="/Public/images/index/logo.png" />
+                <p class="copyright">
+                    Copyright © 2020-2020 Info@RUC, All Rights Reserved.
+                </p>
+            </div>
+            <div class="column"></div>
+        </div>
+    </footer>
+    <div id="layer" style="display:none">
+        <div id="infobox">
+            <span class="content"></span>
+        </div>
+    </div>
+    <script src="/Public/js/jquery-1.10.2.js"></script>
+    <script src="/Public/js/jquery.cookie.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#loginform").submit(function (event) {
+                doLogin();
+                return false;
+            });
+            $(document).click(function (event) {
+                if ($(event.target)[0] == $("#layer")[0]) $("#layer").fadeOut('fast');
+            });
+
+           
+        });
+        function doLogin(form) {
+            $("#loginButton span").toggle();
+            var usr = $("#inUsr").val();
+            var pw = $("#inPw").val();
+            var url = "/index/login/login.html";
+            if (checkInput(usr, pw)) {
+                var data = {
+                    usernumber: usr,
+                    password: pw
+                };
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: data,
+                    success: function (data, status) {
+                        if (data.status == 0) {
+                            ;
+                        }
+                        else if (data.status == 1) {
+                            location.href = "/teacher/home/index.html";
+                        } else if (data.status == 2) {
+                            location.href = "/index/home/index.html";
+                        }
+                        else if (data.status == 3) {
+                            showInfo("用户名或密码错误");
+                        } else if (data.status == 4) {
+                            showInfo("用户名或密码错误");
+                        }
+                        else if (data.status == 5) {
+                            location.href = "/super/target/index.html";
+                        }
+                        $("#loginButton span").toggle();
+                    },
+                    error: function () {
+                        showInfo("网络出了问题，请稍后再试");
+                    }
+                });
+            } else {
+                $("#loginButton span").toggle();
+            }
+            return false;
+        }
+        function showInfo(info) {
+            $("#infobox .content").text(info);
+            $("#layer").fadeIn('fast');
+            setTimeout(function () { $("#layer").fadeOut('fast'); }, 1000);
+        }
+        function checkInput(usr, pw) {
+            if (!usr) {
+                $("#inUsr").focus();
+                return false;
+            }
+            if (!pw) {
+                $("#inPw").focus();
+                return false;
+            }
+            if (false) {
+                $("#infobox .content").text("用户名格式不对");
+                $("#infobox").show();
+                $("#inUsr").focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?6c8c3ce0743dd12cf03043954fddd040";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</body>
+
+</html>

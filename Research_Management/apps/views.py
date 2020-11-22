@@ -56,6 +56,10 @@ def readData(request):
         form = myforms.PaperForm()
         return render(request, 'file.html', locals())
 
+# 首页
+def index(request):
+    return render(request, 'index.html', locals())
+
 # 登录
 def login(request):
     if request.method == 'POST':
