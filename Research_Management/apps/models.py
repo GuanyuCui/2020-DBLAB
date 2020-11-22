@@ -3,8 +3,8 @@ Description:
 Author: rainym00d
 Github: https://github.com/rainym00d
 Date: 2020-11-12 13:34:13
-LastEditors: rainym00d
-LastEditTime: 2020-11-12 20:43:33
+LastEditors: Please set LastEditors
+LastEditTime: 2020-11-22 13:41:16
 '''
 from django.db import models
 
@@ -26,8 +26,6 @@ class UserInfo(AbstractUser):
     def __str__(self):
         '''打印时会返回用户名，方便阅读'''
         return self.username
-
-
 
 class Author(models.Model):
     authorid = models.CharField(db_column='AuthorID', primary_key=True, max_length=12)  # Field name made lowercase.
