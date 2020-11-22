@@ -51,8 +51,12 @@
         $.each($('#myform').serializeArray(),function (index,obj) {
             formDataObj.append(obj.name,obj.value)
         });
-        // 2 手动添加文件数据
-        formDataObj.append('avatar',$('#myfile')[0].files[0]);
+
+        // var paperObj = new FormData();
+        // paperObj.append('')
+
+        // 2 手动添加文件数据, 我们不需要, 也没有
+        // formDataObj.append('avatar',$('#myfile')[0].files[0]);
 
         // 发送ajax请求
         $.ajax({

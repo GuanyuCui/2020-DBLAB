@@ -49,7 +49,7 @@
                 <div class="row">
                     <div>
                         <label class="form-inline" style="margin-left: 18px;">论文标题：
-                            <input type="text" class="form-control" style="width:600px; margin-right: 18px"></label>
+                            <input type="text" label="title" class="form-control" style="width:600px; margin-right: 18px"></label>
                         <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
                         <input type="radio" name="language_type" value="Chinese"
                             style="margin-right: 10px;margin-left: 10px;" checked />中文
@@ -186,7 +186,7 @@
                                 </div>
                                 <br>
                             </div>
-
+        
                         </div>
 
                     </div>
@@ -234,7 +234,7 @@
                 " placeholder="请输入姓名">
                                                 </td>
                                                 <td>
-                                                    <select id="身份" onchange="selectOnchang(this)" class="form-control"
+                                                    <select onchange="selectOnchang(this)" class="form-control"
                                                         style="
                 width:100px;
                 padding:3px 10px;
@@ -282,8 +282,9 @@
                         <div class="col-md-offset-0">
                             <a class="btn btn-primary" href="#" rel="external nofollow" role="button"
                                 style="margin-left: 450px;">上传电子版</a>
-                            <a class="btn btn-success" href="#" rel="external nofollow" role="button"
-                                style="margin-left: 30px;">提 交</a>
+                            {% comment %} <a class="btn btn-success" href="#" rel="external nofollow" role="button"
+                                style="margin-left: 30px;">提 交</a> {% endcomment %}
+                            <input type="button" id="commit" value="提 交">
                         </div>
                     </div>
                 </div>
@@ -293,6 +294,15 @@
 </div>
 
 <script>
+    // 试了一下
+    $('#commit').click(function(){
+        console.log(this.value)
+        // 根据class获取批量元素
+        var form = $(".form-control")
+        alert(form.length);
+        console.log(form);
+    });
+
     // add row
     $("#addRow").click(function () {
         var html = '';

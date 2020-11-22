@@ -32,6 +32,9 @@ urlpatterns = [
     url(r'^query/',views.query),
     url(r'^createuser/', views.createuser),
 
+
+    # 测试上传论文
+    url(r'^paper/',views.readData),
     
     # 
     # API

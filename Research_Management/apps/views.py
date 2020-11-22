@@ -38,7 +38,24 @@ def createuser(request):
             back_dic['msg'] = form_obj.errors
         return JsonResponse(back_dic)
     return render(request, 'createuser.html', locals())
-    
+
+def handle_uploaded_file(f):
+    with open('data/paper.pdf', 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
+def readData(request):
+    if request.method == 'POST':
+        form = myforms.PaperForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['paper'])
+            return HttpResponse('<h1>SUCCESS!<h1>')
+        else:
+            return HttpResponse("<h1>WRONG!</h1>")
+    else:
+        form = myforms.PaperForm()
+        return render(request, 'file.html', locals())
+
 # 登录
 def login(request):
     if request.method == 'POST':

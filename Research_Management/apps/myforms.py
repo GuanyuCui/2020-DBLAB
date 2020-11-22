@@ -51,3 +51,6 @@ class MyRegForm(forms.Form):
         if not password == confirm_password:
             self.add_error('confirm_password','两次密码不一致')
         return self.cleaned_data
+
+class PaperForm(forms.Form):
+    paper = forms.FileField()
