@@ -49,7 +49,7 @@
                 <div class="row">
                     <div>
                         <label class="form-inline" style="margin-left: 18px;">论文标题：
-                            <input type="text" label="title" class="form-control" style="width:600px; margin-right: 18px"></label>
+                            <input type="text" id="title" class="form-control" style="width:600px; margin-right: 18px"></label>
                         <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
                         <input type="radio" name="language_type" value="Chinese"
                             style="margin-right: 10px;margin-left: 10px;" checked />中文
@@ -64,7 +64,7 @@
                 <div class="row">
                     <div>
                         <label class="form-inline" style="margin-left: 18px;">期刊/会议名称：
-                            <input type="text" class="form-control" style="width:568px; margin-right: 18px"></label>
+                            <input type="text" id="cjname" class="form-control" style="width:568px; margin-right: 18px"></label>
                         <label class="form-inline" style="margin-left: 18px;">论文类型:</label>
                         <input type="radio" name="paper_type" value="journal" id="journal"
                             style="margin-right: 10px;margin-left: 10px;" checked />期刊
@@ -87,7 +87,7 @@
                                 <div class="panel-body">
                                     <form class="form-inline">
                                         卷
-                                        <input class="form-control" type="text" style="width:50px;
+                                        <input class="form-control" type="text" id="volume" style="width:50px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
@@ -98,7 +98,7 @@
                             margin-right:5px;
                             ">期
 
-                                        <input class="form-control" type="text" style="width:50px;
+                                        <input class="form-control" type="text" id="issue" style="width:50px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
@@ -108,7 +108,7 @@
                             -webkit-appearance:yes;
                             margin-right: 5px;">页
 
-                                        <input class="form-control" type="text" style="width:60px;
+                                        <input class="form-control" type="text" id="page_1" style="width:60px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
@@ -117,7 +117,7 @@
                             -moz-appearance:yes;
                             -webkit-appearance:yes;">~
 
-                                        <input class="form-control" type="text" style="width:60px;
+                                        <input class="form-control" type="text" id="page_2" style="width:60px;
                             padding:3px 10px;
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
@@ -177,7 +177,7 @@
                                 <div class='col-sm-12'>
                                     <div class="form-group">
                                         <div class='input-group date' id='datetimepicker1'>
-                                            <input type='text' class="form-control" />
+                                            <input type='text' id="date" class="form-control" />
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
@@ -223,7 +223,7 @@
                                         <tbody id="inputFormRow">
                                             <tr>
                                                 <td>
-                                                    <input class="form-control" type="text" style="width:100px;
+                                                    <input class="form-control" type="text" label="authorname" style="width:100px;
                 padding:3px 10px;
                 border-top-left-radius: 5px;
                 border-bottom-left-radius: 5px;
@@ -234,7 +234,7 @@
                 " placeholder="请输入姓名">
                                                 </td>
                                                 <td>
-                                                    <select onchange="selectOnchang(this)" class="form-control"
+                                                    <select class="form-control" label="identity"
                                                         style="
                 width:100px;
                 padding:3px 10px;
@@ -252,7 +252,7 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <select id="类型" onchange="selectOnchang(this)" class="form-control"
+                                                    <select id="类型" class="form-control" label="authortype"
                                                         style="
                 width:100px;
                 padding:3px 10px;
@@ -296,11 +296,50 @@
 <script>
     // 试了一下
     $('#commit').click(function(){
-        console.log(this.value)
-        // 根据class获取批量元素
-        var form = $(".form-control")
-        alert(form.length);
-        console.log(form);
+        var data = new Object;
+        // 标题
+        data.title = $("#title").val();
+        // 会议期刊名
+        data.cjname = $("#cjname").val();
+        // 语言
+        data.language = $("input:radio:checked").eq(0).val();
+        // 会议还是期刊
+        data.cj = $("input:radio:checked").eq(1).val();
+        // 会议期刊详细属性
+        data.cjtype = $("input:radio:checked").eq(2).val();
+        // 日期
+        data.date = $("#date").val();
+        // 页码
+        data.page_1 = $("#page_1").val();
+        data.page_2 = $("#page_2").val();
+
+        // 卷期同时处理
+        volume = $("#volume").val();
+        issue = $("#issue").val();
+        if(volume){
+            data.volume = volume;
+            data.issue = issue;
+        }
+
+        var authorNames = $("input[label=\"authorname\"]");
+        var authorTypes = $("select[label=\"authortype\"]");
+        var identities = $("select[label=\"identity\"]");
+
+        // 作者列表
+        var authors = new Array;
+        for (var i = 0; i < authorNames.length; i++) {
+            var dic = new Object;
+            // 作者
+            dic.name = authorNames.eq(i).val();
+            // 第几作者
+            dic.identity = identities.eq(i).val();
+            // 是否校内
+            dic.type = authorTypes.eq(i).val();
+            authors.push(dic);
+        }
+        data.authors = authors;
+        console.log(data);
+        
     });
 
     // add row
@@ -312,11 +351,11 @@
         html += '<tr>';
         html += '<td>';
         html +=
-            '<input class="form-control" placeholder="请输入姓名" type="text" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
+            '<input class="form-control" label="authorname" placeholder="请输入姓名" type="text" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
         html += '</td>';
         html += '<td>';
         html +=
-            '<select id="身份" onchange="selectOnchang(this)" class="form-control" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            '<select id="身份" class="form-control" label="authortype" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '<option>独立作者</option>';
         html += '<option>第一作者</option>';
         html += '<option>通讯作者</option>';
@@ -325,7 +364,7 @@
         html += '</td>';
         html += '<td>';
         html +=
-            '<select id="类型" onchange="selectOnchang(this)" class="form-control" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            '<select id="类型" class="form-control" label="identity" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '<option>本院教师</option>';
         html += '<option>本院学生</option>';
         html += '<option>校外人员</option>';
@@ -355,9 +394,9 @@
         html += '<div class="panel-body">';
         html += '<form class="form-inline">页';
         html +=
-            '<input class="form-control" type="text" style="width:60px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;">~';
+            '<input class="form-control" type="text" id="page_1" style="width:60px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;">~';
         html +=
-            '<input class="form-control" type="text" style="width:60px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            '<input class="form-control" type="text" id="page_2" style="width:60px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '</form>';
         html += '</div>';
         html += '</div>';
@@ -404,13 +443,13 @@
         html += '<div class="panel-body">';
         html += '<form class="form-inline">卷';
         html +=
-            '<input class="form-control" type="text" style="width:40px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;margin-right:5px;">期';
+            '<input class="form-control" type="text" id="volume" style="width:40px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-left:5px;margin-right:5px;">期';
         html +=
-            '<input class="form-control" type="text" style="width:40px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-right:10px;margin-left:5px;">页';
+            '<input class="form-control" type="text" id="issue" style="width:40px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;margin-right:10px;margin-left:5px;">页';
         html +=
-            '<input class="form-control" type="text" style="width:60px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">~';
+            '<input class="form-control" type="text" id="page_1" style="width:60px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">~';
         html +=
-            '<input class="form-control" type="text" style="width:60px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            '<input class="form-control" type="text" id="page_2" style="width:60px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '</form>';
         html += '</div>';
         html += '</div>';
