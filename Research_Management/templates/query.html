@@ -2,13 +2,13 @@
 
 {% block content %}
 
-<!-- <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
     rel="stylesheet">
 
-<!-- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script> -->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
 <script src="https://js.cybozu.cn/momentjs/2.29.1/moment-with-locales.min.js"></script>
-<!-- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="static/js/moment-with-locales.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
@@ -54,33 +54,6 @@
         locale: moment.locale('zh-cn'),
         defaultDate: "1990-1-1"
     });
-
-    // add row
-    $("#addRow").click(function () {
-        var html = '';
-        html += '<div id="inputFormRow">';
-        html += '<div class="input-group mb-3">';
-        html += '<div class="input-group-btn">';
-        html +=
-            '<select onchange="selectOnchang(this)" class="form-control" style="width:100px; padding:3px 10px;">';
-        html += '<option>论文题目</option>';
-        html += '<option>期刊名称</option>';
-        html += '<option>会议名称</option>';
-        html += '</select>';
-        html += '</div>';
-        html += '<input type="text" class="form-control" placeholder="请输入...">';
-        html += '<div class="input-group-append">';
-        html += '<button id="removeRow" type="button" class="btn btn-danger">  删  除  </button>';
-        html += '</div>';
-        html += '</div>';
-
-        $('#newRow').append(html);
-    });
-
-    // remove row
-    $(document).on('click', '#removeRow', function () {
-        $(this).closest('#inputFormRow').remove();
-    });
 </script>
 
 <style>
@@ -115,7 +88,6 @@
     <script type="text/javascript">
         //页面加载的时候,所有的复选框都是未选中的状态
         function checkOrCancelAll(id, type) {
-            //1.获取checkbo的元素对象
             var chElt = document.getElementById(id);
             //2.获取选中状态
             var checkedElt = chElt.checked;
@@ -144,14 +116,14 @@
 
 <body>
 
-    <h3 class="col-md-3 col-md-offset-4">项目查询</h3>
+    <!-- <h3 class="col-md-3 col-md-offset-4">项目查询</h3> -->
     <div class="col-md-10">
         <!-- <div class="container-fluid"> -->
 
         <div class="row">
-            <div class="panel panel-default">
+            <div class="panel panel-info">
                 <div class="panel-heading">
-                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 按条件查询
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 查询
                 </div>
                 <div class="panel-body">
                     <form method="post" action="">
@@ -162,15 +134,15 @@
                                         <span class="input-group-addon"
                                             style="width:100px; padding:3px 10px;">筛选条件</span>
                                         <div class="input-group-btn">
-                                            <select onchange="selectOnchang(this)" class="form-control"
+                                            <select id="inputTextType" class="form-control"
                                                 style="width:100px; padding:3px 10px;">
-                                                <option>论文题目</option>
+                                                <option id="chosenTitle">论文题目</option>
                                                 <option>期刊名称</option>
                                                 <option>会议名称</option>
                                                 <option>作者姓名</option>
                                             </select>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="请输入...">
+                                        <input id="inputText" type="text" class="form-control" placeholder="请输入...">
                                     </div>
                                 </div>
 
@@ -183,7 +155,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-2">
-                            <div class="panel panel-default">
+                            <div class="panel panel-info">
                                 <div class="panel-heading">
                                     作者类型
                                 </div>
@@ -201,21 +173,21 @@
                                     </div>
                                     <!-- <br> -->
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="authorType" value="option1">第一作者
+                                        <input id="firstAuthor" type="checkbox" name="authorType" value="option1">第一作者
                                     </label>
                                     <br>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="authorType" value="option2">通讯作者
+                                        <input id="corrAuthor" type="checkbox" name="authorType" value="option2">通讯作者
                                     </label>
                                     <br>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="authorType" value="option3">其他作者
+                                        <input id="otherAuthor" type="checkbox" name="authorType" value="option3">其他作者
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-1">
-                            <div class="panel panel-default">
+                            <div class="panel panel-info">
                                 <div class="panel-heading">
                                     论文类型
                                 </div>
@@ -229,30 +201,37 @@
                                         </label>
                                     </div>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="paperType" value="option1">正刊
+                                        <input id="Journalmain" type="checkbox" name="paperType" value="option1">正刊
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="paperType" value="option2">专刊
-                                    </label>
-                                    <br>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" name="paperType" value="option3">长文
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" name="paperType" value="option1">短文
+                                        <input id="JournalSS" type="checkbox" name="paperType" value="option2">专刊
                                     </label>
                                     <br>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="paperType" value="option2">Demo
+                                        <input id="JournalAdd" type="checkbox" name="paperType" value="option2">增刊
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="paperType" value="option3">Oral
+                                        <input id="longPaper" type="checkbox" name="paperType" value="option3">长文
+                                    </label>
+                                    <br>
+                                    <label class="checkbox-inline">
+                                        <input id="shortPaper" type="checkbox" name="paperType" value="option1">短文
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input id="demo" type="checkbox" name="paperType" value="option2">Demo
+                                    </label>
+                                    <br>
+                                    <label class="checkbox-inline">
+                                        <input id="oral" type="checkbox" name="paperType" value="option3">Oral
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input id="poster" type="checkbox" name="paperType" value="option3">Poster
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-2">
-                            <div class="panel panel-default">
+                            <div class="panel panel-info">
                                 <div class="panel-heading">
                                     论文等级
                                 </div>
@@ -266,53 +245,53 @@
                                     </div>
                                     <div class="col-md-4" for="select">CCF：</div>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option1">A+
+                                        <input id="CCFAP" type="checkbox" name="rankType" value="option1">A+
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option2">A
+                                        <input id="CCFA" type="checkbox" name="rankType" value="option2">A
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option3">A-
+                                        <input id="CCFAM" type="checkbox" name="rankType" value="option3">A-
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option3">B
+                                        <input id="CCFB" type="checkbox" name="rankType" value="option3">B
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option3">C
+                                        <input id="CCFC" type="checkbox" name="rankType" value="option3">C
                                     </label>
                                     <br>
                                     <div class="col-md-4" for="select">CCF中文：</div>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option1">A+
+                                        <input id="CCFChinaAP" type="checkbox" name="rankType" value="option1">A+
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option2">A
+                                        <input id="CCFChinaA" type="checkbox" name="rankType" value="option2">A
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option3">A-
+                                        <input id="CCFChinaAM" type="checkbox" name="rankType" value="option3">A-
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option3">B
+                                        <input id="CCFChinaB" type="checkbox" name="rankType" value="option3">B
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option3">C
+                                        <input id="CCFChinaC" type="checkbox" name="rankType" value="option3">C
                                     </label>
                                     <br>
                                     <div class="col-md-4 control-label" for="select">RUC：</div>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option1">A+
+                                        <input id="RUCAP" type="checkbox" name="rankType" value="option1">A+
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option2">A
+                                        <input id="RUCA" type="checkbox" name="rankType" value="option2">A
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option3">A-
+                                        <input id="RUCAM" type="checkbox" name="rankType" value="option3">A-
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option3">B
+                                        <input id="RUCB" type="checkbox" name="rankType" value="option3">B
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="rankType" value="option3">C
+                                        <input id="RUCC" type="checkbox" name="rankType" value="option3">C
                                     </label>
                                     <br>
 
@@ -320,7 +299,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="panel panel-default">
+                            <div class="panel panel-info">
                                 <div class="panel-heading">
                                     论文发布日期
                                 </div>
@@ -354,7 +333,7 @@
                         </div>
                     </div>
                     <div class="col-md-offset-5">
-                        <input type="button" ID="btnSearch" value="查询" class="btn btn-success col-md-1 " />
+                        <input id="commit" type="button" ID="btnSearch" value="  查  询  " class="btn btn-success" />
                     </div>
                 </div>
 
@@ -365,16 +344,103 @@
 
 </body>
 
-<!-- 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Add or Remove Input Fields Dynamically using jQuery - MyNotePaper</title>
 
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head> -->
+<script>
+    // 试了一下
+    $('#commit').click(function () {
+        var authorType = new Array();
+        var authorFirst = document.getElementById('firstAuthor');
+        var authorCorr = document.getElementById('corrAuthor');
+        var authorOther = document.getElementById('otherAuthor');
+        authorType[0] = 0, authorType[1] = 0, authorType[2] = 0;
+        if (authorFirst.checked) authorType[0] = 1;
+        if (authorCorr.checked) authorType[1] = 1;
+        if (authorOther.checked) authorType[2] = 1;
 
+        var paperType = new Array();
+        var Journalmain = document.getElementById('Journalmain');
+        var JournalSS = document.getElementById('JournalSS');
+        var JournalAdd = document.getElementById('JournalAdd');
+        var longPaper = document.getElementById('longPaper');
+        var shortPaper = document.getElementById('shortPaper');
+        var demo = document.getElementById('demo');
+        var oral = document.getElementById('oral');
+        var poster = document.getElementById('poster');
+        paperType[0] = 0, paperType[1] = 0, paperType[2] = 0, paperType[3] = 0;
+        paperType[4] = 0, paperType[5] = 0, paperType[6] = 0, paperType[7] = 0;
+        if (Journalmain.checked) paperType[0] = 1;
+        if (JournalSS.checked) paperType[1] = 1;
+        if (JournalAdd.checked) paperType[2] = 1;
+        if (longPaper.checked) paperType[3] = 1;
+        if (shortPaper.checked) paperType[4] = 1;
+        if (demo.checked) paperType[5] = 1;
+        if (oral.checked) paperType[6] = 1;
+        if (poster.checked) paperType[7] = 1;
+
+
+        var CCFRank = new Array();
+        var CCFAP = document.getElementById('CCFAP');
+        var CCFA = document.getElementById('CCFA');
+        var CCFAM = document.getElementById('CCFAM');
+        var CCFB = document.getElementById('CCFB');
+        var CCFC = document.getElementById('CCFC');
+        CCFRank[0] = 0, CCFRank[1] = 0, CCFRank[2] = 0, CCFRank[3] = 0, CCFRank[4] = 0;
+        if (CCFAP.checked) CCFRank[0] = 1;
+        if (CCFA.checked) CCFRank[1] = 1;
+        if (CCFAM.checked) CCFRank[2] = 1;
+        if (CCFB.checked) CCFRank[3] = 1;
+        if (CCFC.checked) CCFRank[4] = 1;
+
+        var CCFChinaRank = new Array();
+        var CCFChinaAP = document.getElementById('CCFChinaAP');
+        var CCFChinaA = document.getElementById('CCFChinaA');
+        var CCFChinaAM = document.getElementById('CCFChinaAM');
+        var CCFChinaB = document.getElementById('CCFChinaB');
+        var CCFChinaC = document.getElementById('CCFChinaC');
+        CCFChinaRank[0] = 0, CCFChinaRank[1] = 0, CCFChinaRank[2] = 0, CCFChinaRank[3] = 0, CCFChinaRank[4] = 0;
+        if (CCFChinaAP.checked) CCFChinaRank[0] = 1;
+        if (CCFChinaA.checked) CCFChinaRank[1] = 1;
+        if (CCFChinaAM.checked) CCFChinaRank[2] = 1;
+        if (CCFChinaB.checked) CCFChinaRank[3] = 1;
+        if (CCFChinaC.checked) CCFChinaRank[4] = 1;
+
+        var RUCRank = new Array();
+        var RUCAP = document.getElementById('RUCAP');
+        var RUCA = document.getElementById('RUCA');
+        var RUCAM = document.getElementById('RUCAM');
+        var RUCB = document.getElementById('RUCB');
+        var RUCC = document.getElementById('RUCC');
+        RUCRank[0] = 0, RUCRank[1] = 0, RUCRank[2] = 0, RUCRank[3] = 0, RUCRank[4] = 0;
+        if (RUCAP.checked) RUCRank[0] = 1;
+        if (RUCA.checked) RUCRank[1] = 1;
+        if (RUCAM.checked) RUCRank[2] = 1;
+        if (RUCB.checked) RUCRank[3] = 1;
+        if (RUCC.checked) RUCRank[4] = 1;
+
+        var DateDuration = new Array();
+        DateDuration[0] = $("#datetimepicker1").find("input").val();
+        DateDuration[1] = $("#datetimepicker2").find("input").val();
+        console.log(DateDuration);
+        // 前台传值方法
+        $.ajax({
+            type: "post", // 以post方式发起请求
+            url: " ", // 你的请求链接
+            data: { // 提交数据
+                "authorType": authorType, // 前者为字段名，后者为数据
+                "paperType": authorType,
+                "CCFRank": CCFRank,
+                "CCFChinaRank": CCFChinaRank,
+                "RUCRank": RUCRank,
+                "time": DateDuration
+            },
+            success(data) {
+                // data为返回值
+                // 成功后的回调方法
+            }
+        });
+
+    });
+</script>
 
 <script type="text/javascript">
     // add row
@@ -384,14 +450,14 @@
         html += '<div class="input-group">';
         html += '<div class="input-group-btn">';
         html +=
-            '<select onchange="selectOnchang(this)" class="form-control" style="width:100px;padding:3px 10px;">';
+            '<select class="form-control" style="width:100px;padding:3px 10px;">';
         html += '<option>AND</option>';
         html += '<option>OR</option>';
         html += '</select>';
         html += '</div>';
         html += '<div class="input-group-btn">';
         html +=
-            '<select onchange="selectOnchang(this)" class="form-control" style="width:100px; padding:3px 10px;">';
+            '<select class="form-control" style="width:100px; padding:3px 10px;">';
         html += '<option>论文题目</option>';
         html += '<option>期刊名称</option>';
         html += '<option>会议名称</option>';
