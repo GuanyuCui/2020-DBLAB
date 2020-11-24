@@ -73,3 +73,55 @@ data_post = {
 5. PA中的paid干啥的
 6. PA中根本没有存作者的类型，这个属性是不是不太需要（建议再问问老师）
 7. 上传的论文存在哪？ 是不是考虑再建一个数据表
+
+
+
+
+
+## insert页面的json
+
+### 基本内容
+
+论文题目：title
+
+发表刊物名称：conferjournalname
+
+刊物类型：conferorjournal，c代表confer，j代表journal
+
+发表时间：publishtime
+
+作者们：authors，以如下形式: [{name: xxx, identity: xxx, type: xxx}, {name: xxx, identity: xxx, type: xxx}]，即列表里边套字典
+
+论文页码起止范围：page，用列表：[开始页,结束页]
+
+语言：language，c代表中文，e代表英文
+
+### 额外内容，即有需要时再加入json
+
+期刊相关：
+- 卷：volume
+- 期：issue
+- 正刊 or 增刊：papertypeid，这里前端人员自己内部定一下，然后在这里写一下，让做后端的人
+
+会议相关：
+- 举办国家：nation（审核页里的需求，insert页里不用）
+- 举办城市：city（审核页里的需求，insert页里不用）
+- 长文 or 短文 or Demo：papertypeid，这里前端人员自己内部定一下，然后在这里写一下，让做后端的人明白即可
+- Oral or Poster：papertypeid，这里前端人员自己内部定一下，然后在这里写一下，让做后端的人明白即可
+
+
+## 查询里的json
+
+### 基本内容
+
+最主要的那部分query：base，里面形式如下：[{title: "xxx", condition:"" },{authorname:"xxx", “condition”:"AND"}]，还有就是confername，journalname。即列表套字典。condition代表的是and或者or，如果只有一条，那么就是none
+
+作者类型：authortype，是一个列表，就拿0，1，2来表示吧
+
+论文类型：papertype，是一个列表，就拿0，1，2来表示吧
+
+论文等级：paperrank，字典套列表。{ccf:['a+', 'c'], ...}
+
+日期范围：time，用列表，[起始时间，结束时间]
+
+

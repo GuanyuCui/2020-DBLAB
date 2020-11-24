@@ -69,7 +69,6 @@ def index(request):
     if request.user.is_authenticated:
         return redirect('/home/')
     
-    
 
     return render(request, 'index.html', locals())
 
