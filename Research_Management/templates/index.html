@@ -570,6 +570,7 @@
                                 <img src="/static/img/login.png" id="icon-login" /><span>登录</span><span
                                     style="display:none">登录中...</span></button>
                         </div>
+                        <span id="error" style="color: red"></span>
                         <div id="login-infos" style="margin:20px">
                             <span style="position:relative;right:15%">
                                 <span
@@ -609,7 +610,7 @@
             <span class="content"></span>
         </div>
     </div>
-<!--
+
     <script src="/Public/js/jquery-1.10.2.js"></script>
     <script src="/Public/js/jquery.cookie.js"></script>
     <script>
@@ -621,41 +622,28 @@
             $(document).click(function (event) {
                 if ($(event.target)[0] == $("#layer")[0]) $("#layer").fadeOut('fast');
             });
-
-           
         });
         function doLogin(form) {
             $("#loginButton span").toggle();
-            var usr = $("#inUsr").val();
-            var pw = $("#inPw").val();
-            var url = "/home.html";
+            var usr = $("#username").val();
+            var pw = $("#password").val();
             if (checkInput(usr, pw)) {
-                var data = {
-                    usernumber: usr,
-                    password: pw
-                };
                 $.ajax({
-                    url: url,
+                    url: '',
                     type: "POST",
-                    data: data,
-                    success: function (data, status) {
-                        if (data.status == 0) {
-                            ;
+                    data: {
+                        'username':$('#username').val(),
+                        'password':$('#password').val(),
+                        'code':$('#code').val(),
+                        'csrfmiddlewaretoken':'{{ csrf_token }}'
+                    },
+                    success:function (data) {
+                        if (data.code == 1000){
+                            window.location.href = data.url
+                        }else{
+                            // 渲染错误信息
+                            $('#error').text(data.msg)
                         }
-                        else if (data.status == 1) {
-                            location.href = "/teacher/home/index.html";
-                        } else if (data.status == 2) {
-                            location.href = "home.html";
-                        }
-                        else if (data.status == 3) {
-                            showInfo("用户名或密码错误");
-                        } else if (data.status == 4) {
-                            showInfo("用户名或密码错误");
-                        }
-                        else if (data.status == 5) {
-                            location.href = "/super/target/index.html";
-                        }
-                        $("#loginButton span").toggle();
                     },
                     error: function () {
                         showInfo("网络出了问题，请稍后再试");
@@ -666,30 +654,26 @@
             }
             return false;
         }
+
         function showInfo(info) {
             $("#infobox .content").text(info);
             $("#layer").fadeIn('fast');
             setTimeout(function () { $("#layer").fadeOut('fast'); }, 1000);
         }
+
         function checkInput(usr, pw) {
             if (!usr) {
-                $("#inUsr").focus();
+                $("#username").focus();
                 return false;
             }
             if (!pw) {
-                $("#inPw").focus();
-                return false;
-            }
-            if (false) {
-                $("#infobox .content").text("用户名格式不对");
-                $("#infobox").show();
-                $("#inUsr").focus();
+                $("#password").focus();
                 return false;
             }
             return true;
         }
     </script>
--->
+
 <script>
     $('#img').click(function () {
         // 点击  修改src原来值
@@ -701,26 +685,6 @@
         //     $(this).attr('src',oldVal += '?')
         // }
     });
-    $('#b1').click(function () {
-        $.ajax({
-            url:'',
-            type:'post',
-            data:{
-                'username':$('#username').val(),
-                'password':$('#password').val(),
-                'code':$('#code').val(),
-                'csrfmiddlewaretoken':'{{ csrf_token }}'
-            },
-            success:function (data) {
-                if (data.code == 1000){
-                    window.location.href = data.url
-                }else{
-                    // 渲染错误信息
-                    $('#error').text(data.msg)
-                }
-            }
-        })
-    })
 </script>
 </body>
 
