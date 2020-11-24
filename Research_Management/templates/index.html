@@ -1,5 +1,5 @@
-﻿<!doctype html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -548,23 +548,25 @@
                 <div id="login-pic">
                     <img src="/Public/images/index/cloud.png">
                 </div>
-                <div id="login-title2">
-                    让教学变得简单有趣
-                </div>
                 <div id="login-form">
                     <form id="loginform">
                         <div id="login-inputgroup" style="margin:-5px">
                             <div class="inputbox">
-                                <img src="/static/img/user.png" class="inputaddon" />
-                                <input type="text" placeholder="账号" id="inUsr" required autofocus />
+                                <img src="/static/img/user.png" class="inputaddon"/>
+                                <input type="text" placeholder="账号" id="username" required autofocus />
                             </div>
                             <div class="inputbox">
-                                <img src="/static/img/pwd.png" class="inputaddon" />
-                                <input type="password" placeholder="密码" id="inPw" required />
+                                <img src="/static/img/pwd.png" class="inputaddon"/>
+                                <input type="password" placeholder="密码" id="password" required />
                             </div>
+                            <div class="inputbox">
+                                <img src="/static/img/pwd.png" class="inputaddon"/>
+                                <input type="text" placeholder="验证码" id="code" required>
+                            </div>
+                            <img src="/get_code/" alt="" height="35" width="180" id="img">
                         </div>
                         <div>
-                            <button id="loginButton" title="用UniCourse账号登录">
+                            <button id="loginButton" title="登录">
                                 <img src="/static/img/login.png" id="icon-login" /><span>登录</span><span
                                     style="display:none">登录中...</span></button>
                         </div>
@@ -607,6 +609,7 @@
             <span class="content"></span>
         </div>
     </div>
+<!--
     <script src="/Public/js/jquery-1.10.2.js"></script>
     <script src="/Public/js/jquery.cookie.js"></script>
     <script>
@@ -625,7 +628,7 @@
             $("#loginButton span").toggle();
             var usr = $("#inUsr").val();
             var pw = $("#inPw").val();
-            var url = "/index/login/login.html";
+            var url = "/home.html";
             if (checkInput(usr, pw)) {
                 var data = {
                     usernumber: usr,
@@ -642,7 +645,7 @@
                         else if (data.status == 1) {
                             location.href = "/teacher/home/index.html";
                         } else if (data.status == 2) {
-                            location.href = "/index/home/index.html";
+                            location.href = "home.html";
                         }
                         else if (data.status == 3) {
                             showInfo("用户名或密码错误");
@@ -686,15 +689,39 @@
             return true;
         }
     </script>
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?6c8c3ce0743dd12cf03043954fddd040";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
+-->
+<script>
+    $('#img').click(function () {
+        // 点击  修改src原来值
+        $(this).attr('src', '/get_code/'+'?'+Math.random())
+        // var oldVal = $(this).attr('src');
+        // if (oldVal.endsWith('?')){
+        //     $(this).attr('src','/get_code/')
+        // }else{
+        //     $(this).attr('src',oldVal += '?')
+        // }
+    });
+    $('#b1').click(function () {
+        $.ajax({
+            url:'',
+            type:'post',
+            data:{
+                'username':$('#username').val(),
+                'password':$('#password').val(),
+                'code':$('#code').val(),
+                'csrfmiddlewaretoken':'{{ csrf_token }}'
+            },
+            success:function (data) {
+                if (data.code == 1000){
+                    window.location.href = data.url
+                }else{
+                    // 渲染错误信息
+                    $('#error').text(data.msg)
+                }
+            }
+        })
+    })
+</script>
 </body>
 
 </html>
