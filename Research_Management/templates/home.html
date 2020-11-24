@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 
+{% block css %}
+
+{% endblock %}
+
 {% block content %}
 
 <div class="col-md-10">
     <table class="table table-striped">
         <!--<h4 class="text-center"> (当前位置: 主页) </h4>-->
-        {% if request.user.is_superuser %}
+        {% if request.user.is_staff %}
             <h3 class="text-center">等待审核</h3>
         {% else %}
             <h3 class="text-center">审核中</h3>
@@ -22,7 +26,7 @@
             <td>项目1</td>
             <td>教师1</td>
             <td>
-                {% if request.user.is_superuser %}
+                {% if request.user.is_staff %}
                     <a href="/check" class="btn btn-default" role="button">审核</a>
                 {% else %}
                     <a href="/detail" class="btn btn-default" role="button">修改</a>
@@ -66,6 +70,11 @@
         </div>
     </div>
 </div>
+
+
+{% endblock %}
+
+{% block js %}
 <script>
     $('#b1').on('click', function () {
         $.ajax({
@@ -87,5 +96,4 @@
         })
     })
 </script>
-
 {% endblock %}

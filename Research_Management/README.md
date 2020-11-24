@@ -69,7 +69,7 @@ data_post = {
 1. 添加页面的临时表，作者就全用字符串存，加分隔符
 2. 建议将papertype.typeid与paper.papertypeid改为paperid
 3. paper中某些二值变量字段需要统一，到底是存一个01变量，还是存它的全称
-4. 建议将paper中的location放入conferencejournal表；还有就是paper里加入了会议和期刊，那么为什么存期刊的地方还需要这个属性，建议只保留会议期刊表里的这个属性
+4. 建议将paper中的location放入conferencejournal表；还有就是paper里加入了会议和期刊，那么为什么存期刊的地方还需要这个属性，建议只保留会议期刊表里的这个属性 **会议每年地点都变**
 5. PA中的paid干啥的
 6. PA中根本没有存作者的类型，这个属性是不是不太需要（建议再问问老师）
 7. 上传的论文存在哪？ 是不是考虑再建一个数据表

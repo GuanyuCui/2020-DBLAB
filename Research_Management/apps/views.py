@@ -14,12 +14,19 @@ from apps import models
 
 # 测试函数
 def test(request):
+
+    if request.user.is_staff:
+        print('is staff')
+
     return render(request, 'base.html')
 
 # 注册
 # todo：只有管理员可以注册，因此后期还得加一个if判断
 @login_required
 def createuser(request):
+    # 判断是否是管理员
+    if not request.user.is_staff:
+        return
     # 产生一个空对象
     form_obj = myforms.MyRegForm()
     if request.method == 'POST':
@@ -58,6 +65,12 @@ def readData(request):
 
 # 首页
 def index(request):
+    # 如果用户已登录，则跳转到主页
+    if request.user.is_authenticated:
+        return redirect('/home/')
+    
+    
+
     return render(request, 'index.html', locals())
 
 # 登录
@@ -119,8 +132,12 @@ def detail(request, paperid):
 # 主页
 @login_required
 def home(request):
-    # 这里以后要加上展现在主页的那些论文提交结果
-    
+    # 如果是管理员，则返回所有待审核的项目
+    if request.user.is_staff:
+        print(1)
+        # 等临时表建好了再说
+    else:
+        print(request.user.username)
     return render(request,'home.html', locals())
 
 

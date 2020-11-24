@@ -28,6 +28,10 @@ class Author(models.Model):
     class Meta:
         managed = False
         db_table = 'Author'
+    
+    def __str__(self):
+        '''打印时会返回用户名，方便阅读'''
+        return (self.authorid, self.name)
 
 
 class Conferjournal(models.Model):
