@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 
+import json
 from apps import myforms
 from apps import models
 
@@ -46,22 +47,50 @@ def createuser(request):
         return JsonResponse(back_dic)
     return render(request, 'createuser.html', locals())
 
-def handle_uploaded_file(f):
-    with open('data/paper.pdf', 'wb+') as destination:
+def handle_uploaded_file(f,filename):
+    with open('data/%s' % filename, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
-def readData(request):
+def process(request):
+    
     if request.method == 'POST':
-        form = myforms.PaperForm(request.POST, request.FILES)
-        if form.is_valid():
-            handle_uploaded_file(request.FILES['paper'])
-            return HttpResponse('<h1>SUCCESS!<h1>')
-        else:
-            return HttpResponse("<h1>WRONG!</h1>")
+        # 可以设定重定向的url
+        back_dic = {'url':'','code':1000}
+        
+        data = request.POST
+
+        title = data['title']
+        language = data['language']
+        cj = data['cj']
+        cjname = data['cjname']
+        cjtype = data['cjtype']
+        date = data['date']
+        page_1 = data['page_1']
+        page_2 = data['page_2']
+
+        # 会议没有卷期
+        try:
+            volume = data['volume']
+            issue = data['issue']
+        except:
+            pass
+
+        authors = data['authors']
+        authors = json.loads(authors)
+        
+        print(authors,type(authors[0]))
+
+
+        # 存储pdf文件, 默认在data/paper.pdf
+        paper = request.FILES['paper']
+        paper_name = request.FILES['paper'].name
+        handle_uploaded_file(paper,paper_name)
+
+        return JsonResponse(back_dic)
+        
     else:
-        form = myforms.PaperForm()
-        return render(request, 'file.html', locals())
+        return HttpResponse("<h1>WRONG!</h1>")
 
 # 首页
 def index(request):

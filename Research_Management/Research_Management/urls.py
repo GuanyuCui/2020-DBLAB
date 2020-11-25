@@ -35,7 +35,7 @@ urlpatterns = [
 
 
     # 测试上传论文
-    url(r'^paper/',views.readData),
+    url(r'^process/',views.process),
     
     # 
     # API

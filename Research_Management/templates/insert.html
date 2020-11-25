@@ -36,7 +36,6 @@
         defaultDate: "1990-1-1"
     });
 </script>
-
 <div class="col-md-10">
     <!-- <div class="container-fluid"> -->
     <div class="row">
@@ -284,6 +283,7 @@
                                 style="margin-left: 450px;">上传电子版</a>
                             {% comment %} <a class="btn btn-success" href="#" rel="external nofollow" role="button"
                                 style="margin-left: 30px;">提 交</a> {% endcomment %}
+                            <input type="file" id="file" value="上传文件">
                             <input type="button" id="commit" value="提 交">
                         </div>
                     </div>
@@ -296,29 +296,40 @@
 <script>
     // 试了一下
     $('#commit').click(function(){
-        var data = new Object;
+        var data = new FormData();
         // 标题
-        data.title = $("#title").val();
+        // data.title = $("#title").val();
+        data.append('title',$("#title").val());
         // 会议期刊名
-        data.cjname = $("#cjname").val();
+        // data.cjname = $("#cjname").val();
+        data.append('cjname',$("#cjname").val());
         // 语言
-        data.language = $("input:radio:checked").eq(0).val();
+        // data.language = $("input:radio:checked").eq(0).val();
+        data.append('language',$("input:radio:checked").eq(0).val());
         // 会议还是期刊
-        data.cj = $("input:radio:checked").eq(1).val();
+        // data.cj = $("input:radio:checked").eq(1).val();
+        data.append('cj',$("input:radio:checked").eq(1).val());
+        
         // 会议期刊详细属性
-        data.cjtype = $("input:radio:checked").eq(2).val();
+        // data.cjtype = $("input:radio:checked").eq(2).val();
+        data.append('cjtype',$("input:radio:checked").eq(2).val());
         // 日期
-        data.date = $("#date").val();
+        // data.date = $("#date").val();
+        data.append('date',$("#date").val());
         // 页码
-        data.page_1 = $("#page_1").val();
-        data.page_2 = $("#page_2").val();
+        // data.page_1 = $("#page_1").val();
+        // data.page_2 = $("#page_2").val();
+        data.append('page_1',$("#page_1").val());
+        data.append('page_2',$("#page_2").val());
 
         // 卷期同时处理
         volume = $("#volume").val();
         issue = $("#issue").val();
         if(volume){
-            data.volume = volume;
-            data.issue = issue;
+            // data.volume = volume;
+            // data.issue = issue;
+            data.append('volume',$("#volume").val());
+            data.append('issue',$("#issue").val());
         }
 
         var authorNames = $("input[label=\"authorname\"]");
@@ -337,9 +348,33 @@
             dic.type = authorTypes.eq(i).val();
             authors.push(dic);
         }
-        data.authors = authors;
-        console.log(data);
+        // data.authors = authors;
+        data.append('authors',JSON.stringify(authors));
+        data.append('paper', $("#file")[0].files[0]);
         
+        for (var pair of data.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]); 
+        }
+
+        data.append('csrfmiddlewaretoken', '{{ csrf_token }}');        
+
+        $.ajax({
+            url:'/process/',
+            type:'post',
+            data:data,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            // 发送文件 需要修改两个参数
+            contentType:false,
+            processData:false,
+
+            success:function (response) {
+                if (response.code == 1000){
+            //        window.location.href = response.url
+                }else{
+                    alert("fuck");
+                }
+            }
+        })
     });
 
     // add row
