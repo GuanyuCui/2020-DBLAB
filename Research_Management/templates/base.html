@@ -7,7 +7,7 @@
     <script src="{% static 'bootstrap/js/jquery.js' %}"></script>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-    <link rel="stylesheet" href="/media/css/{{ blog.site_theme }}">
+    {% comment %} <link rel="stylesheet" href="/media/css/{{ blog.site_theme }}"> {% endcomment %}
     {% block css %}
 
     {% endblock %}
@@ -78,9 +78,9 @@
                 </div>
                 <div class="panel-body text-center">
                     {% if request.user.is_authenticated %}
-                        <a href = "/set_img">
+                        {% comment %} <a href = "/set_img">
                         <img src="/media/user/sign.png" style="max-width: 50%" class="img-thumbnail img-responsive text-center" alt="用户头像">
-                        </a>
+                        </a> {% endcomment %}
                     {% else %}
                         <a href = "/login">
                         <img src="/static/user/annonymous.jpg" style="max-width: 50%" class="img-thumbnail img-responsive text-center" alt="用户头像">

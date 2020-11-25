@@ -52,9 +52,19 @@ def handle_uploaded_file(f,filename):
         for chunk in f.chunks():
             destination.write(chunk)
 
+def download(request):
+    file = open('data/4.2011-Personalized News Recommendation A Review and an Experimental Investigation.pdf', 'rb')
+    response = HttpResponse(file)
+
+    #设置头信息，告诉浏览器这是个文件
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = 'attachment;filename="a.pdf"'
+
+    return response
+
 def insert_process(request):
-    print("why?")
-    print(request)
+    # print("why?")
+    # print(request)
     if request.method == 'POST':
         # 可以设定重定向的url
         back_dic = {'url':'','code':1000}
@@ -80,7 +90,7 @@ def insert_process(request):
         authors = data['authors']
         authors = json.loads(authors)
         
-        print(authors,type(authors[0]))
+        # print(authors,type(authors[0]))
 
 
         # 存储pdf文件, 默认在data/paper.pdf

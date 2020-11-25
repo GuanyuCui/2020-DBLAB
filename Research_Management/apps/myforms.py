@@ -7,26 +7,26 @@ from apps import models
 
 class MyRegForm(forms.Form):
     username = forms.CharField(min_length=2, max_length=8, label='用户名',
-                               error_messages={
-                                   'min_length': '用户名不能少于两位',
-                                   'max_length': '用户名不能大于八位',
-                                   'required': '用户名不能为空',
-                               }, widget=forms.widgets.TextInput(attrs={'class': 'form-control'})
-                               )
+                                error_messages={
+                                    'min_length': '用户名不能少于两位',
+                                    'max_length': '用户名不能大于八位',
+                                    'required': '用户名不能为空',
+                                }, widget=forms.widgets.TextInput(attrs={'class': 'form-control'})
+                                )
     password = forms.CharField(min_length=3, max_length=8, label='密码',
-                               error_messages={
-                                   'min_length': '密码不能少于三位',
-                                   'max_length': '密码不能大于八位',
-                                   'required': '密码不能为空',
-                               }, widget=forms.widgets.PasswordInput(attrs={'class': 'form-control'})
-                               )
+                                error_messages={
+                                    'min_length': '密码不能少于三位',
+                                    'max_length': '密码不能大于八位',
+                                    'required': '密码不能为空',
+                                }, widget=forms.widgets.PasswordInput(attrs={'class': 'form-control'})
+                                )
     confirm_password = forms.CharField(min_length=3, max_length=8, label='确认密码',
-                                       error_messages={
-                                           'min_length': '确认密码不能少于三位',
-                                           'max_length': '确认密码不能大于八位',
-                                           'required': '确认密码不能为空',
-                                       }, widget=forms.widgets.PasswordInput(attrs={'class': 'form-control'})
-                                       )
+                                error_messages={
+                                    'min_length': '确认密码不能少于三位',
+                                    'max_length': '确认密码不能大于八位',
+                                    'required': '确认密码不能为空',
+                                }, widget=forms.widgets.PasswordInput(attrs={'class': 'form-control'})
+                                )
     # email = forms.EmailField(
     #     label='邮箱',
     #     error_messages={

@@ -42,7 +42,7 @@ urlpatterns = [
     # API
 
     url(r'^get_code/',views.get_code),
-
+    url(r'^download/',views.download,name="download"),
 
     #
     #

@@ -39,6 +39,8 @@
 6. detail页面需要根据paperid来返回数据
 7. 主页需要从临时表取数据
 8. url重塑, 为什么我无法在`insert`url中访问`insert/process/`？？？
+9. 在前端下载论文
+10. index、login、home这些函数应该合并吧？
 
 ## 前端
 
