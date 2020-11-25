@@ -29,6 +29,7 @@
 
 
 <script>
+    /*
     $('#myfile').change(function () {
         // 文件阅读器
         //1 产生一个文件阅读器对象
@@ -42,6 +43,7 @@
             $('#myimg').attr('src', fileReader.result)
         }
     });
+    */
 
     $('#commit').click(function () {
         // 由于你要发送的数据即有普通的键值 又有文件 所以考虑使用内置对象FormData
@@ -70,7 +72,8 @@
 
             success:function (data) {
                 if (data.code == 1000){
-                    window.location.href = data.url
+                    window.location.href = data.url;
+                    alert('用户创建成功');
                 }else{
                     $.each(data.msg,function (index,obj) {
                         // index就是一个个的报错字段名  obj就是数组 里面是报错信息

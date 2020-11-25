@@ -27,7 +27,7 @@
             {% if request.user.is_authenticated %}
                 <a class="navbar-brand" href="/home">中国人民大学信息学院 科研成果管理系统</a>
             {% else %}
-                <a class="navbar-brand" href="/login">中国人民大学信息学院 科研成果管理系统</a>
+                <a class="navbar-brand" href="/index">中国人民大学信息学院 科研成果管理系统</a>
             {% endif %}
         </div>
 
@@ -42,9 +42,9 @@
                     {% endif %}
                 {% else %}
                 <!-- 注意! 为调试方便，暂时允许不登录查看页面 -->
-                <li class="active"><a href="/login"> 主页 <span class="sr-only">(current)</span></a></li>
-                <li><a href="/login">添加项目</a></li>
-                <li><a href="/login">查询导出已有项目</a></li>
+                <li class="active"><a href="/index"> 主页 <span class="sr-only">(current)</span></a></li>
+                <li><a href="/index">添加项目</a></li>
+                <li><a href="/index">查询导出已有项目</a></li>
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -62,7 +62,7 @@
                     </li>
                 {% else %}
                     <!--<li><a href="/register">注册</a></li>-->
-                    <li><a href="/login">登录</a></li>
+                    <li><a href="/index">登录</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -82,7 +82,7 @@
                         <img src="/media/user/sign.png" style="max-width: 50%" class="img-thumbnail img-responsive text-center" alt="用户头像">
                         </a> {% endcomment %}
                     {% else %}
-                        <a href = "/login">
+                        <a href = "/index">
                         <img src="/static/user/annonymous.jpg" style="max-width: 50%" class="img-thumbnail img-responsive text-center" alt="用户头像">
                         </a>
                     {% endif %}
@@ -90,7 +90,7 @@
                     {% if request.user.is_authenticated %}
                         <a style="font-size:18px" href='/home'>{{ request.user.username }}</a>
                     {% else %}
-                        <a style="font-size:18px" href='/login'>（未登录）</a>
+                        <a style="font-size:18px" href='/index'>（未登录）</a>
                     {% endif %}
                 </div>
             </div>
@@ -109,9 +109,9 @@
                             <li><a style="font-size:16px" href="/createuser">创建新用户</a></li>
                         {% endif %}
                     {% else %}
-                        <li><a style="font-size:16px" href="/login">主页</a></li>
-                        <li><a style="font-size:16px" href="/login">添加项目</a></li>
-                        <li><a style="font-size:16px" href="/login">查询导出已有项目</a></li>
+                        <li><a style="font-size:16px" href="/index">主页</a></li>
+                        <li><a style="font-size:16px" href="/index">添加项目</a></li>
+                        <li><a style="font-size:16px" href="/index">查询导出已有项目</a></li>
                     {% endif %}
                 </ul>
             </div>
