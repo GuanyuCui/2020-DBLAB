@@ -18,8 +18,7 @@ class UserInfo(AbstractUser):
     def __str__(self):
         '''打印时会返回用户名，方便阅读'''
         return self.username
-
-
+        
 
 class Author(models.Model):
     authorid = models.CharField(db_column='AuthorID', primary_key=True, max_length=12)  # Field name made lowercase.
@@ -28,7 +27,7 @@ class Author(models.Model):
     class Meta:
         managed = False
         db_table = 'Author'
-    
+
     def __str__(self):
         '''打印时会返回用户名，方便阅读'''
         return (self.authorid, self.name)
@@ -53,8 +52,8 @@ class Conferjournal(models.Model):
 
 
 class Pa(models.Model):
-    paid = models.IntegerField(db_column='PAID', primary_key=True)  # Field name made lowercase.
-    papertitle = models.ForeignKey('Paper', models.DO_NOTHING, db_column='PaperTitle')  # Field name made lowercase.
+    paid = models.AutoField(db_column='PAID', primary_key=True)  # Field name made lowercase.
+    paperid = models.ForeignKey('Paper', models.DO_NOTHING, db_column='PaperID')  # Field name made lowercase.
     authorid = models.ForeignKey(Author, models.DO_NOTHING, db_column='AuthorID')  # Field name made lowercase.
     authorrank = models.IntegerField(db_column='AuthorRank')  # Field name made lowercase.
     authoridentity = models.CharField(db_column='AuthorIdentity', max_length=20)  # Field name made lowercase.
@@ -65,7 +64,8 @@ class Pa(models.Model):
 
 
 class Paper(models.Model):
-    title = models.CharField(db_column='Title', primary_key=True, max_length=100)  # Field name made lowercase.
+    paperid = models.AutoField(db_column='PaperID', primary_key=True)  # Field name made lowercase.
+    title = models.CharField(db_column='Title', max_length=100)  # Field name made lowercase.
     conferorjournal = models.CharField(db_column='ConferOrJournal', max_length=1)  # Field name made lowercase.
     conferjournalname = models.ForeignKey(Conferjournal, models.DO_NOTHING, db_column='ConferJournalName')  # Field name made lowercase.
     publishtime = models.DateField(db_column='PublishTime')  # Field name made lowercase.
@@ -76,15 +76,24 @@ class Paper(models.Model):
     keywords = models.CharField(db_column='Keywords', max_length=100, blank=True, null=True)  # Field name made lowercase.
     conferencelocation = models.CharField(db_column='ConferenceLocation', max_length=50, blank=True, null=True)  # Field name made lowercase.
     papertypeid = models.ForeignKey('Papertype', models.DO_NOTHING, db_column='PaperTypeID')  # Field name made lowercase.
-    language = models.CharField(db_column='Language', max_length=10, blank=True, null=True)  # Field name made lowercase.
+    language = models.CharField(db_column='Language', max_length=1, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'Paper'
-
+    
     def __str__(self):
         '''打印时会返回Paper的title，方便阅读'''
         return self.title
+
+
+class Paperfile(models.Model):
+    paperid = models.OneToOneField(Paper, models.DO_NOTHING, db_column='PaperID', primary_key=True)  # Field name made lowercase.
+    doc = models.TextField(db_column='Doc')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'PaperFile'
 
 
 class Papertype(models.Model):

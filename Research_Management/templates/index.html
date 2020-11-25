@@ -5,6 +5,10 @@
     <meta charset="utf-8" />
     <title>中国人民大学信息学院 科研成果管理系统 登录</title>
     
+    {% load static %}
+    <script src="{% static 'bootstrap/js/jquery.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
     <style>
         body {
             margin: 0px;
@@ -509,7 +513,7 @@
 <body>
     <nav id="nav">
         <div class="container">
-            <img src="/Public/images/index/logo.png" id="header-logo" />
+            <!-- <img src="/Public/images/index/logo.png" id="header-logo" /> -->
             <ul id="header-list">
                 <li><a>关于本系统</a>
                     <div id="aboutbox1">
@@ -543,10 +547,10 @@
             <div id="loginarea">
                 <div id="login-title">科研成果管理系统</div>
                 <div id="login-logo">
-                    <img src="/Public/images/index/logo.png" />
+                    <!-- <img src="/Public/images/index/logo.png" /> -->
                 </div>
                 <div id="login-pic">
-                    <img src="/Public/images/index/cloud.png">
+                    <!-- <img src="/Public/images/index/cloud.png"> -->
                 </div>
                 <div id="login-form">
                     <form id="loginform">
@@ -597,7 +601,7 @@
     <footer id="footer">
         <div class="container">
             <div class="column">
-                <img src="/Public/images/index/logo.png" />
+                <!-- <img src="/Public/images/index/logo.png" /> -->
                 <p class="copyright">
                     Copyright © 2020-2020 Info@RUC, All Rights Reserved.
                 </p>
@@ -611,8 +615,8 @@
         </div>
     </div>
 
-    <script src="/Public/js/jquery-1.10.2.js"></script>
-    <script src="/Public/js/jquery.cookie.js"></script>
+    <!-- <script src="/Public/js/jquery-1.10.2.js"></script>
+    <script src="/Public/js/jquery.cookie.js"></script> -->
     <script>
         $(document).ready(function () {
             $("#loginform").submit(function (event) {
@@ -672,20 +676,17 @@
             }
             return true;
         }
+        $('#img').click(function () {
+            // 点击  修改src原来值
+            $(this).attr('src', '/get_code/'+'?'+Math.random())
+            // var oldVal = $(this).attr('src');
+            // if (oldVal.endsWith('?')){
+            //     $(this).attr('src','/get_code/')
+            // }else{
+            //     $(this).attr('src',oldVal += '?')
+            // }
+        });
     </script>
-
-<script>
-    $('#img').click(function () {
-        // 点击  修改src原来值
-        $(this).attr('src', '/get_code/'+'?'+Math.random())
-        // var oldVal = $(this).attr('src');
-        // if (oldVal.endsWith('?')){
-        //     $(this).attr('src','/get_code/')
-        // }else{
-        //     $(this).attr('src',oldVal += '?')
-        // }
-    });
-</script>
 </body>
 
 </html>

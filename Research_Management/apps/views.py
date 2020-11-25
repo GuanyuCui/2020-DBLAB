@@ -68,9 +68,29 @@ def index(request):
     # 如果用户已登录，则跳转到主页
     if request.user.is_authenticated:
         return redirect('/home/')
-    
+    # 用户登录模块
+    if request.method == 'POST':
+        back_dic = {'code':1000, 'msg':''}
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        code = request.POST.get('code')
+        # 1 先校验验证码是否正确
+        if request.session.get('code').upper() == code.upper():
+            # 2 校验用户名和密码是否正确
+            user_obj = auth.authenticate(username=username, password=password)
+            if user_obj:
+                # 3 保存用户登录状态
+                auth.login(request, user_obj)
+                back_dic['url'] = '/home/'
+            else:
+                back_dic['code'] = 2000
+                back_dic['msg'] = '用户名或密码错误'
+        else:
+            back_dic['code'] = 3000
+            back_dic['msg'] = '验证码错误'
+        return JsonResponse(back_dic)
 
-    return render(request, 'index.html', locals())
+    return render(request, 'index.html')
 
 # 登录
 def login(request):
@@ -101,7 +121,7 @@ def login(request):
 def logout(request):
     # 删除用户session信息
     auth.logout(request)  # request.session.flush()
-    return redirect('/login/')
+    return redirect('/home/')
 
 # 添加
 @login_required
