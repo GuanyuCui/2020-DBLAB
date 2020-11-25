@@ -111,6 +111,9 @@ def query_process(request):
         print(data,type(data))
         return JsonResponse(back_dic)
 
+def errors(request):
+    return render(request, 'errors.html', locals())
+    
 # 首页
 def index(request):
     # 如果用户已登录，则跳转到主页
@@ -169,7 +172,7 @@ def login(request):
 def logout(request):
     # 删除用户session信息
     auth.logout(request)  # request.session.flush()
-    return redirect('/home/')
+    return redirect('/index.html')
 
 # 添加
 @login_required

@@ -23,8 +23,9 @@ urlpatterns = [
     # 页面
     
     url(r'^$', views.test), # 测试
+    url(r'^errors/', views.errors),
     url(r'^index/', views.index),
-    url(r'^login/', views.login),
+    # url(r'^login/', views.login),
     url(r'^logout/$', views.logout),
     url(r'^home/', views.home),
     url(r'^insert/', views.insert),
