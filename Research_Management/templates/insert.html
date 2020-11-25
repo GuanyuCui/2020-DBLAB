@@ -359,10 +359,9 @@
         data.append('csrfmiddlewaretoken', '{{ csrf_token }}');        
 
         $.ajax({
-            url:'/process/',
+            url:'/process_i/',
             type:'post',
             data:data,
-            csrfmiddlewaretoken: '{{ csrf_token }}',
             // 发送文件 需要修改两个参数
             contentType:false,
             processData:false,

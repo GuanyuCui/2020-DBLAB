@@ -134,7 +134,7 @@
                                         <span class="input-group-addon"
                                             style="width:100px; padding:3px 10px;">筛选条件</span>
                                         <div class="input-group-btn">
-                                            <select id="inputTextType" class="form-control"
+                                            <select id="inputTextType" class="form-control" label="key"
                                                 style="width:100px; padding:3px 10px;">
                                                 <option id="chosenTitle">论文题目</option>
                                                 <option>期刊名称</option>
@@ -142,7 +142,7 @@
                                                 <option>作者姓名</option>
                                             </select>
                                         </div>
-                                        <input id="inputText" type="text" class="form-control" placeholder="请输入...">
+                                        <input id="inputText" type="text" class="form-control" label="value" placeholder="请输入...">
                                     </div>
                                 </div>
 
@@ -420,25 +420,54 @@
         var DateDuration = new Array();
         DateDuration[0] = $("#datetimepicker1").find("input").val();
         DateDuration[1] = $("#datetimepicker2").find("input").val();
-        console.log(DateDuration);
-        // 前台传值方法
-        $.ajax({
-            type: "post", // 以post方式发起请求
-            url: " ", // 你的请求链接
-            data: { // 提交数据
+        
+        var keys = $("select[label=\"key\"]");
+        var values = $("input[label=\"value\"]");
+        var conditions = $("select[label=\"condition\"]");
+        
+        var querys = new Array;
+        for (var i = 0;i < keys.length;i++){
+            var query = new Object;
+            if (!i){
+                query.condition = '';
+                query.key = keys.eq(i).val();
+                query.value = values.eq(i).val();
+            }
+            else{
+                query.condition = conditions.eq(i-1).val();
+                query.key = keys.eq(i).val();
+                query.value = values.eq(i).val();
+            }
+            querys.push(query);
+        }
+
+        var data = { // 提交数据
+                "querys": querys,
                 "authorType": authorType, // 前者为字段名，后者为数据
                 "paperType": authorType,
                 "CCFRank": CCFRank,
                 "CCFChinaRank": CCFChinaRank,
                 "RUCRank": RUCRank,
-                "time": DateDuration
-            },
-            success(data) {
-                // data为返回值
-                // 成功后的回调方法
-            }
-        });
+                "time": DateDuration,
+                "csrfmiddlewaretoken": '{{ csrf_token }}'
+            };
+        
+        console.log(data);
 
+        $.ajax({
+            url:'/process_q/',
+            type:'post',
+            data:data,
+            // 发送文件 需要修改两个参数
+
+            success:function (response) {
+                if (response.code == 1000){
+            //        window.location.href = response.url
+                }else{
+                    alert("fuck");
+                }
+            }
+        })
     });
 </script>
 
@@ -450,21 +479,21 @@
         html += '<div class="input-group">';
         html += '<div class="input-group-btn">';
         html +=
-            '<select class="form-control" style="width:100px;padding:3px 10px;">';
+            '<select class="form-control" label="condition" style="width:100px;padding:3px 10px;">';
         html += '<option>AND</option>';
         html += '<option>OR</option>';
         html += '</select>';
         html += '</div>';
         html += '<div class="input-group-btn">';
         html +=
-            '<select class="form-control" style="width:100px; padding:3px 10px;">';
+            '<select class="form-control" label="key"  style="width:100px; padding:3px 10px;">';
         html += '<option>论文题目</option>';
         html += '<option>期刊名称</option>';
         html += '<option>会议名称</option>';
         html += '<option>作者姓名</option>';
         html += '</select>';
         html += '</div>';
-        html += '<input type="text" class="form-control" placeholder="请输入...">';
+        html += '<input type="text" class="form-control" label="value" placeholder="请输入...">';
         html += '<div class="input-group-btn">';
         html += '<div class="input-group-append">';
         html += '<button id="removeRow" type="button" class="btn btn-danger">  删  除  </button>';

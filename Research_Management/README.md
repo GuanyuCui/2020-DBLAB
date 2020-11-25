@@ -38,6 +38,7 @@
 5. 查询也根据query返回相应的数据内容
 6. detail页面需要根据paperid来返回数据
 7. 主页需要从临时表取数据
+8. url重塑, 为什么我无法在`insert`url中访问`insert/process/`？？？
 
 ## 前端
 
@@ -105,20 +106,20 @@ data_post = {
 期刊相关：
 - 卷：volume
 - 期：issue
-- 正刊 or 增刊：papertypeid，这里前端人员自己内部定一下，然后在这里写一下，让做后端的人
+- 正刊 or 增刊：cjtype，这里前端人员自己内部定一下，然后在这里写一下，让做后端的人
 
 会议相关：
 - 举办国家：nation（审核页里的需求，insert页里不用）
 - 举办城市：city（审核页里的需求，insert页里不用）
-- 长文 or 短文 or Demo：papertypeid，这里前端人员自己内部定一下，然后在这里写一下，让做后端的人明白即可
-- Oral or Poster：papertypeid，这里前端人员自己内部定一下，然后在这里写一下，让做后端的人明白即可
+- 长文 or 短文 or Demo：cjtype，这里前端人员自己内部定一下，然后在这里写一下，让做后端的人明白即可
+- Oral or Poster：cjtype，这里前端人员自己内部定一下，然后在这里写一下，让做后端的人明白即可
 
 
 ## 查询里的json
 
 ### 基本内容
 
-最主要的那部分query：base，里面形式如下：[{title: "xxx", condition:"" },{authorname:"xxx", “condition”:"AND"}]，还有就是confername，journalname。即列表套字典。condition代表的是and或者or，如果只有一条，那么就是none
+最主要的那部分query，里面形式如下：[{key: "xxx", value:"xxx",condition:"" }...]，还有就是confername，journalname。即列表套字典。condition代表的是and或者or，如果只有一条，那么就是空字符串
 
 作者类型：authortype，是一个列表，就拿0，1，2来表示吧
 

@@ -52,8 +52,9 @@ def handle_uploaded_file(f,filename):
         for chunk in f.chunks():
             destination.write(chunk)
 
-def process(request):
-    
+def insert_process(request):
+    print("why?")
+    print(request)
     if request.method == 'POST':
         # 可以设定重定向的url
         back_dic = {'url':'','code':1000}
@@ -91,6 +92,14 @@ def process(request):
         
     else:
         return HttpResponse("<h1>WRONG!</h1>")
+
+def query_process(request):
+    if request.method == 'POST':
+        back_dic = {'url':'','code':1000}
+        data = request.POST
+        # 数据形式可以在query页的console中查看
+        print(data,type(data))
+        return JsonResponse(back_dic)
 
 # 首页
 def index(request):
