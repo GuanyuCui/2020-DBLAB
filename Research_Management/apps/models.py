@@ -105,3 +105,43 @@ class Papertype(models.Model):
         db_table = 'PaperType'
         
 
+class Tmppa(models.Model):
+    paid = models.AutoField(db_column='PAID', primary_key=True)  # Field name made lowercase.
+    paperid = models.ForeignKey('Tmppaper', models.DO_NOTHING, db_column='PaperID')  # Field name made lowercase.
+    authorid = models.ForeignKey(Author, models.DO_NOTHING, db_column='AuthorID')  # Field name made lowercase.
+    authorrank = models.IntegerField(db_column='AuthorRank')  # Field name made lowercase.
+    authoridentity = models.CharField(db_column='AuthorIdentity', max_length=20)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'tmpPA'
+
+
+class Tmppaper(models.Model):
+    paperid = models.AutoField(db_column='PaperID', primary_key=True)  # Field name made lowercase.
+    commitauthorid = models.ForeignKey(Author, models.DO_NOTHING, db_column='CommitAuthorID')  # Field name made lowercase.
+    title = models.CharField(db_column='Title', max_length=100)  # Field name made lowercase.
+    conferorjournal = models.CharField(db_column='ConferOrJournal', max_length=1)  # Field name made lowercase.
+    conferjournalname = models.ForeignKey(Conferjournal, models.DO_NOTHING, db_column='ConferJournalName')  # Field name made lowercase.
+    publishtime = models.DateField(db_column='PublishTime')  # Field name made lowercase.
+    volume = models.IntegerField(db_column='Volume', blank=True, null=True)  # Field name made lowercase.
+    issue = models.IntegerField(db_column='Issue', blank=True, null=True)  # Field name made lowercase.
+    startpage = models.IntegerField(db_column='StartPage')  # Field name made lowercase.
+    endpage = models.IntegerField(db_column='EndPage')  # Field name made lowercase.
+    keywords = models.CharField(db_column='Keywords', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    conferencelocation = models.CharField(db_column='ConferenceLocation', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    papertypeid = models.ForeignKey(Papertype, models.DO_NOTHING, db_column='PaperTypeID')  # Field name made lowercase.
+    language = models.CharField(db_column='Language', max_length=1, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'tmpPaper'
+
+
+class Tmppaperfile(models.Model):
+    paperid = models.OneToOneField(Tmppaper, models.DO_NOTHING, db_column='PaperID', primary_key=True)  # Field name made lowercase.
+    doc = models.TextField(db_column='Doc')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'tmpPaperFile'

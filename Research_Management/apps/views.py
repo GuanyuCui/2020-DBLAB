@@ -172,7 +172,7 @@ def login(request):
 def logout(request):
     # 删除用户session信息
     auth.logout(request)  # request.session.flush()
-    return redirect('/index.html')
+    return redirect('/index/')
 
 # 添加
 @login_required
