@@ -433,12 +433,10 @@
         for (var pair of data.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
-
-
         data.append('csrfmiddlewaretoken', '{{ csrf_token }}');
 
         $.ajax({
-            url: '/process/',
+            url: '/process_i/',
             type: 'post',
             data: data,
             csrfmiddlewaretoken: '{{ csrf_token }}',
@@ -450,7 +448,7 @@
                 if (response.code == 1000) {
                     //        window.location.href = response.url
                 } else {
-                    alert("fuck");
+                    alert("Post not handled properly");
                 }
             }
         })

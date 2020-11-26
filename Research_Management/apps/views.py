@@ -47,6 +47,8 @@ def createuser(request):
         return JsonResponse(back_dic)
     return render(request, 'createuser.html', locals())
 
+# def update_password(request):
+    
 def handle_uploaded_file(f,filename):
     with open('data/%s' % filename, 'wb+') as destination:
         for chunk in f.chunks():
