@@ -97,230 +97,260 @@
 <body>
 
     <div class="col-md-10">
-        <div class="row">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 查询论文
-                    (<em style="color: red;">*</em>为必填项)
-                </div>
-                <div class="panel-body">
-
-
-                    <form method="post" action="">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div id="inputFormRow">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"
-                                            style="width:100px; padding:3px 10px;">筛选条件</span>
-                                        <div class="input-group-btn">
-                                            <select id="inputTextType" class="form-control" label="key"
-                                                style="width:100px; padding:3px 10px;">
-                                                <option id="chosenTitle">论文题目</option>
-                                                <option>期刊名称</option>
-                                                <option>会议名称</option>
-                                                <option>作者姓名</option>
-                                            </select>
-                                        </div>
-                                        <input id="inputText" type="text" class="form-control" label="value"
-                                            placeholder="请输入...">
-                                    </div>
-                                </div>
-
-                                <div id="newRow"></div>
-                                <button id="addRow" type="button" class="btn btn-info"> 添 加 </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="panel-body">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 查询论文
+                (<em style="color: red;">*</em>为必填项)
+            </div>
+            <div class="panel-body">
+                <form method="post" action="">
                     <div class="row">
-                        <div class="col-md-2">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <em style="color: red;">*</em>
-                                    作者类型
-                                </div>
-                                <div class="panel-body">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" id="authorAll"
-                                                onclick="checkOrCancelAll('authorAll','authorType');" /><span
-                                                id="mySpan">全选</span>
-                                        </label>
+                        <div class="col-lg-12">
+                            <div id="inputFormRow">
+                                <div class="input-group">
+                                    <span class="input-group-addon" style="width:100px; padding:3px 10px;">筛选条件</span>
+                                    <div class="input-group-btn">
+                                        <select id="inputTextType" class="form-control" label="key"
+                                            style="width:100px; padding:3px 10px;">
+                                            <option id="chosenTitle">论文题目</option>
+                                            <option>期刊名称</option>
+                                            <option>会议名称</option>
+                                            <option>作者姓名</option>
+                                        </select>
                                     </div>
-                                    <!-- <br> -->
-                                    <label class="checkbox-inline">
-                                        <input id="firstAuthor" type="checkbox" name="authorType" value="option1">第一作者
-                                    </label>
-                                    <br>
-                                    <label class="checkbox-inline">
-                                        <input id="corrAuthor" type="checkbox" name="authorType" value="option2">通讯作者
-                                    </label>
-                                    <br>
-                                    <label class="checkbox-inline">
-                                        <input id="otherAuthor" type="checkbox" name="authorType" value="option3">其他作者
-                                    </label>
+                                    <input id="inputText" type="text" class="form-control" label="value"
+                                        placeholder="请输入...">
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xs-1">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <em style="color: red;">*</em>
-                                    论文类型
-                                </div>
-                                <div class="panel-body">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" id="paperAll"
-                                                onclick="checkOrCancelAll('paperAll','paperType');" /><span
-                                                id="mySpan2">全选</span>
-                                        </label>
-                                    </div>
-                                    <label class="checkbox-inline">
-                                        <input id="Journalmain" type="checkbox" name="paperType" value="option1">正刊
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="JournalSS" type="checkbox" name="paperType" value="option2">专刊
-                                    </label>
-                                    <br>
-                                    <label class="checkbox-inline">
-                                        <input id="JournalAdd" type="checkbox" name="paperType" value="option2">增刊
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="longPaper" type="checkbox" name="paperType" value="option3">长文
-                                    </label>
-                                    <br>
-                                    <label class="checkbox-inline">
-                                        <input id="shortPaper" type="checkbox" name="paperType" value="option1">短文
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="demo" type="checkbox" name="paperType" value="option2">Demo
-                                    </label>
-                                    <br>
-                                    <label class="checkbox-inline">
-                                        <input id="oral" type="checkbox" name="paperType" value="option3">Oral
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="poster" type="checkbox" name="paperType" value="option3">Poster
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-2">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <em style="color: red;">*</em>
-                                    论文等级
-                                </div>
-                                <div class="panel-body">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" id="rankAll"
-                                                onclick="checkOrCancelAll('rankAll','rankType');" /><span
-                                                id="mySpan2">全选</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-4" for="select">CCF：</div>
-                                    <label class="checkbox-inline">
-                                        <input id="CCFAP" type="checkbox" name="rankType" value="option1">A+
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="CCFA" type="checkbox" name="rankType" value="option2">A
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="CCFAM" type="checkbox" name="rankType" value="option3">A-
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="CCFB" type="checkbox" name="rankType" value="option3">B
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="CCFC" type="checkbox" name="rankType" value="option3">C
-                                    </label>
-                                    <br>
-                                    <div class="col-md-4" for="select">CCF中文：</div>
-                                    <label class="checkbox-inline">
-                                        <input id="CCFChinaAP" type="checkbox" name="rankType" value="option1">A+
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="CCFChinaA" type="checkbox" name="rankType" value="option2">A
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="CCFChinaAM" type="checkbox" name="rankType" value="option3">A-
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="CCFChinaB" type="checkbox" name="rankType" value="option3">B
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="CCFChinaC" type="checkbox" name="rankType" value="option3">C
-                                    </label>
-                                    <br>
-                                    <div class="col-md-4 control-label" for="select">RUC：</div>
-                                    <label class="checkbox-inline">
-                                        <input id="RUCAP" type="checkbox" name="rankType" value="option1">A+
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="RUCA" type="checkbox" name="rankType" value="option2">A
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="RUCAM" type="checkbox" name="rankType" value="option3">A-
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="RUCB" type="checkbox" name="rankType" value="option3">B
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input id="RUCC" type="checkbox" name="rankType" value="option3">C
-                                    </label>
-                                    <br>
 
+                            <div id="newRow"></div>
+                            <button id="addRow" type="button" class="btn btn-info"> 添 加 </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <em style="color: red;">*</em>
+                                作者类型
+                            </div>
+                            <div class="panel-body">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="authorAll"
+                                            onclick="checkOrCancelAll('authorAll','authorType');" /><span
+                                            id="mySpan">全选</span>
+                                    </label>
                                 </div>
+                                <!-- <br> -->
+                                <label class="checkbox-inline">
+                                    <input id="firstAuthor" type="checkbox" name="authorType" value="option1">第一作者
+                                </label>
+                                <br>
+                                <label class="checkbox-inline">
+                                    <input id="corrAuthor" type="checkbox" name="authorType" value="option2">通讯作者
+                                </label>
+                                <br>
+                                <label class="checkbox-inline">
+                                    <input id="otherAuthor" type="checkbox" name="authorType" value="option3">其他作者
+                                </label>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <em style="color: red;">*</em>
-                                    论文发布日期
+                    </div>
+                    <div class="col-xs-1">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <em style="color: red;">*</em>
+                                论文类型
+                            </div>
+                            <div class="panel-body">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="paperAll"
+                                            onclick="checkOrCancelAll('paperAll','paperType');" /><span
+                                            id="mySpan2">全选</span>
+                                    </label>
                                 </div>
-                                <div class="panel-body">
-                                    <div class='col-sm-12'>
-                                        <div class="form-group">
-                                            <div for="select">开始日期</div>
-                                            <div class='input-group date' id='datetimepicker1'>
-                                                <input type='text' class="form-control" />
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class='col-sm-12'>
-                                        <div class="form-group">
-                                            <div for="select">结束日期</div>
-                                            <div class='input-group date' id='datetimepicker2'>
-                                                <input type='text' class="form-control" />
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <label class="checkbox-inline">
+                                    <input id="Journalmain" type="checkbox" name="paperType" value="option1">正刊
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="JournalSS" type="checkbox" name="paperType" value="option2">专刊
+                                </label>
+                                <br>
+                                <label class="checkbox-inline">
+                                    <input id="JournalAdd" type="checkbox" name="paperType" value="option2">增刊
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="longPaper" type="checkbox" name="paperType" value="option3">长文
+                                </label>
+                                <br>
+                                <label class="checkbox-inline">
+                                    <input id="shortPaper" type="checkbox" name="paperType" value="option1">短文
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="demo" type="checkbox" name="paperType" value="option2">Demo
+                                </label>
+                                <br>
+                                <label class="checkbox-inline">
+                                    <input id="oral" type="checkbox" name="paperType" value="option3">Oral
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="poster" type="checkbox" name="paperType" value="option3">Poster
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <em style="color: red;">*</em>
+                                论文等级
+                            </div>
+                            <div class="panel-body">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="rankAll"
+                                            onclick="checkOrCancelAll('rankAll','rankType');" /><span
+                                            id="mySpan2">全选</span>
+                                    </label>
                                 </div>
+                                <div class="col-md-4" for="select">CCF：</div>
+                                <label class="checkbox-inline">
+                                    <input id="CCFAP" type="checkbox" name="rankType" value="option1">A+
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="CCFA" type="checkbox" name="rankType" value="option2">A
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="CCFAM" type="checkbox" name="rankType" value="option3">A-
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="CCFB" type="checkbox" name="rankType" value="option3">B
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="CCFC" type="checkbox" name="rankType" value="option3">C
+                                </label>
+                                <br>
+                                <div class="col-md-4" for="select">CCF中文：</div>
+                                <label class="checkbox-inline">
+                                    <input id="CCFChinaAP" type="checkbox" name="rankType" value="option1">A+
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="CCFChinaA" type="checkbox" name="rankType" value="option2">A
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="CCFChinaAM" type="checkbox" name="rankType" value="option3">A-
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="CCFChinaB" type="checkbox" name="rankType" value="option3">B
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="CCFChinaC" type="checkbox" name="rankType" value="option3">C
+                                </label>
+                                <br>
+                                <div class="col-md-4 control-label" for="select">RUC：</div>
+                                <label class="checkbox-inline">
+                                    <input id="RUCAP" type="checkbox" name="rankType" value="option1">A+
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="RUCA" type="checkbox" name="rankType" value="option2">A
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="RUCAM" type="checkbox" name="rankType" value="option3">A-
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="RUCB" type="checkbox" name="rankType" value="option3">B
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input id="RUCC" type="checkbox" name="rankType" value="option3">C
+                                </label>
+                                <br>
 
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-offset-5">
-                        <input id="commit" type="button" ID="btnSearch" value="  查  询  " class="btn btn-success" />
+                    <div class="col-md-3">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <em style="color: red;">*</em>
+                                论文发布日期
+                            </div>
+                            <div class="panel-body">
+                                <div class='col-sm-12'>
+                                    <div class="form-group">
+                                        <div for="select">开始日期</div>
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            <input type='text' class="form-control" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class='col-sm-12'>
+                                    <div class="form-group">
+                                        <div for="select">结束日期</div>
+                                        <div class='input-group date' id='datetimepicker2'>
+                                            <input type='text' class="form-control" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
+                <div class="col-md-offset-5">
+                    <input id="commit" type="button" ID="btnSearch" value="  查  询  " class="btn btn-success" />
+                </div>
+            </div>
 
 
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 查询结果
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped" >
+                    <!-- style="table-layout:fixed;" -->
+                    <thead>
+                        <tr>
+                            <th>论文标题</th>
+                            <th>期刊/会议</th>
+                            <th>作者类型</th>
+                            <th>发布日期</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inputFormRow">
+                        <tr>
+                            <td>
+                                Title
+                            </td>
+                            <td>
+                                Conference/Journal Name
+                            </td>
+                            <td>
+                                第一作者
+                            </td>
+                            <td>
+                                2020-11-26
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+
 
 </body>
 
