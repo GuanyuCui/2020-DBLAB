@@ -302,20 +302,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-offset-0">
-                            
-                            {% comment %} 
-                            <a class="btn btn-success" href="#" rel="external nofollow" role="button"
-                                style="margin-left: 30px;">提 交</a> 
-                            {% endcomment %}
-
-                            <div class="upload-wrap anticon col-md-offset-5" nv-file-drop="" uploader="uploader">
-                                <input class="file-ele" type="file" id="file" value="上传文件" file-model="image" name="image" nv-file-select uploader="uploader" multiple />
-                                <div class="file-open"><em class="icon icon-upload"></em>&nbsp;上传电子版</div>    
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="upload-wrap anticon col-md-offset-0" nv-file-drop="" uploader="uploader">
+                                    <input class="file-ele" type="file" id="file" value="上传文件" file-model="image"
+                                        name="image" nv-file-select uploader="uploader" multiple />
+                                    <div class="file-open"><em class="icon icon-upload"></em>&nbsp;上传电子版</div>
+                                </div>
                             </div>
-                            <br>
-                            <input class="btn btn-success" href="#" rel="external nofollow" type="button" id="commit" value="提 交" style="margin-left:445px">
-
+                            <div class="col-md-1">
+                                <input style="left:2px" class="btn btn-success" href="#" rel="external nofollow" type="button"
+                                    id="commit" value="提 交" style="margin-left:445px">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -517,7 +515,7 @@
         html_1 += '<div id="c_row_1">';
         html_1 += '<div class="col-md-3">';
         html_1 += '<div class="panel panel-info">';
-        html_1 += '<div class="panel-heading">会议论文类型</div>';
+        html_1 += '<div class="panel-heading"><em style="color: red;margin-right: 5px;">*</em>会议论文类型</div>';
         html_1 += '<div class="panel-body">';
         html_1 += '<label class="radio-inline">';
         html_1 += '<input type="radio" name="c_type" value="长文" id="long_essay">长文</label>';
@@ -529,10 +527,10 @@
         html_1 += '</div>';
         html_1 += '</div>';
 
-        html_2 += '<div id="c_row_1">';
+        html_2 += '<div id="c_row_2">';
         html_2 += '<div class="col-md-3">';
         html_2 += '<div class="panel panel-info">';
-        html_2 += '<div class="panel-heading">会议论文类型(补充)</div>';
+        html_2 += '<div class="panel-heading"><em style="color: red;margin-right: 5px;">*</em>会议论文类型(补充)</div>';
         html_2 += '<div class="panel-body">';
         html_2 += '<label class="radio-inline">';
         html_2 += '<input type="radio" name="c_type" value="长文" id="long_essay">长文</label>';
@@ -547,6 +545,7 @@
 
         $('#c_row').remove();
         $('#c_row_1').remove();
+        $('#c_row_2').remove();
         $('#jj_row').remove();
         $('#j_row_1').remove();
         $('#jj_row_1').remove();
@@ -587,7 +586,7 @@
         html_1 += '<div id="j_row_1">';
         html_1 += '<div class="col-md-3">';
         html_1 += '<div class="panel panel-info">';
-        html_1 += '<div class="panel-heading">期刊论文类型</div>';
+        html_1 += '<div class="panel-heading"><em style="color: red;margin-right: 5px;">*</em>期刊论文类型</div>';
         html_1 += '<div class="panel-body">';
         html_1 += '<label class="radio-inline">';
         html_1 += '<input type="radio" name="j_type" value="正刊" checked/>正刊</label>';
@@ -604,6 +603,7 @@
         $('#j_row').remove();
         $('#j_row_1').remove();
         $('#c_row_1').remove();
+        $('#c_row_2').remove();
         $('#jj_row').remove();
         $('#jj_row_1').remove();
         $('#demo_row').remove();
