@@ -56,6 +56,33 @@
     });
 </script>
 
+<title>checkbox的全选和取消全选</title>
+<script type="text/javascript">
+    //页面加载的时候,所有的复选框都是未选中的状态
+    function checkOrCancelAll(id, type) {
+        var chElt = document.getElementById(id);
+        //2.获取选中状态
+        var checkedElt = chElt.checked;
+        console.log(checkedElt)
+        //3.若checked=true,将所有的复选框选中,checked=false,将所有的复选框取消
+        var allCheck = document.getElementsByName(type);
+        //4.循环遍历取出每一个复选框中的元素
+        //var mySpan=document.getElementById("mySpan");
+        if (checkedElt) {
+            //全选
+            for (var i = 0; i < allCheck.length; i++) {
+                //设置复选框的选中状态
+                allCheck[i].checked = true;
+            }
+        } else {
+            //取消全选
+            for (var i = 0; i < allCheck.length; i++) {
+                allCheck[i].checked = false;
+            }
+        }
+    };
+</script>
+
 <style>
     .col-xs-1 {
         width: 18% !important;
@@ -66,66 +93,19 @@
     }
 </style>
 
-<head>
-
-
-    <!--<meta charset="utf-8"> -->
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Add or Remove Input Fields Dynamically using jQuery - MyNotePaper</title>
-
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
-    </script>
-
-    <title>checkbox的全选和取消全选</title>
-    <script type="text/javascript">
-        //页面加载的时候,所有的复选框都是未选中的状态
-        function checkOrCancelAll(id, type) {
-            var chElt = document.getElementById(id);
-            //2.获取选中状态
-            var checkedElt = chElt.checked;
-            console.log(checkedElt)
-            //3.若checked=true,将所有的复选框选中,checked=false,将所有的复选框取消
-            var allCheck = document.getElementsByName(type);
-            //4.循环遍历取出每一个复选框中的元素
-            //var mySpan=document.getElementById("mySpan");
-            if (checkedElt) {
-                //全选
-                for (var i = 0; i < allCheck.length; i++) {
-                    //设置复选框的选中状态
-                    allCheck[i].checked = true;
-                }
-                //mySpan.innerHTML="取消全选";
-            } else {
-                //取消全选
-                for (var i = 0; i < allCheck.length; i++) {
-                    allCheck[i].checked = false;
-                }
-                //mySpan.innerHTML="全选";
-            }
-        };
-    </script>
-</head>
 
 <body>
 
-    <!-- <h3 class="col-md-3 col-md-offset-4">项目查询</h3> -->
     <div class="col-md-10">
-        <!-- <div class="container-fluid"> -->
-
         <div class="row">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 查询
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 查询论文
+                    (<em style="color: red;">*</em>为必填项)
                 </div>
                 <div class="panel-body">
+
+
                     <form method="post" action="">
                         <div class="row">
                             <div class="col-lg-12">
@@ -142,7 +122,8 @@
                                                 <option>作者姓名</option>
                                             </select>
                                         </div>
-                                        <input id="inputText" type="text" class="form-control" label="value" placeholder="请输入...">
+                                        <input id="inputText" type="text" class="form-control" label="value"
+                                            placeholder="请输入...">
                                     </div>
                                 </div>
 
@@ -157,13 +138,10 @@
                         <div class="col-md-2">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
+                                    <em style="color: red;">*</em>
                                     作者类型
                                 </div>
                                 <div class="panel-body">
-                                    <!-- <div class="col-md-4 control-label" for="select">作者类型：</div> -->
-                                    <!-- <label class="radio-inline">
-                                    <input type="radio" value="option2" name="sex">全选
-                                </label> -->
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" id="authorAll"
@@ -189,10 +167,10 @@
                         <div class="col-xs-1">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
+                                    <em style="color: red;">*</em>
                                     论文类型
                                 </div>
                                 <div class="panel-body">
-                                    <!-- <div class="col-md-4 control-label" for="select">作者类型：</div> -->
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" id="paperAll"
@@ -233,6 +211,7 @@
                         <div class="col-xs-2">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
+                                    <em style="color: red;">*</em>
                                     论文等级
                                 </div>
                                 <div class="panel-body">
@@ -301,6 +280,7 @@
                         <div class="col-md-3">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
+                                    <em style="color: red;">*</em>
                                     论文发布日期
                                 </div>
                                 <div class="panel-body">
@@ -347,6 +327,9 @@
 
 <script>
     // 试了一下
+    function sum(arr) {
+        return eval(arr.join("+"));
+    };
     $('#commit').click(function () {
         var authorType = new Array();
         var authorFirst = document.getElementById('firstAuthor');
@@ -356,6 +339,10 @@
         if (authorFirst.checked) authorType[0] = 1;
         if (authorCorr.checked) authorType[1] = 1;
         if (authorOther.checked) authorType[2] = 1;
+        if (sum(authorType) == 0) {
+            alert("请选择作者类型");
+            return;
+        }
 
         var paperType = new Array();
         var Journalmain = document.getElementById('Journalmain');
@@ -376,6 +363,10 @@
         if (demo.checked) paperType[5] = 1;
         if (oral.checked) paperType[6] = 1;
         if (poster.checked) paperType[7] = 1;
+        if (sum(paperType) == 0) {
+            alert("请选择论文类型");
+            return;
+        }
 
 
         var CCFRank = new Array();
@@ -417,24 +408,36 @@
         if (RUCB.checked) RUCRank[3] = 1;
         if (RUCC.checked) RUCRank[4] = 1;
 
+        if (sum(CCFRank) + sum(CCFChinaRank) + sum(RUCRank) == 0) {
+            alert("请选择论文等级");
+            return;
+        }
+
         var DateDuration = new Array();
         DateDuration[0] = $("#datetimepicker1").find("input").val();
         DateDuration[1] = $("#datetimepicker2").find("input").val();
-        
+        if (DateDuration[0] == "") {
+            alert("请选择开始日期");
+            return;
+        }
+        if (DateDuration[1] == "") {
+            alert("请选择结束日期");
+            return;
+        }
+
         var keys = $("select[label=\"key\"]");
         var values = $("input[label=\"value\"]");
         var conditions = $("select[label=\"condition\"]");
-        
+
         var querys = new Array;
-        for (var i = 0;i < keys.length;i++){
+        for (var i = 0; i < keys.length; i++) {
             var query = new Object;
-            if (!i){
+            if (!i) {
                 query.condition = '';
                 query.key = keys.eq(i).val();
                 query.value = values.eq(i).val();
-            }
-            else{
-                query.condition = conditions.eq(i-1).val();
+            } else {
+                query.condition = conditions.eq(i - 1).val();
                 query.key = keys.eq(i).val();
                 query.value = values.eq(i).val();
             }
@@ -442,28 +445,28 @@
         }
 
         var data = { // 提交数据
-                "querys": querys,
-                "authorType": authorType, // 前者为字段名，后者为数据
-                "paperType": authorType,
-                "CCFRank": CCFRank,
-                "CCFChinaRank": CCFChinaRank,
-                "RUCRank": RUCRank,
-                "time": DateDuration,
-                "csrfmiddlewaretoken": '{{ csrf_token }}'
-            };
-        
+            "querys": querys,
+            "authorType": authorType, // 前者为字段名，后者为数据
+            "paperType": authorType,
+            "CCFRank": CCFRank,
+            "CCFChinaRank": CCFChinaRank,
+            "RUCRank": RUCRank,
+            "time": DateDuration,
+            "csrfmiddlewaretoken": '{{ csrf_token }}'
+        };
+
         console.log(data);
 
         $.ajax({
-            url:'/process_q/',
-            type:'post',
-            data:data,
+            url: '/process_q/',
+            type: 'post',
+            data: data,
             // 发送文件 需要修改两个参数
 
-            success:function (response) {
-                if (response.code == 1000){
-            //        window.location.href = response.url
-                }else{
+            success: function (response) {
+                if (response.code == 1000) {
+                    //        window.location.href = response.url
+                } else {
                     alert("fuck");
                 }
             }
