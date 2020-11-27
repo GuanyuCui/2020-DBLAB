@@ -10,7 +10,8 @@ register_list = [
     models.Conferjournal,
     models.Pa,
     models.Paper,
-    models.Papertype,
+    models.Tmppa,
+    models.Tmppaper
 ]
 
 admin.site.register(register_list)
