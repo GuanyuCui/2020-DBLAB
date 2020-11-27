@@ -200,17 +200,16 @@ def detail(request, paperid):
         
     return render(request, 'detail.html', locals())
 
+# 修改内容
 @login_required
-def modify(request):
-    # paperid这里后面要改，目前暂时同title代替！！！
-    # paper = models.Paper.objects.raw('SELECT * FROM Paper WHERE title=%s;', [paperid])[0]
-    # print([str(paper.conferjournalname)])
-    # conferjournal = models.Conferjournal.objects.raw('SELECT * FROM Conferjournal WHERE name=%s;', [str(paper.conferjournalname)])[0]
-    # authors = models.Pa.objects.filter(papertitle=str(paper.title))
-    # authors = models.Pa.objects.raw('SELECT Author.name as name, authoridentity,  FROM PA, Author WHERE PA.papertitle=%s AND PA.authorid=Author.authorid', [str(paper.title)])
-    # for author in authors:
-    #     print(author)
-        
+def modify(request, paperid):
+    # 从临时表查询出来数据
+    paper = models.Paper.objects.raw('SELECT * FROM Tmppaper WHERE paperid=%s;', [paperid])[0]
+
+    # 送到前端显示
+
+    # 再送回后端
+
     return render(request, 'modify.html', locals())
 
 # 主页

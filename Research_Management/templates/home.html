@@ -27,9 +27,9 @@
             <td>教师1</td>
             <td>
                 {% if request.user.is_staff %}
-                    <a href="/modify" class="btn btn-default" role="button">审核</a>
+                    <a href="/check" class="btn btn-default" role="button">审核</a>
                 {% else %}
-                    <a href="/detail" class="btn btn-default" role="button">修改</a>
+                    <a href="/modify" class="btn btn-default" role="button">修改</a>
                 {% endif %}
             </td>
             </tr>
