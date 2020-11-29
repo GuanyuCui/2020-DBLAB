@@ -215,7 +215,7 @@
                                             <tr>
                                                 <th>姓名</th>
                                                 <th>身份</th>
-                                                <th>类型</th>
+                                                <th>人员类型</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
@@ -226,17 +226,14 @@
                                                 </td>
                                                 <td>
                                                     <select class="form-control" label="identity" style="width:110px;">
-                                                        <!-- <option>独立作者</option> -->
-                                                        <option>第一作者</option>
-                                                        <option>其他</option>
+                                                        <option>普通作者</option>
                                                         <option>通讯作者</option>
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <select id="类型" class="form-control" label="authortype" style="width:110px; ">
+                                                    <select id="人员类型" class="form-control" label="authortype" style="width:110px; ">
                                                         <option>本院教师</option>
                                                         <option>本院学生</option>
-                                                        <option>校外人员</option>
                                                         <option>其他</option>
                                                     </select>
                                                 </td>
@@ -262,7 +259,7 @@
                             </div>
                             <div class="col-md-1">
                                 <input style="left:2px" class="btn btn-success" href="#" rel="external nofollow"
-                                    type="button" id="commit" value="提 交" style="margin-left:445px">
+                                    type="button" id="commit" value="提交" style="margin-left:445px">
                             </div>
                         </div>
                     </div>
@@ -413,18 +410,15 @@
         html += '<td>';
         html +=
             '<select id="身份" class="form-control" label="identity" style="width:110px;">';
-        // html += '<option>独立作者</option>';
-        html += '<option>其他</option>';
-        html += '<option>第一作者</option>';
+        html += '<option>普通作者</option>';
         html += '<option>通讯作者</option>';
         html += '</select>';
         html += '</td>';
         html += '<td>';
         html +=
-            '<select id="类型" class="form-control" label="authortype" style="width:110px">';
+            '<select id="人员类型" class="form-control" label="authortype" style="width:110px">';
         html += '<option>本院教师</option>';
         html += '<option>本院学生</option>';
-        html += '<option>校外人员</option>';
         html += '<option>其他</option>';
         html += '</select>';
         html += '</td>';
@@ -474,7 +468,6 @@
         html_1 += '</div>';
         html_1 += '</div>';
 
-
         $('#c_row').remove();
         $('#c_row_1').remove();
         $('#jj_row').remove();
@@ -484,9 +477,6 @@
         $('#conference_choice').append(html);
         $('#conference_choice_1').append(html_1);
         $('#j_row').remove();
-
-
-
     });
 
     //点击期刊

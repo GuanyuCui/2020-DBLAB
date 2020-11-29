@@ -121,6 +121,64 @@
 
         // 发布日期
         $("#date").val('{{publishtime}}');
+
+        var author_names = JSON.parse('{{author_names|safe}}');
+        var author_identities = JSON.parse('{{author_identities|safe}}');
+
+
+        $("#姓名").val(author_names[0]);
+        $("#身份").val(author_identities[0]);
+        $("#人员类型").val("本院教师");
+        
+        for(var i = 1; i < author_names.length; i++)
+        {
+            var html = '';
+            html += '<div id="inputFormRow">';
+            html += '<table class="table table-striped" style="table-layout:fixed;">';
+            html += '<tbody>';
+            html += '<tr>';
+            html += '<td>';
+            html +=
+                '<input id="姓名" class="form-control" label="authorname" placeholder="请输入姓名" type="text" value="'
+            html += author_names[i]
+            html += '" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
+            html += '</td>';
+            html += '<td>';
+            html +=
+                '<select id="身份" class="form-control" label="identity" value="';
+            html += author_identities[i];
+            html += '" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+
+            if(author_identities[i] == "普通作者")
+                html += '<option value="普通作者" selected="selected">普通作者</option>';
+            else
+                html += '<option value="普通作者">普通作者</option>';
+            
+            if(author_identities[i] == "通讯作者")
+                html += '<option value="通讯作者" selected="selected">通讯作者</option>';
+            else
+                html += '<option value="通讯作者">通讯作者</option>';
+            html += '</select>';
+            html += '</td>';
+            html += '<td>';
+            html +=
+                '<select id="人员类型" class="form-control" label="authortype"'
+            html += ' style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            html += '<option>本院教师</option>';
+            html += '<option>本院学生</option>';
+            html += '<option>其他</option>';
+            html += '</select>';
+            html += '</td>';
+            html += '<td>';
+            html += '<button id="removeRow" type="button" class="btn btn-danger">删除</button>';
+            html += '</td>';
+            html += '</tr>';
+            html += '</tbody>';
+            html += '</table>';
+            html += '</div>';
+
+            $('#newRow').append(html);
+        }
     });
 </script>
 
@@ -299,14 +357,14 @@
                                             <tr>
                                                 <th>姓名</th>
                                                 <th>身份</th>
-                                                <th>类型</th>
+                                                <th>人员类型</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody id="inputFormRow">
                                             <tr>
                                                 <td>
-                                                    <input class="form-control" type="text" label="authorname" style="width:100px;
+                                                    <input id="姓名" class="form-control" type="text" label="authorname" style="width:100px;
                 padding:3px 10px;
                 border-top-left-radius: 5px;
                 border-bottom-left-radius: 5px;
@@ -317,7 +375,7 @@
                 " placeholder="请输入姓名">
                                                 </td>
                                                 <td>
-                                                    <select class="form-control" label="identity"
+                                                    <select id="身份" class="form-control" label="identity"
                                                         style="
                 width:100px;
                 padding:3px 10px;
@@ -328,14 +386,12 @@
                 -moz-appearance:yes;
                 -webkit-appearance:yes;
                 ">
-                                                        <option>独立作者</option>
-                                                        <option>第一作者</option>
+                                                        <option>普通作者</option>
                                                         <option>通讯作者</option>
-                                                        <option>其他</option>
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <select id="类型" class="form-control" label="authortype"
+                                                    <select id="人员类型" class="form-control" label="authortype"
                                                         style="
                 width:100px;
                 padding:3px 10px;
@@ -348,7 +404,6 @@
                 ">
                                                         <option>本院教师</option>
                                                         <option>本院学生</option>
-                                                        <option>校外人员</option>
                                                         <option>其他</option>
                                                     </select>
                                                 </td>
@@ -372,7 +427,7 @@
                             </div>
                             <div class="col-md-1">
                                 <input style="left:2px" class="btn btn-success" href="#" rel="external nofollow" type="button"
-                                    id="commit" value="提 交" style="margin-left:445px">
+                                    id="commit" value="提交" style="margin-left:445px">
                             </div>
                         </div>
                     </div>
@@ -518,23 +573,20 @@
         html += '<tr>';
         html += '<td>';
         html +=
-            '<input class="form-control" label="authorname" placeholder="请输入姓名" type="text" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
+            '<input id="姓名" class="form-control" label="authorname" placeholder="请输入姓名" type="text" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
         html += '</td>';
         html += '<td>';
         html +=
             '<select id="身份" class="form-control" label="identity" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
-        html += '<option>独立作者</option>';
-        html += '<option>第一作者</option>';
+        html += '<option>普通作者</option>';
         html += '<option>通讯作者</option>';
-        html += '<option>其他</option>';
         html += '</select>';
         html += '</td>';
         html += '<td>';
         html +=
-            '<select id="类型" class="form-control" label="authortype" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            '<select id="人员类型" class="form-control" label="authortype" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '<option>本院教师</option>';
         html += '<option>本院学生</option>';
-        html += '<option>校外人员</option>';
         html += '<option>其他</option>';
         html += '</select>';
         html += '</td>';
@@ -716,7 +768,5 @@
     
 
 </script>
-
-
 
 {% endblock %}

@@ -417,9 +417,6 @@ def modify(request, paperid):
     authors = models.Tmppa.objects.filter(paperid = paper.paperid)
     author_names = str([_.authorname for _ in authors]).replace("'", '"')
     author_identities = str([_.authoridentity for _ in authors]).replace("'", '"')
-    #author_names = str([_.authorname for _ in authors]).replace("'", '"')
-    
-    # author_names = [author.authorname for author in authors]
     return render(request, 'modify.html', locals())
 
 # 审核
@@ -511,8 +508,8 @@ def check(request, paperid):#, paperid):
         print("save success")
         return JsonResponse(back_dic)
         
-    #else:
-     #   return HttpResponse("<h1>WRONG!</h1>")
+    # else:
+    #   return HttpResponse("<h1>WRONG!</h1>")
     # 从临时表查询出来数据
     paper = models.Paper.objects.raw('SELECT * FROM Tmppaper WHERE paperid=%s;', [paperid])[0]
     title = paper.title
@@ -525,6 +522,10 @@ def check(request, paperid):#, paperid):
     endpage = paper.endpage
     papertype = paper.papertype
     language = paper.language
+
+    authors = models.Tmppa.objects.filter(paperid = paper.paperid)
+    author_names = str([_.authorname for _ in authors]).replace("'", '"')
+    author_identities = str([_.authoridentity for _ in authors]).replace("'", '"')
     return render(request, 'check.html', locals())
 
 # 主页
