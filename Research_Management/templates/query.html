@@ -385,14 +385,48 @@
         var poster = document.getElementById('poster');
         paperType[0] = 0, paperType[1] = 0, paperType[2] = 0, paperType[3] = 0;
         paperType[4] = 0, paperType[5] = 0, paperType[6] = 0, paperType[7] = 0;
+        // 0: main, 1: special section, 2: addition
+        // 3: long oral, 4: long poster, 5: short oral, 6: short poster
+        // 7: demo
         if (Journalmain.checked) paperType[0] = 1;
         if (JournalSS.checked) paperType[1] = 1;
         if (JournalAdd.checked) paperType[2] = 1;
-        if (longPaper.checked) paperType[3] = 1;
-        if (shortPaper.checked) paperType[4] = 1;
-        if (demo.checked) paperType[5] = 1;
-        if (oral.checked) paperType[6] = 1;
-        if (poster.checked) paperType[7] = 1;
+        // 3: long oral, 4: long poster, 5: short oral, 6: short poster
+        if (longPaper.checked){
+            if (oral.checked)
+                paperType[3] = 1;
+            if (poster.checked)
+                paperType[4] = 1;
+            if (paperType[3] + paperType[4] == 0)
+                paperType[3] = 1, paperType[4] = 1;
+        } 
+        if (shortPaper.checked){
+            if (oral.checked)
+                paperType[5] = 1;
+            if (poster.checked)
+                paperType[6] = 1;
+            if (paperType[5] + paperType[6] == 0)
+                paperType[5] = 1, paperType[6] = 1;
+        } 
+        if (oral.checked){
+            if (longPaper.checked)
+                paperType[3] = 1;
+            if (shortPaper.checked)
+                paperType[5] = 1;
+            if (paperType[3] + paperType[5] == 0)
+                paperType[3] = 1, paperType[5] = 1;
+        } 
+        if (poster.checked){
+            if (longPaper.checked)
+                paperType[4] = 1;
+            if (shortPaper.checked)
+                paperType[6] = 1;
+            if (paperType[4] + paperType[6] == 0)
+                paperType[4] = 1, paperType[6] = 1;
+        } 
+        // 7: demo
+        if (demo.checked) paperType[7] = 1;
+
         if (sum(paperType) == 0) {
             alert("请选择论文类型");
             return;
@@ -475,13 +509,13 @@
         }
 
         var data = { // 提交数据
-            "querys": querys,
-            "authorType": authorType, // 前者为字段名，后者为数据
-            "paperType": authorType,
-            "CCFRank": CCFRank,
-            "CCFChinaRank": CCFChinaRank,
-            "RUCRank": RUCRank,
-            "time": DateDuration,
+            "querys": JSON.stringify(querys),
+            "authorType": JSON.stringify(authorType), // 前者为字段名，后者为数据
+            "paperType": JSON.stringify(paperType),
+            "CCFRank": JSON.stringify(CCFRank),
+            "CCFChinaRank": JSON.stringify(CCFChinaRank),
+            "RUCRank": JSON.stringify(RUCRank),
+            "time": JSON.stringify(DateDuration),
             "csrfmiddlewaretoken": '{{ csrf_token }}'
         };
 

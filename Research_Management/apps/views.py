@@ -6,6 +6,8 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 
+from django.db.models import Q
+
 import json
 from apps import myforms
 from apps import models
@@ -180,11 +182,82 @@ def insert_process(request):
         return HttpResponse("<h1>WRONG!</h1>")
 
 def query_process(request):
+    """ process the query
+
+    """
+    rank_refer = ['A+','A','A-','B','C']
+    papertype_refer = ['正刊','专刊','增刊','长文Oral','长文Poster','短文Oral','短文Poster','Demo']
+    # gca: c, ruc=A+, ccf=A, ccfchina=A
+
     if request.method == 'POST':
         back_dic = {'url':'','code':1000}
         data = request.POST
-        # 数据形式可以在query页的console中查看
-        print(data,type(data))
+
+        # omit querys first
+        # querys =json.loads(data['querys'])
+        authorType = json.loads(data['authorType'])
+        paperType = json.loads(data['paperType'])
+        CCFRank = json.loads(data['CCFRank'])
+        CCFChinaRank = json.loads(data['CCFChinaRank'])
+        RUCRank = json.loads(data['RUCRank'])
+        time = json.loads(data['time'])
+        print(time)
+
+        conferorjournal = paperType[0] and paperType[1] and paperType[2]
+
+        # rank querys
+        q_ccf = []
+        q_ccfchina = []
+        q_ruc = []
+        for idx in range(5):
+            if CCFRank[idx] == 1:
+                rank = rank_refer[idx]
+                q_ccf.append("Q(conferjournalname__ccflevel=\"%s\")" % rank)
+
+            if CCFChinaRank[idx] == 1:
+                rank = rank_refer[idx]
+                q_ccfchina.append("Q(conferjournalname__ccfchinalevel=\"%s\")" % rank)
+
+            if RUCRank[idx] == 1:
+                rank = rank_refer[idx]
+                q_ruc.append("Q(conferjournalname__ruclevel=\"%s\")" % rank)
+
+        rank_query = '|'.join(q_ccf + q_ccfchina + q_ruc)
+        rank_query_str = "Paper.objects.filter({})".format(rank_query)
+        # print(rank_query_str)
+        results_rank = eval(rank_query_str)
+        
+        # 0: main, 1: special section, 2: addition
+        # 3: long oral, 4: long poster, 5: short oral, 6: short poster
+        # 7: demo
+        # paper type queries:
+        q_pt = []
+        for idx in range(8):
+            if paperType[idx] == 1:
+                papertype = papertype_refer[idx]
+                q_pt.append("Q(papertype=\"%s\")" % papertype)
+        
+        papertype_query = '|'.join(q_pt)
+        papertype_query_str = "Paper.objects.filter({})".format(papertype_query)
+        results_pt = eval(papertype_query_str)
+
+        # time queries:
+        q_time = []
+        # q_time.append("Q(publishtime__gte=\"%s\")" % time[0])
+        # q_time.append("Q(publishtime__lte=\"%s\")" % time[1])
+        results_time = Paper.objects.filter(publishtime__gte=time[0],publishtime__lte=time[1]).order_by("publishtime")
+
+        final_result_str = "results_time.filter({}).filter({})".format(rank_query,papertype_query)
+        final_result = eval(final_result_str)
+
+        print(results_rank)
+        print(results_pt)
+        print(results_time)
+        print(final_result)
+
+
+        # bonus:如果有上面就先查上面
+
         return JsonResponse(back_dic)
 
 def errors(request):
