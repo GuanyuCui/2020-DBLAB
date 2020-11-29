@@ -121,6 +121,21 @@
 
         // 发布日期
         $("#date").val('{{publishtime}}');
+
+        var author_names = JSON.parse('{{author_names|safe}}');
+        var author_identities = JSON.parse('{{author_identities|safe}}');
+
+
+        $("#姓名").val(author_names[0]);
+        $("#身份").val(author_identities[0]);
+        $("#类型").val('本院学生');
+        for(var i = 1; i < author_names.length; i++)
+        {
+            $("#addRow").click();
+            $("#姓名").val(author_names[i]);
+            $("#身份").val(author_identities[i]);
+            $("#类型").val('本院学生');
+        }
     });
 </script>
 
@@ -306,7 +321,7 @@
                                         <tbody id="inputFormRow">
                                             <tr>
                                                 <td>
-                                                    <input class="form-control" type="text" label="authorname" style="width:100px;
+                                                    <input id="姓名" class="form-control" type="text" label="authorname" style="width:100px;
                 padding:3px 10px;
                 border-top-left-radius: 5px;
                 border-bottom-left-radius: 5px;
@@ -317,7 +332,7 @@
                 " placeholder="请输入姓名">
                                                 </td>
                                                 <td>
-                                                    <select class="form-control" label="identity"
+                                                    <select id="身份" class="form-control" label="identity"
                                                         style="
                 width:100px;
                 padding:3px 10px;
@@ -518,7 +533,7 @@
         html += '<tr>';
         html += '<td>';
         html +=
-            '<input class="form-control" label="authorname" placeholder="请输入姓名" type="text" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
+            '<input id="姓名" class="form-control" label="authorname" placeholder="请输入姓名" type="text" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
         html += '</td>';
         html += '<td>';
         html +=

@@ -118,75 +118,6 @@ def download(request):
 
     return response
 
-def insert_process(request):
-    # print("why?")
-    # print(request)
-    print('inserting')
-    if request.method == 'POST':
-        # 可以设定重定向的url
-        back_dic = {'url':'','code':1000}
-        data = request.POST
-        newPaper = Tmppaper() # 实例化数据表
-        global currPaperID
-        newPaper.paperid = currPaperID
-        commitAuthor_obj = Author.objects.get(authorid = request.user.username)   
-        newPaper.commitauthorid = commitAuthor_obj
-        newPaper.title = data['title']
-
-        Conferjournal_obj = Conferjournal.objects.get(name = data['cjname'])   
-        newPaper.conferjournalname = Conferjournal_obj
-        if data['language'] == 'English':
-            newPaper.language = 'E'
-        else:
-            newPaper.language = 'C'
-        if data['cj'] == 'journal':
-            newPaper.conferorjournal = 'J'
-        else:
-            newPaper.conferorjournal = 'C'
-        newPaper.papertype = data['cjtype']
-        newPaper.publishtime = data['date']
-        newPaper.startpage = data['page_1']
-        newPaper.endpage = data['page_2']
-        # 会议没有卷期
-        print('volume:')
-        print(data['volume'])
-        try:
-            newPaper.volume = data['volume']
-            newPaper.issue = data['issue']
-        except:
-            pass
-        newPaper.save()
-        ############# insert into tmpPA #######
-        authors = data['authors']
-        authors = json.loads(authors)
-        #print(authors)
-        #print(len(authors))
-        # print(authors[0]['name'])
-        global currPAID
-        for i in range(len(authors)):
-            newTmppa = Tmppa()
-            newTmppa.paid = currPAID
-            currPAID += 1
-            newTmppa.paperid = newPaper
-            print(authors[i]['name'])
-            newTmppa.authorname = authors[i]['name']
-            newTmppa.authorrank = i+1
-            newTmppa.authoridentity = authors[i]['identity']
-            newTmppa.save()
-            #newTmppa.authortype = authors[i]['type']
-        
-        currPaperID += 1
-        # 存储pdf文件, 默认在data/paper.pdf
-        paper = request.FILES['paper']
-        paper_name = request.FILES['paper'].name
-        handle_uploaded_file(paper,paper_name)
-        print("save success")
-
-        return JsonResponse(back_dic)
-        
-    else:
-        return HttpResponse("<h1>WRONG!</h1>")
-
 def query_process(request):
     """ 处理query
 
@@ -382,7 +313,7 @@ def logout(request):
 # 添加
 @login_required
 def insert(request):
-        # print("why?")
+    # print("why?")
     # print(request)
     print('inserting')
     if request.method == 'POST':
@@ -484,8 +415,11 @@ def modify(request, paperid):
     language = paper.language
 
     authors = models.Tmppa.objects.filter(paperid = paper.paperid)
-    for author in authors:
-        print(author)
+    author_names = str([_.authorname for _ in authors]).replace("'", '"')
+    author_identities = str([_.authoridentity for _ in authors]).replace("'", '"')
+    #author_names = str([_.authorname for _ in authors]).replace("'", '"')
+    
+    # author_names = [author.authorname for author in authors]
     return render(request, 'modify.html', locals())
 
 # 审核
