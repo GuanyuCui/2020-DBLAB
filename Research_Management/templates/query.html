@@ -276,7 +276,7 @@
                     <div class="col-md-3">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <em style="color: red;">*</em>
+                                <!-- <em style="color: red;">*</em> -->
                                 论文发布日期
                             </div>
                             <div class="panel-body">
@@ -480,14 +480,14 @@
         var DateDuration = new Array();
         DateDuration[0] = $("#datetimepicker1").find("input").val();
         DateDuration[1] = $("#datetimepicker2").find("input").val();
-        if (DateDuration[0] == "") {
-            alert("请选择开始日期");
-            return;
-        }
-        if (DateDuration[1] == "") {
-            alert("请选择结束日期");
-            return;
-        }
+        // if (DateDuration[0] == "") {
+        //     alert("请选择开始日期");
+        //     return;
+        // }
+        // if (DateDuration[1] == "") {
+        //     alert("请选择结束日期");
+        //     return;
+        // }
 
         var keys = $("select[label=\"key\"]");
         var values = $("input[label=\"value\"]");
