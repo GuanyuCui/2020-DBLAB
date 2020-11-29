@@ -117,45 +117,13 @@
                                 <div class="panel-body">
                                     <form class="form-inline">
                                         卷
-                                        <input class="form-control" type="text" id="volume" style="width:50px;
-                            padding:3px 10px;
-                            border-top-left-radius: 5px;
-                            border-bottom-left-radius: 5px;
-                            background-size:13px 13px;
-                            appearance:yes;
-                            -moz-appearance:yes;
-                            -webkit-appearance:yes;
-                            margin-right:5px;
-                            ">期
+                                        <input class="form-control" type="text" id="volume" style="width:50px;">期
 
-                                        <input class="form-control" type="text" id="issue" style="width:50px;
-                            padding:3px 10px;
-                            border-top-left-radius: 5px;
-                            border-bottom-left-radius: 5px;
-                            background-size:13px 13px;
-                            appearance:yes;
-                            -moz-appearance:yes;
-                            -webkit-appearance:yes;
-                            margin-right: 5px;">页
+                                        <input class="form-control" type="text" id="issue" style="width:50px;">页
 
-                                        <input class="form-control" type="text" id="page_1" style="width:60px;
-                            padding:3px 10px;
-                            border-top-left-radius: 5px;
-                            border-bottom-left-radius: 5px;
-                            background-size:13px 13px;
-                            appearance:yes;
-                            -moz-appearance:yes;
-                            -webkit-appearance:yes;">~
+                                        <input class="form-control" type="text" id="page_1" style="width:60px;">~
 
-                                        <input class="form-control" type="text" id="page_2" style="width:60px;
-                            padding:3px 10px;
-                            border-top-left-radius: 5px;
-                            border-bottom-left-radius: 5px;
-                            background-size:13px 13px;
-                            appearance:yes;
-                            -moz-appearance:yes;
-                            -webkit-appearance:yes;
-                            ">
+                                        <input class="form-control" type="text" id="page_2" style="width:60px;">
                                     </form>
 
                                 </div>
@@ -238,7 +206,8 @@
                         <div class="col-md-12">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><em style="color: red;margin-right: 5px;">*</em>作者信息录入</h3>
+                                    <h3 class="panel-title"><em style="color: red;margin-right: 5px;">*</em>作者信息录入
+                                        （注意：请按照作者顺序录入）</h3>
                                 </div>
                                 <div class="panel-body">
                                     <table class="table table-striped" style="table-layout:fixed;">
@@ -253,44 +222,18 @@
                                         <tbody id="inputFormRow">
                                             <tr>
                                                 <td>
-                                                    <input class="form-control" type="text" label="authorname" style="width:100px;
-                padding:3px 10px;
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-                background-size:13px 13px;
-                appearance:yes;
-                -moz-appearance:yes;
-                -webkit-appearance:yes;
-                " placeholder="请输入姓名">
+                                                    <input class="form-control" type="text" label="authorname" style="width:110px;" placeholder="请输入姓名">
                                                 </td>
                                                 <td>
-                                                    <select class="form-control" label="identity" style="
-                width:100px;
-                padding:3px 10px;
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-                background-size:13px 13px;
-                appearance:yes;
-                -moz-appearance:yes;
-                -webkit-appearance:yes;
-                ">
-                                                        <option>独立作者</option>
+                                                    <select class="form-control" label="identity" style="width:110px;">
+                                                        <!-- <option>独立作者</option> -->
                                                         <option>第一作者</option>
-                                                        <option>通讯作者</option>
                                                         <option>其他</option>
+                                                        <option>通讯作者</option>
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <select id="类型" class="form-control" label="authortype" style="
-                width:100px;
-                padding:3px 10px;
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-                background-size:13px 13px;
-                appearance:yes;
-                -moz-appearance:yes;
-                -webkit-appearance:yes;
-                ">
+                                                    <select id="类型" class="form-control" label="authortype" style="width:110px; ">
                                                         <option>本院教师</option>
                                                         <option>本院学生</option>
                                                         <option>校外人员</option>
@@ -318,8 +261,8 @@
                                 </div>
                             </div>
                             <div class="col-md-1">
-                                <input style="left:2px" class="btn btn-success" href="#" rel="external nofollow" type="button"
-                                    id="commit" value="提 交" style="margin-left:445px">
+                                <input style="left:2px" class="btn btn-success" href="#" rel="external nofollow"
+                                    type="button" id="commit" value="提 交" style="margin-left:445px">
                             </div>
                         </div>
                     </div>
@@ -435,6 +378,8 @@
         }
         data.append('csrfmiddlewaretoken', '{{ csrf_token }}');
         console.log(data);
+        alert('请确认信息：')
+        alert(data)
         $.ajax({
             url: '/insert/',
             type: 'post',
@@ -463,20 +408,20 @@
         html += '<tr>';
         html += '<td>';
         html +=
-            '<input class="form-control" label="authorname" placeholder="请输入姓名" type="text" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
+            '<input class="form-control" label="authorname" placeholder="请输入姓名" type="text" style="width:110px;">';
         html += '</td>';
         html += '<td>';
         html +=
-            '<select id="身份" class="form-control" label="identity" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
-        html += '<option>独立作者</option>';
+            '<select id="身份" class="form-control" label="identity" style="width:110px;">';
+        // html += '<option>独立作者</option>';
+        html += '<option>其他</option>';
         html += '<option>第一作者</option>';
         html += '<option>通讯作者</option>';
-        html += '<option>其他</option>';
         html += '</select>';
         html += '</td>';
         html += '<td>';
         html +=
-            '<select id="类型" class="form-control" label="authortype" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            '<select id="类型" class="form-control" label="authortype" style="width:110px">';
         html += '<option>本院教师</option>';
         html += '<option>本院学生</option>';
         html += '<option>校外人员</option>';

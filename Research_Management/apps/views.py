@@ -115,7 +115,7 @@ def download(request):
 def insert_process(request):
     # print("why?")
     # print(request)
-    print('insert')
+    print('inserting')
     if request.method == 'POST':
         # 可以设定重定向的url
         back_dic = {'url':'','code':1000}
@@ -123,8 +123,6 @@ def insert_process(request):
         newPaper = Tmppaper() # 实例化数据表
         global currPaperID
         newPaper.paperid = currPaperID
-        print("username")
-        print(request.user.username)
         commitAuthor_obj = Author.objects.get(authorid = request.user.username)   
         newPaper.commitauthorid = commitAuthor_obj
         newPaper.title = data['title']
@@ -144,17 +142,19 @@ def insert_process(request):
         newPaper.startpage = data['page_1']
         newPaper.endpage = data['page_2']
         # 会议没有卷期
+        print('volume:')
+        print(data['volume'])
         try:
-            newPaper.Volume = data['volume']
-            newPaper.Issue = data['issue']
+            newPaper.volume = data['volume']
+            newPaper.issue = data['issue']
         except:
             pass
         newPaper.save()
         ############# insert into tmpPA #######
         authors = data['authors']
         authors = json.loads(authors)
-        print(authors)
-        print(len(authors))
+        #print(authors)
+        #print(len(authors))
         # print(authors[0]['name'])
         global currPAID
         for i in range(len(authors)):
@@ -328,7 +328,7 @@ def logout(request):
 def insert(request):
         # print("why?")
     # print(request)
-    print('insert')
+    print('inserting')
     if request.method == 'POST':
         # 可以设定重定向的url
         back_dic = {'url':'','code':1000}
@@ -336,8 +336,6 @@ def insert(request):
         newPaper = Tmppaper() # 实例化数据表
         global currPaperID
         newPaper.paperid = currPaperID
-        print("username")
-        print(request.user.username)
         commitAuthor_obj = Author.objects.get(authorid = request.user.username)   
         newPaper.commitauthorid = commitAuthor_obj
         newPaper.title = data['title']
@@ -356,26 +354,22 @@ def insert(request):
         newPaper.publishtime = data['date']
         newPaper.startpage = data['page_1']
         newPaper.endpage = data['page_2']
-        # 会议没有卷期
         try:
-            newPaper.Volume = data['volume']
-            newPaper.Issue = data['issue']
+            newPaper.volume = data['volume']
+            newPaper.issue = data['issue']
         except:
             pass
         newPaper.save()
         ############# insert into tmpPA #######
         authors = data['authors']
         authors = json.loads(authors)
-        print(authors)
-        print(len(authors))
-        # print(authors[0]['name'])
         global currPAID
         for i in range(len(authors)):
             newTmppa = Tmppa()
             newTmppa.paid = currPAID
             currPAID += 1
             newTmppa.paperid = newPaper
-            print(authors[i]['name'])
+            # print(authors[i]['name'])
             newTmppa.authorname = authors[i]['name']
             newTmppa.authorrank = i+1
             newTmppa.authoridentity = authors[i]['identity']
@@ -387,7 +381,7 @@ def insert(request):
         paper = request.FILES['paper']
         paper_name = request.FILES['paper'].name
         handle_uploaded_file(paper,paper_name)
-        print("save success")
+        print("insert successfully!")
         return JsonResponse(back_dic)
     #else:
         #return HttpResponse("<h1>WRONG!</h1>")
