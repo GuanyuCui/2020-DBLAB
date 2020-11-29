@@ -21,6 +21,12 @@ from apps.models import Tmppa
 currPaperID = 0
 currPAID = 0
 
+# 这个别删
+rank_refer = ['A+','A','A-','B','C']
+papertype_refer = ['正刊','专刊','增刊','长文Oral','长文Poster','短文Oral','短文Poster','Demo']
+condition_refer = {'AND':'&','OR':'|','':''}
+key_refer = {'期刊名称':'conferjournalname','会议名称':'conferjournalname','论文题目':'title','作者姓名':'authorname'}
+
 # 设置用户权限的一篇参考博文
 # https://www.cnblogs.com/xuchengcheng1215/p/9457950.html
 # 由于后期需要做出普通用户与管理员的区分
@@ -182,28 +188,28 @@ def insert_process(request):
         return HttpResponse("<h1>WRONG!</h1>")
 
 def query_process(request):
-    """ process the query
+    """ 处理query
 
+        完成的: 
+            可以解析手动输入的query和勾选框的内容, 都在print里有输出
+        TODO: 
+            群里发的and or的逻辑
+            查询顺序控制
     """
-    rank_refer = ['A+','A','A-','B','C']
-    papertype_refer = ['正刊','专刊','增刊','长文Oral','长文Poster','短文Oral','短文Poster','Demo']
-    # gca: c, ruc=A+, ccf=A, ccfchina=A
-
     if request.method == 'POST':
         back_dic = {'url':'','code':1000}
         data = request.POST
 
-        # omit querys first
-        # querys =json.loads(data['querys'])
+        querys =json.loads(data['querys'])
         authorType = json.loads(data['authorType'])
         paperType = json.loads(data['paperType'])
         CCFRank = json.loads(data['CCFRank'])
         CCFChinaRank = json.loads(data['CCFChinaRank'])
         RUCRank = json.loads(data['RUCRank'])
         time = json.loads(data['time'])
-        print(time)
+        # print(time)
 
-        conferorjournal = paperType[0] and paperType[1] and paperType[2]
+        # conferorjournal = paperType[0] and paperType[1] and paperType[2]
 
         # rank querys
         q_ccf = []
@@ -241,22 +247,72 @@ def query_process(request):
         papertype_query_str = "Paper.objects.filter({})".format(papertype_query)
         results_pt = eval(papertype_query_str)
 
+        # 处理日期的query时, 用户可以只填写一边的日期
         # time queries:
-        q_time = []
-        # q_time.append("Q(publishtime__gte=\"%s\")" % time[0])
-        # q_time.append("Q(publishtime__lte=\"%s\")" % time[1])
-        results_time = Paper.objects.filter(publishtime__gte=time[0],publishtime__lte=time[1]).order_by("publishtime")
 
-        final_result_str = "results_time.filter({}).filter({})".format(rank_query,papertype_query)
-        final_result = eval(final_result_str)
+        q_time = []
+        if time[0]:
+            q_time.append("Q(publishtime__gte=\"%s\")" % time[0])
+        if time[1]:    
+            q_time.append("Q(publishtime__lte=\"%s\")" % time[1])
+        
+        time_query = '&'.join(q_time)
+        time_query_str = "Paper.objects.filter({})".format(time_query)
+        results_time = eval(time_query_str)
+
+        # 下面的逻辑是给没有填的时间赋上无穷大/无穷小, 然后查询
+        # results_time = Paper.objects.filter(publishtime__gte=None,publishtime__lte=time[1]).order_by("publishtime")
+
+        # 判断有没有输入时间
+        final_query_str = "Paper.objects.filter({}).filter({}).filter({})".format(time_query,rank_query,papertype_query)
+        final_result = eval(final_query_str)
 
         print(results_rank)
         print(results_pt)
         print(results_time)
         print(final_result)
 
+        # a or b and c = a or (b and c) 
+        query_str = ''
+        for idx,query in enumerate(querys):
+            condition = condition_refer[query['condition']]
+            key = key_refer[query['key']]
+            value = query['value']
 
-        # bonus:如果有上面就先查上面
+            query_str += (condition + "Q({}=\"{}\")".format(key,value))
+        
+        query_str = "Paper.objects.filter({})".format(query_str)
+        results_query = eval(query_str)
+
+        print(query_str,results_query)
+        
+        """ 这是使用交集并集的逻辑, 也就是遇到 a or b and c 即执行 (a or b) and c
+        for idx,query in enumerate(querys):
+            # condition = condition_refer[query['condition']]
+            condition = query['condition']
+            key = key_refer[query['key']]
+            value = query['value']
+
+            # 获取第一个条件
+            if idx == 0:
+                result = eval("Paper.objects.filter({}=\"{}\")".format(key,value))
+                results = result
+
+            # 如果还有别的条件
+            else:
+                # and做交
+                if condition == 'AND':
+                    results = eval("results.filter({}=\"{}\")".format(key,value))
+
+                # or做并
+                if condition == 'OR':
+                    result = eval("Paper.objects.filter({}=\"{}\")".format(key,value))
+                    results = results.union(result)
+        # print(results)
+        """
+
+        # 根据下面这一行, 可以发现filter默认的&会优先于|执行
+        # print(Paper.objects.filter(Q(conferjournalname__ccfchinalevel="A+")|Q(conferjournalname="zpt")&Q(publishtime__lte="2015-11-29")))
 
         return JsonResponse(back_dic)
 
