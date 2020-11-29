@@ -59,14 +59,52 @@
 
     // 查询出来的内容显示一下
     $(function(){
-        // $("#XXXX").val(要选中的option的value值即可);
         // 论文标题
         $("#title").val('{{title}}');
 
         // 语言类型
-        var allCheck = document.getElementsByName("language_type");
-        if ('{{language_type}}'== "English")
-            allCheck[1].checked = true;
+        if ('{{language}}' == "Chinese")
+            $("#lan-cn").click();
+        else if ('{{language}}'== "English")
+            $("#lan-en").click();
+        
+        // 期刊/会议名称
+        $("#cjname").val('{{conferjournalname}}');
+
+        // 论文类型
+        // 期刊
+        if ('{{conferorjournal}}' == "J")
+        {
+            // 卷期页
+            $("#journal").click();
+            $("#volume").val('{{volume}}');
+            $("#issue").val('{{issue}}');
+            $("#page_1").val('{{startpage}}');
+            $("#page_2").val('{{endpage}}');
+            if('{{papertype}}' == "正刊")
+                $("#正刊").click();
+            else if('{{papertype}}' == "专刊")
+                $("#专刊").click();
+            else if('{{papertype}}' == "增刊")
+                $("#增刊").click();
+        }
+        // 会议
+        else if ('{{conferorjournal}}' == "C")
+        {
+            // 页
+            $("#conference").click();
+            $("#page_1").val('{{startpage}}');
+            $("#page_2").val('{{endpage}}');
+            if('{{papertype}}' == "长文")
+                $("#long_essay").click();
+            else if('{{papertype}}' == "短文")
+                $("#short_essay").click();
+            else if('{{papertype}}' == "demo")
+                $("#demo").click();
+        }
+
+        // 发布日期
+        $("#date").val('{{publishtime}}');
     });
 </script>
 
@@ -85,9 +123,9 @@
                         <label class="form-inline" style="margin-left: 18px;"><em style="color: red;margin-right: 5px;">*</em>论文标题：
                             <input type="text" id="title" name="title" class="form-control" style="width:600px; margin-right: 18px"></label>
                         <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
-                        <input type="radio" name="language_type" value="Chinese"
+                        <input type="radio" id="lan-cn" name="language_type" value="Chinese"
                             style="margin-right: 10px;margin-left: 10px;" checked />中文
-                        <input type="radio" name="language_type" value="English"
+                        <input type="radio" id="lan-en" name="language_type" value="English"
                             style="margin-right: 10px;margin-left: 10px;">英文
                     </div>
                 </div>
@@ -178,13 +216,13 @@
                                 <div class="panel-body">
                                     <!-- <br> -->
                                     <label class="radio-inline">
-                                        <input type="radio" name="j_type" value="正刊" checked />正刊
+                                        <input type="radio" name="j_type" id="正刊" value="正刊" checked />正刊
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="j_type" value="专刊">专刊
+                                        <input type="radio" name="j_type" id="专刊" value="专刊">专刊
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="j_type" value="专刊">增刊
+                                        <input type="radio" name="j_type" id="增刊" value="增刊">增刊
                                     </label>
                                 </div>
                             </div>
@@ -500,7 +538,6 @@
 
         var html = '';
         var html_1 = '';
-        var html_2 = '';
 
         html += '<div id="c_row">';
         html += '<div class="col-xs-2">';
@@ -533,22 +570,6 @@
         html_1 += '</div>';
         html_1 += '</div>';
 
-        html_2 += '<div id="c_row_2">';
-        html_2 += '<div class="col-md-3">';
-        html_2 += '<div class="panel panel-info">';
-        html_2 += '<div class="panel-heading"><em style="color: red;margin-right: 5px;">*</em>会议论文类型(补充)</div>';
-        html_2 += '<div class="panel-body">';
-        html_2 += '<label class="radio-inline">';
-        html_2 += '<input type="radio" name="c_type" value="长文" id="long_essay">长文</label>';
-        html_2 += '<label class="radio-inline">';
-        html_2 += '<input type="radio" name="c_type" value="短文" id="short_essay">短文</label>';
-        html_2 += '<label class="radio-inline">';
-        html_2 += '<input type="radio" name="c_type" value="Demo" id="demo" checked/>Demo</label>';
-        html_2 += '</div>';
-        html_2 += '</div>';
-        html_2 += '</div>';
-
-
         $('#c_row').remove();
         $('#c_row_1').remove();
         $('#c_row_2').remove();
@@ -558,7 +579,6 @@
         $('#demo_row').remove();
         $('#conference_choice').append(html);
         $('#conference_choice_1').append(html_1);
-        $('#conference_choice_2').append(html_2);
         $('#j_row').remove();
 
 
@@ -595,13 +615,13 @@
         html_1 += '<div class="panel-heading"><em style="color: red;margin-right: 5px;">*</em>期刊论文类型</div>';
         html_1 += '<div class="panel-body">';
         html_1 += '<label class="radio-inline">';
-        html_1 += '<input type="radio" name="j_type" value="正刊" checked/>正刊</label>';
+        html_1 += '<input type="radio" name="j_type" id="正刊" value="正刊" checked/>正刊</label>';
         // html_1 += '<br>';
         html_1 += '<label class="radio-inline">';
-        html_1 += '<input type="radio" name="j_type" value="专刊">专刊</label>';
+        html_1 += '<input type="radio" name="j_type" id="专刊" value="专刊">专刊</label>';
 
         html_1 += '<label class="radio-inline">';
-        html_1 += ' <input type="radio" name="j_type" value="专刊">增刊</label>';
+        html_1 += ' <input type="radio" name="j_type" id="增刊" value="增刊">增刊</label>';
         html_1 += '</div>';
         html_1 += '</div>';
         html_1 += '</div>';

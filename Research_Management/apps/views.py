@@ -209,8 +209,20 @@ def modify(request):#, paperid):
 
     # 从临时表查询出来数据
     # paper = models.Paper.objects.raw('SELECT * FROM Tmppaper WHERE paperid=%s;', [paperid])[0]
+    # paperid = 0
+    # commitauthorid = 
     title = "测试论文标题"
-    language_type = "English"
+    conferorjournal = "J"
+    conferjournalname = "测试论文名称"
+    publishtime = "2020-01-01"
+    volume = 1
+    issue = 2
+    startpage = 100
+    endpage = 200
+    #keywords = models.CharField(db_column='Keywords', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    #conferencelocation = models.CharField(db_column='ConferenceLocation', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    papertype = "增刊"
+    language = "English"
     return render(request, 'modify.html', locals())
 
 # 审核
@@ -222,8 +234,6 @@ def check(request):#, paperid):
 
     # 从临时表查询出来数据
     # paper = models.Paper.objects.raw('SELECT * FROM Tmppaper WHERE paperid=%s;', [paperid])[0]
-    title = "测试论文标题"
-    language_type = "English"
     return render(request, 'modify.html', locals())
 
 # 主页
