@@ -63,13 +63,8 @@
     <div class="row">
         <div class="panel panel-info">
             <div class="panel-heading">
-                {% if request.user.is_staff %}
-                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 审核修改项目(
-                <em style="color: red;">*</em>为必填项）
-                {% else %}
                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 修改项目(
                 <em style="color: red;">*</em>为必填项）
-                {% endif %}
             </div>
 
             <div class="panel-body">
