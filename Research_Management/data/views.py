@@ -19,6 +19,7 @@ from apps.models import Tmppa
 currPaperID = 0
 currPAID = 0
 
+
 # 设置用户权限的一篇参考博文
 # https://www.cnblogs.com/xuchengcheng1215/p/9457950.html
 # 由于后期需要做出普通用户与管理员的区分
@@ -58,43 +59,7 @@ def createuser(request):
     return render(request, 'createuser.html', locals())
 
 # def update_password(request):
-
-@login_required
-def set_password(request):
-    if request.is_ajax():
-        back_dic = {'code':1000,'msg':''}
-        if request.method == 'POST':
-            old_password = request.POST.get('old_password')
-            new_password = request.POST.get('new_password')
-            confirm_password = request.POST.get('confirm_password')
-            
-            # 新密码长度正确
-            if len(new_password) >=3 and len(new_password) <= 8:
-                # 两次密码一致
-                if new_password == confirm_password:
-                    is_right = request.user.check_password(old_password)
-                    # 原密码正确
-                    if is_right:
-                        request.user.set_password(new_password)
-                        request.user.save()
-                        back_dic['url'] = '/index/'
-                    # 原密码不正确
-                    else:
-                        back_dic['code'] = 3000
-                        back_dic['msg'] = '原密码错误'
-                # 两次密码不一致
-                else:
-                    back_dic['code'] = 2000
-                    back_dic['msg'] = '两次密码不一致'
-            # 新密码长度不正确
-            else:
-                back_dic['code'] = 2000
-                if len(new_password) < 3:
-                    back_dic['msg'] = '新密码长度不能少于三位'
-                else:
-                    back_dic['msg'] = '新密码长度不能多于八位'
-            return JsonResponse(back_dic)    
-
+    
 def handle_uploaded_file(f,filename):
     with open('data/%s' % filename, 'wb+') as destination:
         for chunk in f.chunks():
@@ -113,66 +78,38 @@ def download(request):
 def insert_process(request):
     # print("why?")
     # print(request)
-    print('insert')
     if request.method == 'POST':
         # 可以设定重定向的url
         back_dic = {'url':'','code':1000}
+        
         data = request.POST
-        newPaper = Tmppaper() # 实例化数据表
-        global currPaperID
-        newPaper.paperid = currPaperID
-        print("username")
-        print(request.user.username)
-        commitAuthor_obj = Author.objects.get(authorid = request.user.username)   
-        newPaper.commitauthorid = commitAuthor_obj
-        newPaper.title = data['title']
 
-        Conferjournal_obj = Conferjournal.objects.get(name = data['cjname'])   
-        newPaper.conferjournalname = Conferjournal_obj
-        if data['language'] == 'English':
-            newPaper.language = 'E'
-        else:
-            newPaper.language = 'C'
-        if data['cj'] == 'journal':
-            newPaper.conferorjournal = 'J'
-        else:
-            newPaper.conferorjournal = 'C'
-        newPaper.papertype = data['cjtype']
-        newPaper.publishtime = data['date']
-        newPaper.startpage = data['page_1']
-        newPaper.endpage = data['page_2']
+        title = data['title']
+        language = data['language']
+        cj = data['cj']
+        cjname = data['cjname']
+        cjtype = data['cjtype']
+        date = data['date']
+        page_1 = data['page_1']
+        page_2 = data['page_2']
+
         # 会议没有卷期
         try:
-            newPaper.Volume = data['volume']
-            newPaper.Issue = data['issue']
+            volume = data['volume']
+            issue = data['issue']
         except:
             pass
-        newPaper.save()
-        ############# insert into tmpPA #######
+
         authors = data['authors']
         authors = json.loads(authors)
-        print(authors)
-        print(len(authors))
-        # print(authors[0]['name'])
-        global currPAID
-        for i in range(len(authors)):
-            newTmppa = Tmppa()
-            newTmppa.paid = currPAID
-            currPAID += 1
-            newTmppa.paperid = newPaper
-            print(authors[i]['name'])
-            newTmppa.authorname = authors[i]['name']
-            newTmppa.authorrank = i+1
-            newTmppa.authoridentity = authors[i]['identity']
-            newTmppa.save()
-            #newTmppa.authortype = authors[i]['type']
         
-        currPaperID += 1
+        # print(authors,type(authors[0]))
+
+
         # 存储pdf文件, 默认在data/paper.pdf
         paper = request.FILES['paper']
         paper_name = request.FILES['paper'].name
         handle_uploaded_file(paper,paper_name)
-        print("save success")
 
         return JsonResponse(back_dic)
         
@@ -253,72 +190,43 @@ def logout(request):
 # 添加
 @login_required
 def insert(request):
-        # print("why?")
-    # print(request)
-    print('insert')
     if request.method == 'POST':
         # 可以设定重定向的url
         back_dic = {'url':'','code':1000}
+        
         data = request.POST
-        newPaper = Tmppaper() # 实例化数据表
-        global currPaperID
-        newPaper.paperid = currPaperID
-        print("username")
-        print(request.user.username)
-        commitAuthor_obj = Author.objects.get(authorid = request.user.username)   
-        newPaper.commitauthorid = commitAuthor_obj
-        newPaper.title = data['title']
-
-        Conferjournal_obj = Conferjournal.objects.get(name = data['cjname'])   
-        newPaper.conferjournalname = Conferjournal_obj
-        if data['language'] == 'English':
-            newPaper.language = 'E'
-        else:
-            newPaper.language = 'C'
-        if data['cj'] == 'journal':
-            newPaper.conferorjournal = 'J'
-        else:
-            newPaper.conferorjournal = 'C'
-        newPaper.papertype = data['cjtype']
-        newPaper.publishtime = data['date']
-        newPaper.startpage = data['page_1']
-        newPaper.endpage = data['page_2']
+        
+        title = data['title']
+        language = data['language']
+        cj = data['cj']
+        cjname = data['cjname']
+        cjtype = data['cjtype']
+        date = data['date']
+        page_1 = data['page_1']
+        page_2 = data['page_2']
+        
         # 会议没有卷期
         try:
-            newPaper.Volume = data['volume']
-            newPaper.Issue = data['issue']
+            volume = data['volume']
+            issue = data['issue']
         except:
             pass
-        newPaper.save()
-        ############# insert into tmpPA #######
+            
         authors = data['authors']
         authors = json.loads(authors)
-        print(authors)
-        print(len(authors))
-        # print(authors[0]['name'])
-        global currPAID
-        for i in range(len(authors)):
-            newTmppa = Tmppa()
-            newTmppa.paid = currPAID
-            currPAID += 1
-            newTmppa.paperid = newPaper
-            print(authors[i]['name'])
-            newTmppa.authorname = authors[i]['name']
-            newTmppa.authorrank = i+1
-            newTmppa.authoridentity = authors[i]['identity']
-            newTmppa.save()
-            #newTmppa.authortype = authors[i]['type']
         
-        currPaperID += 1
+        # print(authors,type(authors[0]))
+        
+        
         # 存储pdf文件, 默认在data/paper.pdf
         paper = request.FILES['paper']
         paper_name = request.FILES['paper'].name
         handle_uploaded_file(paper,paper_name)
-        print("save success")
+        
         return JsonResponse(back_dic)
-    #else:
-        #return HttpResponse("<h1>WRONG!</h1>")
-
+    
+    else:
+        return HttpResponse("<h1>WRONG!</h1>")
     return render(request, 'insert.html', locals())
 
 # 查询
@@ -330,10 +238,10 @@ def query(request):
 @login_required
 def detail(request, paperid):
     # paperid这里后面要改，目前暂时同title代替！！！
-    paper = models.Paper.objects.raw('SELECT * FROM Paper WHERE paperid=%s;', [paperid])[0]
+    paper = models.Paper.objects.raw('SELECT * FROM Paper WHERE title=%s;', [paperid])[0]
     # print([str(paper.conferjournalname)])
     conferjournal = models.Conferjournal.objects.raw('SELECT * FROM Conferjournal WHERE name=%s;', [str(paper.conferjournalname)])[0]
-    authors = models.Pa.objects.filter(paperid=paperid)
+    authors = models.Pa.objects.filter(papertitle=str(paper.title))
     # authors = models.Pa.objects.raw('SELECT Author.name as name, authoridentity,  FROM PA, Author WHERE PA.papertitle=%s AND PA.authorid=Author.authorid', [str(paper.title)])
     # for author in authors:
     #     print(author)
@@ -342,32 +250,20 @@ def detail(request, paperid):
 
 # 修改内容
 @login_required
-def modify(request, paperid):
+def modify(request):#, paperid):
     if request.method == 'POST':
         back_dic = {'code': 1000, 'msg': ''}
         return JsonResponse(back_dic)
 
     # 从临时表查询出来数据
-    paper = models.Paper.objects.raw('SELECT * FROM Tmppaper WHERE paperid=%s;', [paperid])[0]
-    title = paper.title
-    conferorjournal = paper.conferorjournal
-    conferjournalname = paper.conferjournalname
-    publishtime = paper.publishtime
-    volume = paper.volume
-    issue = paper.issue
-    startpage = paper.startpage
-    endpage = paper.endpage
-    papertype = paper.papertype
-    language = paper.language
-
-    authors = models.Tmppa.objects.filter(paperid = paper.paperid)
-    for author in authors:
-        print(author)
+    # paper = models.Paper.objects.raw('SELECT * FROM Tmppaper WHERE paperid=%s;', [paperid])[0]
+    title = "测试论文标题"
+    language_type = "English"
     return render(request, 'modify.html', locals())
 
 # 审核
 @login_required
-def check(request, paperid):#, paperid):
+def check(request,paperid):#, paperid):
     if request.method == 'POST':
         #back_dic = {'code': 1000, 'msg': ''}
 
@@ -456,30 +352,42 @@ def check(request, paperid):#, paperid):
         
     #else:
      #   return HttpResponse("<h1>WRONG!</h1>")
+
+
+
+
+
     # 从临时表查询出来数据
-    paper = models.Paper.objects.raw('SELECT * FROM Tmppaper WHERE paperid=%s;', [paperid])[0]
-    title = paper.title
-    conferorjournal = paper.conferorjournal
-    conferjournalname = paper.conferjournalname
-    publishtime = paper.publishtime
-    volume = paper.volume
-    issue = paper.issue
-    startpage = paper.startpage
-    endpage = paper.endpage
-    papertype = paper.papertype
-    language = paper.language
+    # paper = models.Paper.objects.raw('SELECT * FROM Tmppaper WHERE paperid=%s;', [paperid])[0]
+
+    # paperid = 0
+    # commitauthorid = 
+    title = "测试论文标题"
+    conferorjournal = "C"
+    conferjournalname = "测试论文名称"
+    publishtime = "2019-10-04"
+    paper_type = "conference"
+    #volume = 
+    #issue = 
+    #startpage = 
+    #endpage = 
+    #keywords = models.CharField(db_column='Keywords', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    #conferencelocation = models.CharField(db_column='ConferenceLocation', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    #papertype = models.CharField(db_column='PaperType', max_length=10)  # Field name made lowercase.
+    language = "English"
     return render(request, 'check.html', locals())
+
+
+
 
 # 主页
 @login_required
 def home(request):
     # 如果是管理员，则返回所有待审核的项目
     if request.user.is_staff:
-        # print(1)
+        print(1)
         # 等临时表建好了再说
-        tmp_papers = models.Tmppaper.objects.all().order_by('paperid')
     else:
-        tmp_papers = models.Tmppaper.objects.filter(commitauthorid=request.user.username).order_by('paperid')
         print(request.user.username)
     return render(request,'home.html', locals())
 
@@ -498,7 +406,7 @@ def get_code(request):
         '''随机生成RGB颜色'''
         return random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
 
-    img_obj = Image.new('RGB', (310, 35), (255, 255, 255))  # white background
+    img_obj = Image.new('RGB', (310, 35), get_random_rgb())
     img_draw = ImageDraw.Draw(img_obj)  # 生成一个画笔对象
     img_font = ImageFont.truetype('static/font/111.ttf', 30)  # 字体的样式
     """

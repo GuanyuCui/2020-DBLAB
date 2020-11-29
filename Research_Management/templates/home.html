@@ -22,22 +22,24 @@
             </tr>
         </thead>
         <tbody>
+            {% for tmp_paper in tmp_papers %}
             <tr>
-            <td>项目1</td>
-            <td>教师1</td>
+            <td>{{ tmp_paper.title }}</td>
+            <td>{{ tmp_paper.commitauthorid.name }}</td>
             <td>
                 {% if request.user.is_staff %}
-                    <a href="/check" class="btn btn-default" role="button">审核</a>
+                    <a href="/check/{{ tmp_paper.paperid }}" class="btn btn-default" role="button">审核</a >
                 {% else %}
-                    <a href="/modify" class="btn btn-default" role="button">修改</a>
+                    <a href="/modify/{{ tmp_paper.paperid }}" class="btn btn-default" role="button">修改</a >
                 {% endif %}
             </td>
             </tr>
+            {% endfor %}
         </tbody>
         </table>
 </div>
 
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<!-- <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="row">
@@ -69,7 +71,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
 {% endblock %}

@@ -436,7 +436,7 @@
         data.append('csrfmiddlewaretoken', '{{ csrf_token }}');
         console.log(data);
         $.ajax({
-            url: '/process_i/',
+            url: '/insert/',
             type: 'post',
             data: data,
             csrfmiddlewaretoken: '{{ csrf_token }}',

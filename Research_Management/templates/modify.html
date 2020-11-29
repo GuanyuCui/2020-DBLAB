@@ -63,9 +63,9 @@
         $("#title").val('{{title}}');
 
         // 语言类型
-        if ('{{language}}' == "Chinese")
+        if ('{{language}}' == "C")
             $("#lan-cn").click();
-        else if ('{{language}}'== "English")
+        else if ('{{language}}'== "E")
             $("#lan-en").click();
         
         // 期刊/会议名称
@@ -95,10 +95,26 @@
             $("#conference").click();
             $("#page_1").val('{{startpage}}');
             $("#page_2").val('{{endpage}}');
-            if('{{papertype}}' == "长文")
+            if('{{papertype}}' == "长文Oral")
+            {
                 $("#long_essay").click();
-            else if('{{papertype}}' == "短文")
+                $("#oral").click();
+            }
+            else if('{{papertype}}' == "长文Poster")
+            {
+                $("#long_essay").click();
+                $("#poster").click();
+            }
+            if('{{papertype}}' == "短文Oral")
+            {
                 $("#short_essay").click();
+                $("#oral").click();
+            }
+            if('{{papertype}}' == "短文Poster")
+            {
+                $("#short_essay").click();
+                $("#poster").click();
+            }    
             else if('{{papertype}}' == "demo")
                 $("#demo").click();
         }
@@ -506,7 +522,7 @@
         html += '</td>';
         html += '<td>';
         html +=
-            '<select id="身份" class="form-control" label="authortype" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            '<select id="身份" class="form-control" label="identity" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '<option>独立作者</option>';
         html += '<option>第一作者</option>';
         html += '<option>通讯作者</option>';
@@ -515,7 +531,7 @@
         html += '</td>';
         html += '<td>';
         html +=
-            '<select id="类型" class="form-control" label="identity" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            '<select id="类型" class="form-control" label="authortype" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
         html += '<option>本院教师</option>';
         html += '<option>本院学生</option>';
         html += '<option>校外人员</option>';
@@ -653,10 +669,10 @@
         html += '<div class="panel-heading">展示形式</div>';
         html += '<div class="panel-body">';
         html += '<label class="radio-inline">';
-        html += '<input type="radio" name="s_type" value="Oral" checked/>Oral</label>';
+        html += '<input type="radio" name="s_type" id="oral" value="Oral" checked/>Oral</label>';
         html += '<br>';
         html += '<label class="radio-inline">';
-        html += '<input type="radio" name="s_type" value="Oral">Poster</label>';
+        html += '<input type="radio" name="s_type" id="poster" value="Poster">Poster</label>';
         html += '<br>';
         html += '</div>';
         html += '</div>';
@@ -678,10 +694,10 @@
         html += '<div class="panel-heading">展示形式</div>';
         html += '<div class="panel-body">';
         html += '<label class="radio-inline">';
-        html += '<input type="radio" name="s_type" value="Oral" checked/>Oral</label>';
+        html += '<input type="radio" name="s_type" id="oral" value="Oral" checked/>Oral</label>';
         html += '<br>';
         html += '<label class="radio-inline">';
-        html += '<input type="radio" name="s_type" value="Oral">Poster</label>';
+        html += '<input type="radio" name="s_type" id="poster" value="Poster">Poster</label>';
         html += '<br>';
         html += '</div>';
         html += '</div>';

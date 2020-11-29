@@ -649,6 +649,8 @@
                         }else{
                             // 渲染错误信息
                             $('#error').text(data.msg)
+                            $('#loginButton span').toggle();
+                            $('#img').attr('src', '/get_code/'+'?'+Math.random())
                         }
                     },
                     error: function () {

@@ -30,11 +30,11 @@ urlpatterns = [
     url(r'^home/', views.home),
     url(r'^insert/', views.insert),
     # url(r'^detail/(?P<paperid>[0-9]+)/', views.detail),
-    url(r'^detail/(?P<paperid>.*)/', views.detail),
-    # url(r'^check/(?P<paperid>.[0-9]+)/', views.check),
-    url(r'^check/', views.check),
-    # url(r'^modify/(?P<paperid>.[0-9]+)/', views.modify),
-    url(r'^modify/', views.modify),
+    url(r'^detail/(?P<paperid>[0-9]+)/', views.detail),
+    url(r'^check/(?P<paperid>[0-9]+)/', views.check),
+    #url(r'^check/', views.check),
+    url(r'^modify/(?P<paperid>[0-9]+)/', views.modify),
+    #url(r'^modify/', views.modify),
     url(r'^query/',views.query),
     url(r'^createuser/', views.createuser),
 
@@ -48,6 +48,7 @@ urlpatterns = [
 
     url(r'^get_code/',views.get_code),
     url(r'^download/',views.download,name="download"),
+    url(r'^set_password/',views.set_password),
 
     #
     #
