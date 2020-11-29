@@ -202,18 +202,28 @@ def detail(request, paperid):
 
 # 修改内容
 @login_required
-def modify(request, paperid):
+def modify(request):#, paperid):
     if request.method == 'POST':
         back_dic = {'code': 1000, 'msg': ''}
         return JsonResponse(back_dic)
 
     # 从临时表查询出来数据
-    paper = models.Paper.objects.raw('SELECT * FROM Tmppaper WHERE paperid=%s;', [paperid])[0]
+    # paper = models.Paper.objects.raw('SELECT * FROM Tmppaper WHERE paperid=%s;', [paperid])[0]
+    title = "测试论文标题"
+    language_type = "English"
+    return render(request, 'modify.html', locals())
 
-    # 送到前端显示
+# 审核
+@login_required
+def check(request):#, paperid):
+    if request.method == 'POST':
+        back_dic = {'code': 1000, 'msg': ''}
+        return JsonResponse(back_dic)
 
-    # 再送回后端
-
+    # 从临时表查询出来数据
+    # paper = models.Paper.objects.raw('SELECT * FROM Tmppaper WHERE paperid=%s;', [paperid])[0]
+    title = "测试论文标题"
+    language_type = "English"
     return render(request, 'modify.html', locals())
 
 # 主页

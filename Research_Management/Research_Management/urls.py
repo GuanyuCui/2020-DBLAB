@@ -31,8 +31,10 @@ urlpatterns = [
     url(r'^insert/', views.insert),
     # url(r'^detail/(?P<paperid>[0-9]+)/', views.detail),
     url(r'^detail/(?P<paperid>.*)/', views.detail),
-    url(r'^modify/(?P<paperid>.[0-9]+)/', views.modify),
-    # url(r'^modify/', views.modify),
+    # url(r'^check/(?P<paperid>.[0-9]+)/', views.check),
+    url(r'^check/', views.check),
+    # url(r'^modify/(?P<paperid>.[0-9]+)/', views.modify),
+    url(r'^modify/', views.modify),
     url(r'^query/',views.query),
     url(r'^createuser/', views.createuser),
 

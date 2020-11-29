@@ -24,7 +24,7 @@ class Author(models.Model):
     name = models.CharField(db_column='Name', unique=True, max_length=20)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'author'
     def __str__(self):
         '''打印时会返回用户名，方便阅读'''
@@ -40,7 +40,7 @@ class Conferjournal(models.Model):
     issn = models.CharField(db_column='ISSN', max_length=50, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'conferjournal'
     
     def __str__(self):
@@ -56,7 +56,7 @@ class Pa(models.Model):
     authoridentity = models.CharField(db_column='AuthorIdentity', max_length=20)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'pa'
 
 
@@ -76,7 +76,7 @@ class Paper(models.Model):
     language = models.CharField(db_column='Language', max_length=1, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'paper'
     
     def __str__(self):
@@ -92,7 +92,7 @@ class Tmppa(models.Model):
     authoridentity = models.CharField(db_column='AuthorIdentity', max_length=20)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tmppa'
 
 
@@ -113,5 +113,5 @@ class Tmppaper(models.Model):
     language = models.CharField(db_column='Language', max_length=1, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tmppaper'

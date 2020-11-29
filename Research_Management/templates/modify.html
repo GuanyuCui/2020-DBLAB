@@ -56,6 +56,18 @@
         locale: moment.locale('zh-cn'),
         defaultDate: "1990-1-1"
     });
+
+    // 查询出来的内容显示一下
+    $(function(){
+        // $("#XXXX").val(要选中的option的value值即可);
+        // 论文标题
+        $("#title").val('{{title}}');
+
+        // 语言类型
+        var allCheck = document.getElementsByName("language_type");
+        if ('{{language_type}}'== "English")
+            allCheck[1].checked = true;
+    });
 </script>
 
 <div class="col-md-10">
@@ -77,7 +89,6 @@
                             style="margin-right: 10px;margin-left: 10px;" checked />中文
                         <input type="radio" name="language_type" value="English"
                             style="margin-right: 10px;margin-left: 10px;">英文
-
                     </div>
                 </div>
             </div>
