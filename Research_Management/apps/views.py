@@ -24,8 +24,10 @@ currPAID = 0
 # 这个别删
 rank_refer = ['A+','A','A-','B','C']
 papertype_refer = ['正刊','专刊','增刊','长文Oral','长文Poster','短文Oral','短文Poster','Demo']
+authoridentity_refer = ['第一作者','通讯作者','其他作者']
+
 condition_refer = {'AND':'&','OR':'|','':''}
-key_refer = {'期刊名称':'conferjournalname','会议名称':'conferjournalname','论文题目':'title','作者姓名':'authorname'}
+key_refer = {'期刊/会议名称':'conferjournalname','论文题目':'title','作者姓名':'pa__authorname'}
 
 # 设置用户权限的一篇参考博文
 # https://www.cnblogs.com/xuchengcheng1215/p/9457950.html
@@ -133,7 +135,7 @@ def query_process(request):
         data = request.POST
 
         querys =json.loads(data['querys'])
-        authorType = json.loads(data['authorType'])
+        authorIdentity = json.loads(data['authorIdentity'])
         paperType = json.loads(data['paperType'])
         CCFRank = json.loads(data['CCFRank'])
         CCFChinaRank = json.loads(data['CCFChinaRank'])
@@ -144,8 +146,6 @@ def query_process(request):
 
         # 目前只写了是管理员的时候
         if request.user.is_staff:
-            results = Paper.objects
-            # results = Paper.objects.filter(pa__authorname="pt")
             # print(results)
 
             # # a or b and c = a or (b and c)
@@ -163,6 +163,7 @@ def query_process(request):
             #     print("results after top querys:{}".format(results))
 
             # 这是使用交集并集的逻辑, 也就是遇到 a or b and c 即执行 (a or b) and c
+            # 查询时需要distinct()否则会重复, 注意使用distinct()之后的order_by不能设计别的数据表中的列
             if querys[0]['value']:
                 for idx,query in enumerate(querys):
                     condition = query['condition']
@@ -171,24 +172,55 @@ def query_process(request):
 
                     # 获取第一个条件
                     if idx == 0:
-                        result = eval("Paper.objects.filter({}=\"{}\")".format(key,value))
+                        result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
                         results = result
 
                     # 如果还有别的条件
                     else:
                         # and做交
                         if condition == 'AND':
-                            result = eval("Paper.objects.filter({}=\"{}\")".format(key,value))
-                            # results = eval("results.filter({}=\"{}\")".format(key,value))
+                            result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
                             results = results&result
 
                         # or做并
                         if condition == 'OR':
-                            result = eval("Paper.objects.filter({}=\"{}\")".format(key,value))
-                            results = results|result
+                            result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
+                            results = (results|result).distinct()
                 
+
                 print("results after top querys:{}".format(results))
         
+        else:
+            username = Author.objects.get(authorid=request.user.username)
+            print(username)
+
+            # results = Paper.objects.filter(pa__authorname=request.user.username)
+            
+            if querys[0]['value']:
+                for idx,query in enumerate(querys):
+                    condition = query['condition']
+                    key = key_refer[query['key']]
+                    value = query['value']
+
+                    # 获取第一个条件
+                    if idx == 0:
+                        result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
+                        results = result
+
+                    # 如果还有别的条件
+                    else:
+                        # and做交
+                        if condition == 'AND':
+                            result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
+                            results = results&result
+
+                        # or做并
+                        if condition == 'OR':
+                            result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
+                            results = (results|result).distinct()
+                
+                print("results after top querys:{}".format(results))
+
         # a = Conferjournal.objects.filter(paper__paperid=1)
         # print(a)
         
@@ -206,6 +238,19 @@ def query_process(request):
         results = eval(time_query_str)
         print("results after time queries:{}".format(results))
         
+        q_ai = []
+        if authorIdentity[0]:
+            q_ai.append("Q(pa__authoridentity=\"普通作者\",pa__authorrank=1)")
+        if authorIdentity[1]:
+            q_ai.append("Q(pa__authoridentity=\"通讯作者\")")
+        if authorIdentity[2]:
+            q_ai.append("Q(pa__authoridentity=\"普通作者\",pa__authorrank__gt=1)")
+        
+        authoridentity_query = '|'.join(q_ai)
+        authoridentity_query_str = "results.filter({})".format(authoridentity_query)
+        results = eval(authoridentity_query_str)
+        print("results after author identity queries:{}".format(results))
+
         # 0: main, 1: special section, 2: addition
         # 3: long oral, 4: long poster, 5: short oral, 6: short poster
         # 7: demo

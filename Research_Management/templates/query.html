@@ -111,11 +111,12 @@
                                     <span class="input-group-addon" style="width:100px; padding:3px 10px;">筛选条件</span>
                                     <div class="input-group-btn">
                                         <select id="inputTextType" class="form-control" label="key"
-                                            style="width:100px; padding:3px 10px;">
+                                            style="width:120px; padding:3px 10px;">
                                             <option id="chosenTitle">论文题目</option>
-                                            <option>期刊名称</option>
-                                            <option>会议名称</option>
+                                            <option>期刊/会议名称</option>
+                                            {% if request.user.is_staff %}
                                             <option>作者姓名</option>
+                                            {% endif %}
                                         </select>
                                     </div>
                                     <input id="inputText" type="text" class="form-control" label="value"
@@ -320,7 +321,7 @@
                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 查询结果
             </div>
             <div class="panel-body">
-                <table class="table table-striped" >
+                <table class="table table-striped">
                     <!-- style="table-layout:fixed;" -->
                     <thead>
                         <tr>
@@ -353,6 +354,7 @@
 
 
 </body>
+
 
 
 <script>
@@ -510,7 +512,8 @@
 
         var data = { // 提交数据
             "querys": JSON.stringify(querys),
-            "authorType": JSON.stringify(authorType), // 前者为字段名，后者为数据
+            // authorIdentity是普通作者or通讯作者, authorType是本院教师or本院学生or其他
+            "authorIdentity": JSON.stringify(authorType), // 前者为字段名，后者为数据
             "paperType": JSON.stringify(paperType),
             "CCFRank": JSON.stringify(CCFRank),
             "CCFChinaRank": JSON.stringify(CCFChinaRank),
@@ -557,7 +560,9 @@
         html += '<option>论文题目</option>';
         html += '<option>期刊名称</option>';
         html += '<option>会议名称</option>';
+        html += '{% if request.user.is_staff %}';
         html += '<option>作者姓名</option>';
+        html += '{% endif %}';
         html += '</select>';
         html += '</div>';
         html += '<input type="text" class="form-control" label="value" placeholder="请输入...">';
