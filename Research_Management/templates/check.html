@@ -124,11 +124,11 @@
 
         var author_names = JSON.parse('{{author_names|safe}}');
         var author_identities = JSON.parse('{{author_identities|safe}}');
-
+        var author_types = JSON.parse('{{author_types|safe}}');
 
         $("#姓名").val(author_names[0]);
         $("#身份").val(author_identities[0]);
-        $("#人员类型").val("本院教师");
+        $("#人员类型").val(author_types[0]);
         
         for(var i = 1; i < author_names.length; i++)
         {
@@ -164,9 +164,22 @@
             html +=
                 '<select id="人员类型" class="form-control" label="authortype"'
             html += ' style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
-            html += '<option>本院教师</option>';
-            html += '<option>本院学生</option>';
-            html += '<option>其他</option>';
+
+            if(author_types[i] == "本院教师")
+                html += '<option value="本院教师" selected="selected">本院教师</option>';
+            else
+                html += '<option value="本院教师">本院教师</option>';
+            
+            if(author_types[i] == "本院学生")
+                html += '<option value="本院学生" selected="selected">本院学生</option>';
+            else
+                html += '<option value="本院学生">本院学生</option>';
+            
+            if(author_types[i] == "其他")
+                html += '<option value="其他" selected="selected">其他</option>';
+            else
+                html += '<option value="其他">其他</option>';
+                
             html += '</select>';
             html += '</td>';
             html += '<td>';

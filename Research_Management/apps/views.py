@@ -18,9 +18,6 @@ from apps.models import Pa
 from apps.models import Tmppaper
 from apps.models import Tmppa
 
-currPaperID = 0
-currPAID = 0
-
 # 这个别删
 rank_refer = ['A+','A','A-','B','C']
 papertype_refer = ['正刊','专刊','增刊','长文Oral','长文Poster','短文Oral','短文Poster','Demo']
@@ -370,8 +367,6 @@ def insert(request):
         back_dic = {'url':'','code':1000}
         data = request.POST
         newPaper = Tmppaper() # 实例化数据表
-        global currPaperID
-        newPaper.paperid = currPaperID
         commitAuthor_obj = Author.objects.get(authorid = request.user.username)   
         newPaper.commitauthorid = commitAuthor_obj
         newPaper.title = data['title']
@@ -399,11 +394,8 @@ def insert(request):
         ############# insert into tmpPA #######
         authors = data['authors']
         authors = json.loads(authors)
-        global currPAID
         for i in range(len(authors)):
             newTmppa = Tmppa()
-            newTmppa.paid = currPAID
-            currPAID += 1
             newTmppa.paperid = newPaper
             # print(authors[i]['name'])
             newTmppa.authorname = authors[i]['name']
@@ -412,7 +404,6 @@ def insert(request):
             newTmppa.save()
             #newTmppa.authortype = authors[i]['type']
         
-        currPaperID += 1
         # 存储pdf文件, 默认在data/paper.pdf
         paper = request.FILES['paper']
         paper_name = request.FILES['paper'].name
@@ -466,6 +457,7 @@ def modify(request, paperid):
     authors = models.Tmppa.objects.filter(paperid = paper.paperid)
     author_names = str([_.authorname for _ in authors]).replace("'", '"')
     author_identities = str([_.authoridentity for _ in authors]).replace("'", '"')
+    author_types = str([_.authortype for _ in authors]).replace("'", '"')
     return render(request, 'modify.html', locals())
 
 # 审核
@@ -479,10 +471,6 @@ def check(request, paperid):#, paperid):
         data = request.POST
         insertPaper = Paper() # 实例化插入表
 
-        global currPaperID
-        insertPaper.paperid = currPaperID
-
-        currPaperID += 1
         print("username")
         print(request.user.username)  
         #newPaper.commitauthorid = commitAuthor_obj
@@ -521,12 +509,9 @@ def check(request, paperid):#, paperid):
         # print(len(authors))
         # print(authors[0]['name'])
 
-        global currPAID
         for i in range(len(authors)):
             newPa = Pa()
             newAuthor = Author()
-            newPa.paid = currPAID
-            currPAID += 1
             newPa.paperid = insertPaper.paperid
             print(authors[i]['name'])
             newPa.authorname = authors[i]['name']
@@ -543,7 +528,6 @@ def check(request, paperid):#, paperid):
             
             #newPa.authortype = authors[i]['type']
         
-        currPaperID += 1
 
         #for i in range(len(authors)):
         #   authorName = authors[i]['name']
