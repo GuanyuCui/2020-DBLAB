@@ -173,6 +173,9 @@ def query_process(request):
 
                     # 如果还有别的条件
                     else:
+                        if not value:
+                            continue
+
                         # and做交
                         if condition == 'AND':
                             result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
@@ -205,6 +208,8 @@ def query_process(request):
 
                     # 如果还有别的条件
                     else:
+                        if not value:
+                            continue
                         # and做交
                         if condition == 'AND':
                             result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))

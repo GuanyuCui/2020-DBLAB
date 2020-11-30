@@ -559,8 +559,7 @@
         html +=
             '<select class="form-control" label="key"  style="width:100px; padding:3px 10px;">';
         html += '<option>论文题目</option>';
-        html += '<option>期刊名称</option>';
-        html += '<option>会议名称</option>';
+        html += '<option>期刊/会议名称</option>';
         html += '{% if request.user.is_staff %}';
         html += '<option>作者姓名</option>';
         html += '{% endif %}';
