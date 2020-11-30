@@ -44,7 +44,7 @@
                             </div>
                             <div class="panel-body">
                                 <!-- 这里后边等统一了存的格式后需要修改！！！ -->
-                                {% if conferjournal.conferorjournal != 'c' %}
+                                {% if conferjournal.conferorjournal != 'C' %}
                                 <!-- need information from backend  -->
                                 发布期刊：{{ conferjournal.name }}
                                 <br>
@@ -73,7 +73,7 @@
                                     <form class="form-inline">
                                         
                             <!-- 这里后边等统一了存的格式后需要修改！！！ -->
-                            {% if conferjournal.conferorjournal != 'c' %}
+                            {% if conferjournal.conferorjournal != 'C' %}
                                         卷
                                         <input class="form-control" type="text" style="width:50px;
                             padding:3px 10px;
@@ -194,6 +194,7 @@
                                             </td>
                                             <td>
                                                 <!-- need information from backend  -->
+                                                {{ author.authortype }}
                                             </td>
                                         </tr>
                                         {% endfor %}
