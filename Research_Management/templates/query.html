@@ -533,8 +533,9 @@
             success: function (response) {
                 if (response.code == 1000) {
                     //        window.location.href = response.url
-                } else {
-                    alert("fuck");
+                } 
+                else if(response.code == 2000) {
+                    alert("no matching");
                 }
             }
         })

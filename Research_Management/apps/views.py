@@ -129,7 +129,6 @@ def query_process(request):
             filter(a,b) 和 filter(a).filter(b)的逻辑
     """
     if request.method == 'POST':
-        back_dic = {'url':'','code':1000}
         data = request.POST
 
         queries =json.loads(data['queries'])
@@ -220,69 +219,80 @@ def query_process(request):
                             results = (results|result).distinct()
                 
                 print("results after top queries:{}".format(results))
-
-        # 处理日期的query时, 用户可以只填写一边的日期
-        # time queries:
-        q_time = []
-        if time[0]:
-            q_time.append("Q(publishtime__gte=\"%s\")" % time[0])
-        if time[1]:    
-            q_time.append("Q(publishtime__lte=\"%s\")" % time[1])
         
-        time_query = '&'.join(q_time)
-        time_query_str = "results.filter({})".format(time_query)
-        results = eval(time_query_str)
-        print("results after time queries:{}".format(results))
-        
-        q_ai = []
-        if authorIdentity[0]:
-            q_ai.append("Q(pa__authoridentity=\"普通作者\",pa__authorrank=1)")
-        if authorIdentity[1]:
-            q_ai.append("Q(pa__authoridentity=\"通讯作者\")")
-        if authorIdentity[2]:
-            q_ai.append("Q(pa__authoridentity=\"普通作者\",pa__authorrank__gt=1)")
-        
-        authoridentity_query = '|'.join(q_ai)
-        authoridentity_query_str = "results.filter({}).distinct()".format(authoridentity_query)
-        results = eval(authoridentity_query_str)
-        print("results after author identity queries:{}".format(results))
+        # 如果查到一半就变空集, 那就没了
+        if results:
+            # 处理日期的query时, 用户可以只填写一边的日期
+            # time queries:
+            q_time = []
+            if time[0]:
+                q_time.append("Q(publishtime__gte=\"%s\")" % time[0])
+            if time[1]:    
+                q_time.append("Q(publishtime__lte=\"%s\")" % time[1])
+            
+            time_query = '&'.join(q_time)
+            time_query_str = "results.filter({})".format(time_query)
+            results = eval(time_query_str)
+            print("results after time queries:{}".format(results))
 
-        # 0: main, 1: special section, 2: addition
-        # 3: long oral, 4: long poster, 5: short oral, 6: short poster
-        # 7: demo
-        # paper type queries:
-        q_pt = []
-        for idx in range(8):
-            if paperType[idx] == 1:
-                papertype = papertype_refer[idx]
-                q_pt.append("Q(papertype=\"%s\")" % papertype)
-        
-        papertype_query = '|'.join(q_pt)
-        papertype_query_str = "results.filter({})".format(papertype_query)
-        results = eval(papertype_query_str)
-        print("results after paper type queries:{}".format(results))
+        if results:    
+            q_ai = []
+            if authorIdentity[0]:
+                q_ai.append("Q(pa__authoridentity=\"普通作者\",pa__authorrank=1)")
+            if authorIdentity[1]:
+                q_ai.append("Q(pa__authoridentity=\"通讯作者\")")
+            if authorIdentity[2]:
+                q_ai.append("Q(pa__authoridentity=\"普通作者\",pa__authorrank__gt=1)")
+            
+            authoridentity_query = '|'.join(q_ai)
+            authoridentity_query_str = "results.filter({}).distinct()".format(authoridentity_query)
+            results = eval(authoridentity_query_str)
+            print("results after author identity queries:{}".format(results))
 
-        # rank queries
-        q_ccf = []
-        q_ccfchina = []
-        q_ruc = []
-        for idx in range(5):
-            if CCFRank[idx] == 1:
-                rank = rank_refer[idx]
-                q_ccf.append("Q(conferjournalname__ccflevel=\"%s\")" % rank)
+        if results:
+            # 0: main, 1: special section, 2: addition
+            # 3: long oral, 4: long poster, 5: short oral, 6: short poster
+            # 7: demo
+            # paper type queries:
+            q_pt = []
+            for idx in range(8):
+                if paperType[idx] == 1:
+                    papertype = papertype_refer[idx]
+                    q_pt.append("Q(papertype=\"%s\")" % papertype)
+            
+            papertype_query = '|'.join(q_pt)
+            papertype_query_str = "results.filter({})".format(papertype_query)
+            results = eval(papertype_query_str)
+            print("results after paper type queries:{}".format(results))
 
-            if CCFChinaRank[idx] == 1:
-                rank = rank_refer[idx]
-                q_ccfchina.append("Q(conferjournalname__ccfchinalevel=\"%s\")" % rank)
+        if results:
+            # rank queries
+            q_ccf = []
+            q_ccfchina = []
+            q_ruc = []
+            for idx in range(5):
+                if CCFRank[idx] == 1:
+                    rank = rank_refer[idx]
+                    q_ccf.append("Q(conferjournalname__ccflevel=\"%s\")" % rank)
 
-            if RUCRank[idx] == 1:
-                rank = rank_refer[idx]
-                q_ruc.append("Q(conferjournalname__ruclevel=\"%s\")" % rank)
+                if CCFChinaRank[idx] == 1:
+                    rank = rank_refer[idx]
+                    q_ccfchina.append("Q(conferjournalname__ccfchinalevel=\"%s\")" % rank)
 
-        rank_query = '|'.join(q_ccf + q_ccfchina + q_ruc)
-        rank_query_str = "results.filter({})".format(rank_query)
-        results = eval(rank_query_str)
-        print("results after rank quries:{}".format(results))
+                if RUCRank[idx] == 1:
+                    rank = rank_refer[idx]
+                    q_ruc.append("Q(conferjournalname__ruclevel=\"%s\")" % rank)
+
+            rank_query = '|'.join(q_ccf + q_ccfchina + q_ruc)
+            rank_query_str = "results.filter({})".format(rank_query)
+            results = eval(rank_query_str)
+            print("results after rank quries:{}".format(results))
+        if results:
+            back_dic = {'url':'','code':1000}
+            for paper in results:
+                print(paper,paper.paperid)
+        else:
+            back_dic = {'url':'','code':2000}
 
         return JsonResponse(back_dic)
 
