@@ -124,8 +124,9 @@ def query_process(request):
         完成的: 
             可以解析手动输入的query和勾选框的内容, 都在print里有输出
         TODO: 
-            群里发的and or的逻辑
             filter(a,b) 和 filter(a).filter(b)的逻辑
+            查询作者
+            管理员和非管理员
     """
     if request.method == 'POST':
         back_dic = {'url':'','code':1000}
@@ -141,8 +142,9 @@ def query_process(request):
 
         # conferorjournal = paperType[0] and paperType[1] and paperType[2]
 
+        # 目前只写了是管理员的时候
         if request.user.is_staff:
-
+            results = Paper.objects
             # results = Paper.objects.filter(pa__authorname="pt")
             # print(results)
 
@@ -161,33 +163,34 @@ def query_process(request):
             #     print("results after top querys:{}".format(results))
 
             # 这是使用交集并集的逻辑, 也就是遇到 a or b and c 即执行 (a or b) and c
-            for idx,query in enumerate(querys):
-                condition = query['condition']
-                key = key_refer[query['key']]
-                value = query['value']
+            if querys[0]['value']:
+                for idx,query in enumerate(querys):
+                    condition = query['condition']
+                    key = key_refer[query['key']]
+                    value = query['value']
 
-                # 获取第一个条件
-                if idx == 0:
-                    result = eval("Paper.objects.filter({}=\"{}\")".format(key,value))
-                    results = result
-
-                # 如果还有别的条件
-                else:
-                    # and做交
-                    if condition == 'AND':
+                    # 获取第一个条件
+                    if idx == 0:
                         result = eval("Paper.objects.filter({}=\"{}\")".format(key,value))
-                        # results = eval("results.filter({}=\"{}\")".format(key,value))
-                        results = results&result
+                        results = result
 
-                    # or做并
-                    if condition == 'OR':
-                        result = eval("Paper.objects.filter({}=\"{}\")".format(key,value))
-                        results = results|result
-            
-            print("results after top querys:{}".format(results))
+                    # 如果还有别的条件
+                    else:
+                        # and做交
+                        if condition == 'AND':
+                            result = eval("Paper.objects.filter({}=\"{}\")".format(key,value))
+                            # results = eval("results.filter({}=\"{}\")".format(key,value))
+                            results = results&result
+
+                        # or做并
+                        if condition == 'OR':
+                            result = eval("Paper.objects.filter({}=\"{}\")".format(key,value))
+                            results = results|result
+                
+                print("results after top querys:{}".format(results))
         
-        a = Conferjournal.objects.filter(paper__paperid=1)
-        print(a)
+        # a = Conferjournal.objects.filter(paper__paperid=1)
+        # print(a)
         
 
         # 处理日期的query时, 用户可以只填写一边的日期
