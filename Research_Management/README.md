@@ -165,26 +165,13 @@ data_post = {
   - [ ] 逆波兰表达式求and or
   - 用户只能查自己参与的论文, 那就不需要作者姓名的选项
   - 管理员可以查所有论文才需要作者姓名的选项
+  - 查询页的返回结果要是啥样？
 
 4. 给张老师一个id, createsuperuser给他自己一个账号
 
 5. 临时表
    - paper临时表不要有外码
    - 临时pa表加author type
-
-
-
-
-
-[
-Feng Zhang](https://dblp.uni-trier.de/pid/48/1294-7.html), [Lin Yang](https://dblp.uni-trier.de/pid/20/2970.html), [Shuhao Zhang](https://dblp.uni-trier.de/pid/135/4657.html), [Bingsheng He](https://dblp.uni-trier.de/pid/h/BingshengHe.html), [Wei Lu](https://dblp.uni-trier.de/pid/98/6613.html), [Xiaoyong Du](https://dblp.uni-trier.de/pid/47/3542-1.html):
-**FineStream: Fine-Grained Window-Based Stream Processing on CPU-GPU Integrated Architectures.** [USENIX Annual Technical Conference 2020](https://dblp.uni-trier.de/db/conf/usenix/usenix2020.html#0007YZHL020): 633-647
-
-
-
-[
-Zheng Chen](https://dblp.uni-trier.de/pid/33/2592.html), [Feng Zhang](https://dblp.uni-trier.de/pid/48/1294.html), [Amelie Chi Zhou](https://dblp.uni-trier.de/pid/131/6619.html), [Jidong Zhai](https://dblp.uni-trier.de/pid/72/7413.html), [Chenyang Zhang](https://dblp.uni-trier.de/pid/06/8501.html), [Xiaoyong Du](https://dblp.uni-trier.de/pid/47/3542-1.html):
-**ParSecureML: An Efficient Parallel Secure Machine Learning Framework on GPUs.** [ICPP 2020](https://dblp.uni-trier.de/db/conf/icpp/icpp2020.html#ChenZZZZ020): 22:1-22:11
 
 6. 基本表
    - conferorjournal需要存么？
