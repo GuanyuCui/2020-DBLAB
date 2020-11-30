@@ -580,3 +580,10 @@ def get_code(request):
     io_obj = BytesIO()
     img_obj.save(io_obj, 'png')
     return HttpResponse(io_obj.getvalue())
+
+
+@login_required
+def delete_tmp_paper(request):
+    if request.method == 'POST':
+        back_dic = {'code':1000}
+    return JsonResponse(back_dic)

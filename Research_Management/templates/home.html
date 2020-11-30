@@ -23,7 +23,7 @@
         </thead>
         <tbody>
             {% for tmp_paper in tmp_papers %}
-            <tr>
+            <tr id="{{ tmp_paper.paperid }}">
             <td>{{ tmp_paper.title }}</td>
             <td>{{ tmp_paper.commitauthorid.name }}</td>
             <td>
@@ -32,6 +32,8 @@
                 {% else %}
                     <a href="/modify/{{ tmp_paper.paperid }}" class="btn btn-default" role="button">修改</a >
                 {% endif %}
+                <a href="" class="btn btn-danger">lalala</a>
+                <input id="delete" type="button" value="删除" class="btn btn-danger">
             </td>
             </tr>
             {% endfor %}
@@ -96,6 +98,32 @@
                 }
             }
         })
+    })
+    $(document).on('click', '#delete', function() {
+        let is_delete = window.confirm("您确定删除这条记录吗？");
+        cur_this = this;
+        if (is_delete) {
+            $.ajax({
+                url: '/delete_tmp_paper/',
+                type: 'POST',
+                data: {
+                    'tmppaperid': $(this).closest('tr').attr('id'),
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    if (data.code == 1000) {
+                        window.alert('删除成功！')
+                        console.log($(cur_this).closest('tr').attr('id'))
+                        $(cur_this).closest('tr').remove()
+                    } else {
+                        window.alert('删除失败！')
+                    }
+                },
+                error: function () {
+                    window.alert('网络错误！');
+                }
+            })
+        } 
     })
 </script>
 {% endblock %}
