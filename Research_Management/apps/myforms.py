@@ -6,10 +6,10 @@ from apps import models
 
 
 class MyRegForm(forms.Form):
-    username = forms.CharField(min_length=2, max_length=8, label='用户名',
+    username = forms.CharField(min_length=3, max_length=16, label='用户名',
                                 error_messages={
-                                    'min_length': '用户名不能少于两位',
-                                    'max_length': '用户名不能大于八位',
+                                    'min_length': '用户名不能少于三位',
+                                    'max_length': '用户名不能大于十六位',
                                     'required': '用户名不能为空',
                                 }, widget=forms.widgets.TextInput(attrs={'class': 'form-control'})
                                 )
