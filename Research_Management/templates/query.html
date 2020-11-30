@@ -495,7 +495,7 @@
         var values = $("input[label=\"value\"]");
         var conditions = $("select[label=\"condition\"]");
 
-        var querys = new Array;
+        var queries = new Array;
         for (var i = 0; i < keys.length; i++) {
             var query = new Object;
             if (!i) {
@@ -507,11 +507,11 @@
                 query.key = keys.eq(i).val();
                 query.value = values.eq(i).val();
             }
-            querys.push(query);
+            queries.push(query);
         }
 
         var data = { // 提交数据
-            "querys": JSON.stringify(querys),
+            "queries": JSON.stringify(queries),
             // authorIdentity是普通作者or通讯作者, authorType是本院教师or本院学生or其他
             "authorIdentity": JSON.stringify(authorType), // 前者为字段名，后者为数据
             "paperType": JSON.stringify(paperType),

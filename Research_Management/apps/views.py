@@ -127,14 +127,12 @@ def query_process(request):
             可以解析手动输入的query和勾选框的内容, 都在print里有输出
         TODO: 
             filter(a,b) 和 filter(a).filter(b)的逻辑
-            查询作者
-            管理员和非管理员
     """
     if request.method == 'POST':
         back_dic = {'url':'','code':1000}
         data = request.POST
 
-        querys =json.loads(data['querys'])
+        queries =json.loads(data['queries'])
         authorIdentity = json.loads(data['authorIdentity'])
         paperType = json.loads(data['paperType'])
         CCFRank = json.loads(data['CCFRank'])
@@ -143,15 +141,17 @@ def query_process(request):
         time = json.loads(data['time'])
 
         # conferorjournal = paperType[0] and paperType[1] and paperType[2]
-
+        
+        results = Paper.objects
+        
         # 目前只写了是管理员的时候
         if request.user.is_staff:
             # print(results)
 
             # # a or b and c = a or (b and c)
-            # if querys[0]['value']:
+            # if queries[0]['value']:
             #     query_str = ''
-            #     for idx,query in enumerate(querys):
+            #     for idx,query in enumerate(queries):
             #         condition = condition_refer[query['condition']]
             #         key = key_refer[query['key']]
             #         value = query['value']
@@ -160,12 +160,12 @@ def query_process(request):
                 
             #     query_str = "results.objects.filter({})".format(query_str)
             #     results = eval(query_str)
-            #     print("results after top querys:{}".format(results))
+            #     print("results after top queries:{}".format(results))
 
             # 这是使用交集并集的逻辑, 也就是遇到 a or b and c 即执行 (a or b) and c
             # 查询时需要distinct()否则会重复, 注意使用distinct()之后的order_by不能设计别的数据表中的列
-            if querys[0]['value']:
-                for idx,query in enumerate(querys):
+            if queries[0]['value']:
+                for idx,query in enumerate(queries):
                     condition = query['condition']
                     key = key_refer[query['key']]
                     value = query['value']
@@ -188,16 +188,16 @@ def query_process(request):
                             results = (results|result).distinct()
                 
 
-                print("results after top querys:{}".format(results))
-        
+                print("results after top queries:{}".format(results))
+                    
         else:
             username = Author.objects.get(authorid=request.user.username)
             print(username)
 
             # results = Paper.objects.filter(pa__authorname=request.user.username)
             
-            if querys[0]['value']:
-                for idx,query in enumerate(querys):
+            if queries[0]['value']:
+                for idx,query in enumerate(queries):
                     condition = query['condition']
                     key = key_refer[query['key']]
                     value = query['value']
@@ -219,11 +219,7 @@ def query_process(request):
                             result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
                             results = (results|result).distinct()
                 
-                print("results after top querys:{}".format(results))
-
-        # a = Conferjournal.objects.filter(paper__paperid=1)
-        # print(a)
-        
+                print("results after top queries:{}".format(results))
 
         # 处理日期的query时, 用户可以只填写一边的日期
         # time queries:
@@ -247,7 +243,7 @@ def query_process(request):
             q_ai.append("Q(pa__authoridentity=\"普通作者\",pa__authorrank__gt=1)")
         
         authoridentity_query = '|'.join(q_ai)
-        authoridentity_query_str = "results.filter({})".format(authoridentity_query)
+        authoridentity_query_str = "results.filter({}).distinct()".format(authoridentity_query)
         results = eval(authoridentity_query_str)
         print("results after author identity queries:{}".format(results))
 
@@ -266,7 +262,7 @@ def query_process(request):
         results = eval(papertype_query_str)
         print("results after paper type queries:{}".format(results))
 
-        # rank querys
+        # rank queries
         q_ccf = []
         q_ccfchina = []
         q_ruc = []
@@ -287,9 +283,6 @@ def query_process(request):
         rank_query_str = "results.filter({})".format(rank_query)
         results = eval(rank_query_str)
         print("results after rank quries:{}".format(results))
-
-        # 根据下面这一行, 可以发现filter默认的&会优先于|执行
-        # print(Paper.objects.filter(Q(conferjournalname__ccfchinalevel="A+")|Q(conferjournalname="zpt")&Q(publishtime__lte="2015-11-29")))
 
         return JsonResponse(back_dic)
 
