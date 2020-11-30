@@ -32,11 +32,22 @@
                 {% else %}
                     <a href="/modify/{{ tmp_paper.paperid }}" class="btn btn-default" role="button">修改</a >
                 {% endif %}
-                <a href="" class="btn btn-danger">lalala</a>
                 <input id="delete" type="button" value="删除" class="btn btn-danger">
             </td>
             </tr>
             {% endfor %}
+            <tr id="1">
+                <td>2</td>
+                <td>3</td>
+                <td>
+                    {% if request.user.is_staff %}
+                        <a href="/check/1" class="btn btn-default" role="button">审核</a >
+                    {% else %}
+                        <a href="/modify/1" class="btn btn-default" role="button">修改</a >
+                    {% endif %}
+                    <input id="delete" type="button" value="删除" class="btn btn-danger">
+                </td>
+                </tr>
         </tbody>
         </table>
 </div>

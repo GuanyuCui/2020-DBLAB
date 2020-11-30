@@ -631,4 +631,15 @@ def get_code(request):
 def delete_tmp_paper(request):
     if request.method == 'POST':
         back_dic = {'code':1000}
+        data = request.POST
+        paperid = data['tmppaperid']
+        print(data)
+        # 查询该条记录是否存在
+        tmp_papers = models.Tmppaper.objects.filter(paperid=paperid)
+        #  若该条记录存在，则删除
+        if tmp_papers:
+            tmp_papers.delete()
+        # 若不存在，返回错误代码2000
+        else:
+            back_dic['code'] = 2000
     return JsonResponse(back_dic)
