@@ -576,7 +576,7 @@ def home(request):
         tmp_papers = models.Tmppaper.objects.all().order_by('paperid')
     else:
         tmp_papers = models.Tmppaper.objects.filter(commitauthorid=request.user.username).order_by('paperid')
-        print(request.user.username)
+        # print(request.user.username)
     return render(request,'home.html', locals())
 
 

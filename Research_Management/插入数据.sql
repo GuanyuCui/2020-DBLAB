@@ -11,7 +11,7 @@ insert into paper(title,conferorjournal,publishtime,volume,issue,startpage,endpa
 insert into paper(title,conferorjournal,publishtime,volume,issue,startpage,endpage,keywords,conferencelocation,papertype,language,conferjournalname) values('CCC','c','2020-11-30',null,null,10,14,'','beijing','短文Oral','E','ACL');
 
 insert into author values('2018202180','pt');
-insert into author values('2018202175','snl');
+insert into author values('2018202195','snl');
 insert into author values('szh','szh');
 
 insert into pa(authorname,authorrank,authoridentity,authortype,paperid) values('pt',1,'普通作者','本院教师',1);

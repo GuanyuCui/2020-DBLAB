@@ -89,7 +89,7 @@ class Paper(models.Model):
 
 class Tmppa(models.Model):
     paid = models.AutoField(db_column='PAID', primary_key=True)  # Field name made lowercase.
-    paperid = models.ForeignKey('Tmppaper', models.DO_NOTHING, db_column='PaperID')  # Field name made lowercase.
+    paperid = models.ForeignKey('Tmppaper',  models.CASCADE, db_column='PaperID')  # Field name made lowercase.
     authorname = models.CharField(db_column='AuthorName', max_length=20)  # Field name made lowercase.
     authorrank = models.IntegerField(db_column='AuthorRank')  # Field name made lowercase.
     authoridentity = models.CharField(db_column='AuthorIdentity', max_length=20)  # Field name made lowercase.
