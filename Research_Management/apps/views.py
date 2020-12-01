@@ -289,8 +289,10 @@ def query_process(request):
             print("results after rank quries:{}".format(results))
         if results:
             back_dic = {'url':'','code':1000}
-            for paper in results:
-                print(paper,paper.paperid)
+            # results = results.values('paperid','title','conferjournalname','publishtime')
+            results = json.dumps([{'paperid':i.paperid,'title':i.title,'conferjournalname':i.conferjournalname.name,'publishtime':str(i.publishtime)} for i in (results)])
+            back_dic['results'] = results
+            # print(results)
         else:
             back_dic = {'url':'','code':2000}
 
@@ -628,7 +630,7 @@ def delete_tmp_paper(request):
         tmp_papers = models.Tmppaper.objects.filter(paperid=paperid)
         #  若该条记录存在，则删除
         if tmp_papers:
-            tmp_papers.delete(keep_parents=True)
+            tmp_papers.delete()
         # 若不存在，返回错误代码2000
         else:
             back_dic['code'] = 2000

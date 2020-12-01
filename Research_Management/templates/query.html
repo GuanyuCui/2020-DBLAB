@@ -321,26 +321,23 @@
                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 查询结果
             </div>
             <div class="panel-body">
-                <table class="table table-striped">
+                <table class="table table-striped" id=“query_table”>
                     <!-- style="table-layout:fixed;" -->
                     <thead>
                         <tr>
                             <th>论文标题</th>
                             <th>期刊/会议</th>
-                            <th>作者类型</th>
                             <th>发布日期</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
-                    <tbody id="inputFormRow">
+                    <tbody id="query_table_row">
                         <tr>
                             <td>
                                 Title
                             </td>
                             <td>
                                 Conference/Journal Name
-                            </td>
-                            <td>
-                                第一作者
                             </td>
                             <td>
                                 2020-11-26
@@ -533,7 +530,23 @@
 
             success: function (response) {
                 if (response.code == 1000) {
-                    //        window.location.href = response.url
+                    // console.log(response.results);
+                    var data = JSON.parse(response.results);
+                    console.log(data);
+                    // 清除原本查询表格的内容
+                    $("#query_table_row").html("");
+                    // $("#query_table_row").remove();
+                    // 新建一段表格内容
+                    content = '';
+                    for (var i = 0; i < data.length; i ++) {
+                        content += '<tr><td>'+ data[i].title +'</td>' + 
+                                    '<td>' + data[i].conferjournalname + '</td>' + 
+                                    '<td>' + data[i].publishtime + '</td>' +
+                                    '<td>' + "<a href='/detail/" + data[i].paperid + "'class='btn btn-default' role='button'>详情</a >" + '</td></tr>';
+                    }
+                    console.log(content);
+                    // 将其送回页面展示
+                    $('#query_table_row').append(content);
                 } 
                 else if(response.code == 2000) {
                     alert("no matching");
