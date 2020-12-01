@@ -4,13 +4,13 @@
 
 
 <!-- <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
-<!-- <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
-    rel="stylesheet"> -->
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+    rel="stylesheet">
 <!-- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script> -->
-<!-- <script src="https://js.cybozu.cn/momentjs/2.29.1/moment-with-locales.min.js"></script> -->
+<script src="https://js.cybozu.cn/momentjs/2.29.1/moment-with-locales.min.js"></script>
 <!-- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-<!-- <script src="static/js/moment-with-locales.js"></script> -->
-<!-- <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script> -->
+<script src="static/js/moment-with-locales.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <style>
     .col-xs-1 {
         width: 15% !important;
@@ -104,6 +104,10 @@
                     </div>
                 </div>
             </div>
+            {% if conference.checked %}
+
+            {% endif %}
+
 
             <div class="panel-body">
                 <div class="row">
@@ -210,20 +214,27 @@
                                         （注意：请按照作者顺序录入）</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <table class="table table-striped" style="table-layout:fixed;">
+                                    <table class="table table-striped" style="table-layout:fixed;" id="table">
                                         <thead>
                                             <tr>
-                                                <th>姓名</th>
-                                                <th>身份</th>
                                                 <th>人员类型</th>
+                                                <th>身份</th>
+                                                <th>姓名</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody id="inputFormRow">
                                             <tr>
+                                                
                                                 <td>
-                                                    <input class="form-control" type="text" label="authorname" style="width:110px;" placeholder="请输入姓名">
+                                                    <select id="人员类型" class="form-control" label="authortype"
+                                                        style="width:110px; ">
+                                                        <option>本院教师</option>
+                                                        <option>本院学生</option>
+                                                        <option>其他</option>
+                                                    </select>
                                                 </td>
+
                                                 <td>
                                                     <select class="form-control" label="identity" style="width:110px;">
                                                         <option>普通作者</option>
@@ -231,13 +242,12 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <select id="人员类型" class="form-control" label="authortype" style="width:110px; ">
-                                                        <option>本院教师</option>
-                                                        <option>本院学生</option>
-                                                        <option>其他</option>
-                                                    </select>
+                                                    <input class="form-control" type="text" label="authorname"
+                                                        style="width:110px;" placeholder="请输入姓名">
                                                 </td>
+
                                                 <td>
+                                                    
                                                 </td>
 
                                             </tr>
@@ -345,6 +355,7 @@
 
         // 作者列表
         var authors = new Array;
+        var teacherCount = 0;
         for (var i = 0; i < authorNames.length; i++) {
             var dic = new Object;
             // 作者
@@ -353,7 +364,12 @@
             dic.identity = identities.eq(i).val();
             // 是否校内
             dic.type = authorTypes.eq(i).val();
+            if (authorTypes == "本院教师")
+                teacherCount++;
             authors.push(dic);
+        }
+        if (teacherCount == 0) {
+            alert("ALERT: 作者中必须有本院教师！");
         }
         for (var i = 0; i < authorNames.length; i++) {
             if (!authorNames.eq(i).val()) {
@@ -375,8 +391,8 @@
         }
         data.append('csrfmiddlewaretoken', '{{ csrf_token }}');
         console.log(data);
-        alert('请确认信息：')
-        alert(data)
+
+
         $.ajax({
             url: '/insert/',
             type: 'post',
@@ -394,6 +410,9 @@
                 }
             }
         })
+
+        alert("   提交成功！\n将跳转到首页");
+
     });
 
     // add row
@@ -402,11 +421,16 @@
         html += '<div id="inputFormRow">';
         html += '<table class="table table-striped" style="table-layout:fixed;">';
         html += '<tbody>';
-        html += '<tr>';
+        html += '<tr>';                                    
         html += '<td>';
         html +=
-            '<input class="form-control" label="authorname" placeholder="请输入姓名" type="text" style="width:110px;">';
+            '<select id="人员类型" class="form-control" label="authortype" style="width:110px">';
+        html += '<option>本院教师</option>';
+        html += '<option>本院学生</option>';
+        html += '<option>其他</option>';
+        html += '</select>';
         html += '</td>';
+
         html += '<td>';
         html +=
             '<select id="身份" class="form-control" label="identity" style="width:110px;">';
@@ -416,11 +440,7 @@
         html += '</td>';
         html += '<td>';
         html +=
-            '<select id="人员类型" class="form-control" label="authortype" style="width:110px">';
-        html += '<option>本院教师</option>';
-        html += '<option>本院学生</option>';
-        html += '<option>其他</option>';
-        html += '</select>';
+            '<input class="form-control" label="authorname" placeholder="请输入姓名" type="text" style="width:110px;">';
         html += '</td>';
         html += '<td>';
         html += '<button id="removeRow" type="button" class="btn btn-danger">删  除</button>';
@@ -438,6 +458,18 @@
 
         var html = '';
         var html_1 = '';
+        html += '<div id="address">'
+        html += '<div class="panel-body">';
+        html += '<div class="row">';
+        html += '<div>';
+        html += '<label class="form-inline" style="margin-left: 18px;">';
+        html += '<em style="color: red;margin-right: 5px;">*</em>会议举办地址：';
+        html += '<input type="text" id="cjname" class="form-control" required="required"';
+        html += 'style="width:578px; margin-right: 18px"></label>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
         html += '<div id="c_row">';
         html += '<div class="col-xs-2">';
         html += '<div class="panel panel-info">';
@@ -469,6 +501,7 @@
         html_1 += '</div>';
 
         $('#c_row').remove();
+        $('#address').remove();
         $('#c_row_1').remove();
         $('#jj_row').remove();
         $('#j_row_1').remove();
@@ -521,6 +554,7 @@
         html_1 += '</div>';
 
         $('#j_row').remove();
+        $('#address').remove();
         $('#j_row_1').remove();
         $('#c_row_1').remove();
         $('#jj_row').remove();
@@ -590,6 +624,8 @@
     $(document).on('click', '#removeRow', function () {
         $(this).closest('#inputFormRow').remove();
     });
+
+
 </script>
 
 
