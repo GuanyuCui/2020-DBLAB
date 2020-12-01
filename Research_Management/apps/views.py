@@ -245,6 +245,7 @@ def query_process(request):
                 q_ai.append("Q(pa__authoridentity=\"普通作者\",pa__authorrank__gt=1)")
             
             authoridentity_query = '|'.join(q_ai)
+            print(Paper.objects.filter(pa__authoridentity="普通作者").filter(pa__authoridentity="通讯作者"))
             authoridentity_query_str = "results.filter({}).distinct()".format(authoridentity_query)
             results = eval(authoridentity_query_str)
             print("results after author identity queries:{}".format(results))
