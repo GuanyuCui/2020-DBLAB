@@ -81,6 +81,25 @@
             }
         }
     };
+
+    function checkCancelAll(id, type) {
+        var chElt = document.getElementById(id);
+        var allCheck = document.getElementsByName(type);
+
+        //2.获取选中状态
+        var checkedElt = chElt.checked;
+        //3.若checked=true,将所有的复选框选中,checked=false,将所有的复选框取消
+        //4.循环遍历取出每一个复选框中的元素
+        //var mySpan=document.getElementById("mySpan");
+        if (checkedElt) {
+            //全选
+            for (var i = 0; i < allCheck.length; i++) {
+                //设置复选框的选中状态
+                if (allCheck[i].checked == false)
+                    chElt.checked = false;
+            }
+        } 
+    };
 </script>
 
 <style>
@@ -148,15 +167,15 @@
                                 </div>
                                 <!-- <br> -->
                                 <label class="checkbox-inline">
-                                    <input id="firstAuthor" type="checkbox" name="authorType" value="option1">第一作者
+                                    <input onclick="checkCancelAll('authorAll','authorType')" id="firstAuthor" type="checkbox" name="authorType" value="option1">第一作者
                                 </label>
                                 <br>
                                 <label class="checkbox-inline">
-                                    <input id="corrAuthor" type="checkbox" name="authorType" value="option2">通讯作者
+                                    <input onclick="checkCancelAll('authorAll','authorType')" id="corrAuthor" type="checkbox" name="authorType" value="option2">通讯作者
                                 </label>
                                 <br>
                                 <label class="checkbox-inline">
-                                    <input id="otherAuthor" type="checkbox" name="authorType" value="option3">其他作者
+                                    <input onclick="checkCancelAll('authorAll','authorType')" id="otherAuthor" type="checkbox" name="authorType" value="option3">其他作者
                                 </label>
                             </div>
                         </div>
@@ -171,36 +190,45 @@
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" id="paperAll"
-                                            onclick="checkOrCancelAll('paperAll','paperType');" /><span
+                                            onclick="checkOrCancelAll('paperAll','paperType');checkOrCancelAll('paperAll','jpaperType');checkOrCancelAll('paperAll','journalType');checkOrCancelAll('paperAll','conferType');" /><span
                                             id="mySpan2">全选</span>
                                     </label>
                                 </div>
+                                <div class="checkbox">
+
                                 <label class="checkbox-inline">
-                                    <input id="Journalmain" type="checkbox" name="paperType" value="option1">正刊
+                                    <input onclick="checkOrCancelAll('Journal','jpaperType');checkCancelAll('paperAll','journalType')"  id="Journal" type="checkbox" name="journalType" value="option1">期刊
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="JournalSS" type="checkbox" name="paperType" value="option2">专刊
+                                    <input onclick="checkOrCancelAll('Confer','paperType');checkCancelAll('paperAll','conferType')" id="Confer" type="checkbox" name="conferType" value="option2">会议
                                 </label>
-                                <br>
+                                </div>
                                 <label class="checkbox-inline">
-                                    <input id="JournalAdd" type="checkbox" name="paperType" value="option2">增刊
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input id="longPaper" type="checkbox" name="paperType" value="option3">长文
-                                </label>
-                                <br>
-                                <label class="checkbox-inline">
-                                    <input id="shortPaper" type="checkbox" name="paperType" value="option1">短文
+                                    <input onclick="checkCancelAll('paperAll','jpaperType');checkCancelAll('Journal','jpaperType')"  id="Journalmain" type="checkbox" name="jpaperType" value="option1">正刊
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="demo" type="checkbox" name="paperType" value="option2">Demo
+                                    <input onclick="checkCancelAll('paperAll','jpaperType');checkCancelAll('Journal','jpaperType')" id="JournalSS" type="checkbox" name="jpaperType" value="option2">专刊
                                 </label>
                                 <br>
                                 <label class="checkbox-inline">
-                                    <input id="oral" type="checkbox" name="paperType" value="option3">Oral
+                                    <input onclick="checkCancelAll('paperAll','jpaperType');checkCancelAll('Journal','jpaperType')" id="JournalAdd" type="checkbox" name="jpaperType" value="option2">增刊
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="poster" type="checkbox" name="paperType" value="option3">Poster
+                                    <input onclick="checkCancelAll('paperAll','paperType');checkCancelAll('Confer','paperType')" id="longPaper" type="checkbox" name="paperType" value="option3">长文
+                                </label>
+                                <br>
+                                <label class="checkbox-inline">
+                                    <input onclick="checkCancelAll('paperAll','paperType');checkCancelAll('Confer','paperType')"  id="shortPaper" type="checkbox" name="paperType" value="option1">短文
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input onclick="checkCancelAll('paperAll','paperType');checkCancelAll('Confer','paperType')" id="demo" type="checkbox" name="paperType" value="option2">Demo
+                                </label>
+                                <br>
+                                <label class="checkbox-inline">
+                                    <input onclick="checkCancelAll('paperAll','paperType');checkCancelAll('Confer','paperType')" id="oral" type="checkbox" name="paperType" value="option3">Oral
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input onclick="checkCancelAll('paperAll','paperType');checkCancelAll('Confer','paperType')" id="poster" type="checkbox" name="paperType" value="option3">Poster
                                 </label>
                             </div>
                         </div>
@@ -221,53 +249,53 @@
                                 </div>
                                 <div class="col-md-4" for="select">CCF：</div>
                                 <label class="checkbox-inline">
-                                    <input id="CCFAP" type="checkbox" name="rankType" value="option1">A+
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFAP" type="checkbox" name="rankType" value="option1">A+
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="CCFA" type="checkbox" name="rankType" value="option2">A
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFA" type="checkbox" name="rankType" value="option2">A
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="CCFAM" type="checkbox" name="rankType" value="option3">A-
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFAM" type="checkbox" name="rankType" value="option3">A-
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="CCFB" type="checkbox" name="rankType" value="option3">B
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFB" type="checkbox" name="rankType" value="option3">B
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="CCFC" type="checkbox" name="rankType" value="option3">C
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFC" type="checkbox" name="rankType" value="option3">C
                                 </label>
                                 <br>
                                 <div class="col-md-4" for="select">CCF中文：</div>
                                 <label class="checkbox-inline">
-                                    <input id="CCFChinaAP" type="checkbox" name="rankType" value="option1">A+
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFChinaAP" type="checkbox" name="rankType" value="option1">A+
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="CCFChinaA" type="checkbox" name="rankType" value="option2">A
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFChinaA" type="checkbox" name="rankType" value="option2">A
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="CCFChinaAM" type="checkbox" name="rankType" value="option3">A-
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFChinaAM" type="checkbox" name="rankType" value="option3">A-
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="CCFChinaB" type="checkbox" name="rankType" value="option3">B
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFChinaB" type="checkbox" name="rankType" value="option3">B
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="CCFChinaC" type="checkbox" name="rankType" value="option3">C
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFChinaC" type="checkbox" name="rankType" value="option3">C
                                 </label>
                                 <br>
                                 <div class="col-md-4 control-label" for="select">RUC：</div>
                                 <label class="checkbox-inline">
-                                    <input id="RUCAP" type="checkbox" name="rankType" value="option1">A+
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="RUCAP" type="checkbox" name="rankType" value="option1">A+
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="RUCA" type="checkbox" name="rankType" value="option2">A
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="RUCA" type="checkbox" name="rankType" value="option2">A
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="RUCAM" type="checkbox" name="rankType" value="option3">A-
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="RUCAM" type="checkbox" name="rankType" value="option3">A-
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="RUCB" type="checkbox" name="rankType" value="option3">B
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="RUCB" type="checkbox" name="rankType" value="option3">B
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input id="RUCC" type="checkbox" name="rankType" value="option3">C
+                                    <input onclick="checkCancelAll('rankAll','rankType')" id="RUCC" type="checkbox" name="rankType" value="option3">C
                                 </label>
                                 <br>
 
