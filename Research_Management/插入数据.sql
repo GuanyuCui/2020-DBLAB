@@ -13,6 +13,7 @@ insert into paper(title,conferorjournal,publishtime,volume,issue,startpage,endpa
 insert into author values('2018202180','pt');
 insert into author values('2018202195','snl');
 insert into author values('szh','szh');
+insert into author values('pt','pt');
 
 insert into pa(authorname,authorrank,authoridentity,authortype,paperid) values('pt',1,'普通作者','本院教师',1);
 insert into pa(authorname,authorrank,authoridentity,authortype,paperid) values('snl',2,'普通作者','本院学生',1);

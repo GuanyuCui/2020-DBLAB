@@ -536,6 +536,10 @@
             }
             queries.push(query);
         }
+        if(queries.length > 1 && queries[0].value == ''){
+            alert('如果有查询条件请保证第一栏非空!');
+            return;
+        }
 
         var data = { // 提交数据
             "queries": JSON.stringify(queries),

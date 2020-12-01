@@ -24,7 +24,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div>
-                        <label class="form-inline" style="margin-left: 18px;">论文标题：</label> 
+                        <label class="form-inline" style="margin-left: 18px;" id="paperid" value={{ paper.paperid }}>论文标题：</label> 
                         <input type="text" class="form-control" style="width:500px; margin-right: 18px" value="{{ paper.title }}" readonly="readonly" />
                         <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
                         <input type="text" class="form-control" style="width:500px; margin-right: 18px" value="{{ paper.language }}" readonly="readonly" />
@@ -207,7 +207,7 @@
                     <div class="col-md-offset-0">
                         <a class="btn btn-primary" href="#" rel="external nofollow" role="button"
                             style="margin-left: 400px;">下载电子版</a>
-                        <a class="btn btn-primary" href="#" rel="external nofollow" role="button"
+                        <a class="btn btn-primary" id="export" rel="external nofollow" role="button"
                             style="margin-left: 30px;">导出论文信息</a>
                     </div>
                 </div>
@@ -215,6 +215,34 @@
         </div>
     </div>
 </div>
+<script>
+$("#export").click( function(){
+    var data = new Object;
+    var paperids = new Array;
+    var paperid = $("#paperid").attr('value');
+    paperids.push(paperid);
+    
+    data.csrfmiddlewaretoken = '{{ csrf_token }}';
+    data.paperids = JSON.stringify(paperids);
 
+    console.log(data);
+    $.ajax({
+            url: '/export/',
+            type: 'GET',
+            data: data,
+            dataType: "text/csv",
+            headers:{ 'Accept': 'text/csv','Content-Type': 'text/csv' };
+            success: function(result){
+                console.log("fuck");
+                console.log(result);
+            },
+            error: fucntion(){
+                console.log("why");
+            }
+            
+    })
+});
+
+</script>
 
 {% endblock %}

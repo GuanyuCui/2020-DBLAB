@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q,F
 
 import json
+import csv
 from apps import myforms
 from apps import models
 from apps.models import Paper
@@ -22,9 +23,13 @@ from apps.models import Tmppa
 rank_refer = ['A+','A','A-','B','C']
 papertype_refer = ['正刊','专刊','增刊','长文Oral','长文Poster','短文Oral','短文Poster','Demo']
 authoridentity_refer = ['第一作者','通讯作者','其他作者']
+export_refer = ['论文题目','发表刊物简称','发表刊物全称','刊物在学校的等级','刊物在CCF的等级','刊物类型','发表时间','全部作者名字','第一作者姓名','第一作者类型','通讯作者姓名','通讯作者类型','论文页码起止范围','卷','期','正刊还是增刊','举办国家','举办城市','长文/短文/demo','oral/poster']
 
 condition_refer = {'AND':'&','OR':'|','':''}
 key_refer = {'期刊/会议名称':'conferjournalname','论文题目':'title','作者姓名':'pa__authorname'}
+confer_journal_refer = {'C':'会议','J':'期刊'}
+papertype_detail_refer = {'长文Oral':'长文','长文Poster':'长文','短文Oral':'短文','短文Poster':'短文','Demo':'Demo'}
+papertype_repr_refer = {'长文Oral':'Oral','长文Poster':'Poster','短文Oral':'Oral','短文Poster':'Poster'}
 
 # 设置用户权限的一篇参考博文
 # https://www.cnblogs.com/xuchengcheng1215/p/9457950.html
@@ -117,6 +122,47 @@ def download(request,paperID):
 
     return response
 
+def export(request):
+    if request.method == 'GET':
+
+        export_list = json.loads(request.GET['paperids'])
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+        
+        writer = csv.writer(response)
+        writer.writerow(export_refer)
+
+        for paperid in export_list:
+            paper = Paper.objects.get(paperid=paperid)
+            authors = Pa.objects.filter(paperid=paperid)
+            authors_str = ';'.join([i.authorname for i in authors])
+            author_frst = authors.get(authorrank=1, authoridentity='普通作者')
+            page_span = str(paper.startpage) + '~' + str(paper.endpage)
+
+            if paper.conferorjournal == 'C':
+                # 区分举办国家和城市
+                writer.writerow([
+                    paper.title, paper.conferjournalname.abbreviation, paper.conferjournalname,
+                    paper.conferjournalname.ruclevel, paper.conferjournalname.ccflevel, confer_journal_refer[paper.conferorjournal],
+                    paper.publishtime, authors_str, author_frst.authorname, author_frst.authortype,
+                    page_span, '', '', '', paper.conferencelocation, papertype_detail_refer[paper.papertype],
+                    papertype_repr_refer[paper.papertype]
+                ])
+
+        return response
+
+def some_view(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
+    writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
+    
+    return response
+
 def query_process(request):
     """ 处理query
 
@@ -141,7 +187,6 @@ def query_process(request):
         results = Paper.objects
         
         if request.user.is_staff:
-            # print(results)
 
             # # a or b and c = a or (b and c)
             # if queries[0]['value']:
@@ -190,7 +235,7 @@ def query_process(request):
                     
         else:
             user = Author.objects.get(authorid=request.user.username)
-            results = Paper.objects.filter(pa__authorname=user.name)
+            results_ = results.filter(pa__authorname=user.name)
             print("current user:{}, user name:{}, results after name query:{}".format(user,user.name,results))
             
             if queries[0]['value']:
@@ -201,7 +246,7 @@ def query_process(request):
 
                     # 获取第一个条件
                     if idx == 0:
-                        result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
+                        result = eval("results_.objects.filter({}=\"{}\").distinct()".format(key,value))
                         results = result
 
                     # 如果还有别的条件
@@ -210,15 +255,18 @@ def query_process(request):
                             continue
                         # and做交
                         if condition == 'AND':
-                            result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
+                            result = eval("results_.objects.filter({}=\"{}\").distinct()".format(key,value))
                             results = results&result
 
                         # or做并
                         if condition == 'OR':
-                            result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
+                            result = eval("results_.objects.filter({}=\"{}\").distinct()".format(key,value))
                             results = (results|result).distinct()
                 
                 print("results after top queries:{}".format(results))
+
+            else:
+                results = results_
 
         # 如果查到一半就变空集, 那就不用继续查
         if results:
@@ -370,7 +418,7 @@ def insert(request):
     print('inserting')
     if request.method == 'POST':
         # 可以设定重定向的url
-        back_dic = {'url':'','code':1000}
+        back_dic = {'url':'/home/','code':1000}
         data = request.POST
         newPaper = Tmppaper() # 实例化数据表
         commitAuthor_obj = Author.objects.get(authorid = request.user.username)   

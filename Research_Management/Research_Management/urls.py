@@ -42,9 +42,10 @@ urlpatterns = [
     # API
 
     url(r'^get_code/',views.get_code),
-    url(r'^download/',views.download, name="download"),
+    url(r'download/',views.download, name="download"),
     url(r'^set_password/',views.set_password),
     url(r'delete_tmp_paper', views.delete_tmp_paper),
+    url(r'export', views.some_view),
 
     #
     #
