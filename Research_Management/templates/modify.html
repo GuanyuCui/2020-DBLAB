@@ -127,8 +127,27 @@
         var author_types = JSON.parse('{{author_types|safe}}');
 
         $("#姓名").val(author_names[0]);
-        $("#身份").val(author_identities[0]);
-        $("#人员类型").val(author_types[0]);
+
+        if (author_identities[0] == "普通作者") 
+        {
+            $('#normal').attr('selected', 'selected');
+        } 
+        else 
+        {
+            $('#communicator').attr('selected', 'selected');
+        }
+        if (author_types[0] == "本院教师") 
+        {
+            $('#teacher').attr('selected', 'selected');
+        } 
+        else if (author_types[0] == "本院学生")
+        {
+            $('#student').attr('selected', 'selected');
+        }
+        else if (author_types[0] == "其他")
+        {
+            $('#else').attr('selected', 'selected');
+        }
         
         for(var i = 1; i < author_names.length; i++)
         {
@@ -399,8 +418,8 @@
                 -moz-appearance:yes;
                 -webkit-appearance:yes;
                 ">
-                                                        <option value="普通作者">普通作者</option>
-                                                        <option value="通讯作者">通讯作者</option>
+                                                        <option id="normal" value="普通作者">普通作者</option>
+                                                        <option id="communicator" value="通讯作者">通讯作者</option>
                                                     </select>
                                                 </td>
                                                 <td>
@@ -415,9 +434,9 @@
                 -moz-appearance:yes;
                 -webkit-appearance:yes;
                 ">
-                                                        <option value="本院教师">本院教师</option>
-                                                        <option value="本院学生">本院学生</option>
-                                                        <option value="其他">其他</option>
+                                                        <option id="teacher" value="本院教师">本院教师</option>
+                                                        <option id="student" value="本院学生">本院学生</option>
+                                                        <option id="else" value="其他">其他</option>
                                                     </select>
                                                 </td>
                                                 <td>

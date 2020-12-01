@@ -137,7 +137,6 @@
         {
             $('#communicator').attr('selected', 'selected');
         }
-
         if (author_types[0] == "本院教师") 
         {
             $('#teacher').attr('selected', 'selected');
@@ -146,11 +145,10 @@
         {
             $('#student').attr('selected', 'selected');
         }
-        else
+        else if (author_types[0] == "其他")
         {
             $('#else').attr('selected', 'selected');
         }
-        //$("#人员类型").select(author_types[0]);
         
         for(var i = 1; i < author_names.length; i++)
         {
