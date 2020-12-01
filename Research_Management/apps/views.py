@@ -603,7 +603,7 @@ def get_code(request):
     """
     # 随机生成验证码  a~z  A~Z  0~9
     code = ''
-    for i in range(5):
+    for i in range(4):
         random_upper = chr(random.randint(65, 90))
         random_lower = chr(random.randint(97, 122))
         random_int = str(random.randint(0, 9))

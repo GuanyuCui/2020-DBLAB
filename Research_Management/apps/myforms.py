@@ -13,10 +13,10 @@ class MyRegForm(forms.Form):
                                     'required': '用户名不能为空',
                                 }, widget=forms.widgets.TextInput(attrs={'class': 'form-control'})
                                 )
-    password = forms.CharField(min_length=3, max_length=8, label='密码',
+    password = forms.CharField(min_length=3, max_length=16, label='密码',
                                 error_messages={
                                     'min_length': '密码不能少于三位',
-                                    'max_length': '密码不能大于八位',
+                                    'max_length': '密码不能大于十六位',
                                     'required': '密码不能为空',
                                 }, widget=forms.widgets.PasswordInput(attrs={'class': 'form-control'})
                                 )
