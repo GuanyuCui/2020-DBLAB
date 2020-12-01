@@ -362,6 +362,7 @@
     function sum(arr) {
         return eval(arr.join("+"));
     };
+    // 提交query
     $('#commit').click(function () {
         var authorType = new Array();
         var authorFirst = document.getElementById('firstAuthor');
@@ -540,9 +541,6 @@
             }
         })
     });
-</script>
-
-<script type="text/javascript">
     // add row
     $("#addRow").click(function () {
         var html = '';
@@ -575,7 +573,6 @@
 
         $('#newRow').append(html);
     });
-
     // remove row
     $(document).on('click', '#removeRow', function () {
         $(this).closest('#inputFormRow').remove();
