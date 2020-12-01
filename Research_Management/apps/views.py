@@ -565,6 +565,7 @@ def check(request, paperid):#, paperid):
     authors = models.Tmppa.objects.filter(paperid = paper.paperid)
     author_names = str([_.authorname for _ in authors]).replace("'", '"')
     author_identities = str([_.authoridentity for _ in authors]).replace("'", '"')
+    author_types = str([_.authortype for _ in authors]).replace("'", '"')
     return render(request, 'check.html', locals())
 
 # 主页
@@ -603,7 +604,7 @@ def get_code(request):
     """
     # 随机生成验证码  a~z  A~Z  0~9
     code = ''
-    for i in range(5):
+    for i in range(4):
         random_upper = chr(random.randint(65, 90))
         random_lower = chr(random.randint(97, 122))
         random_int = str(random.randint(0, 9))
