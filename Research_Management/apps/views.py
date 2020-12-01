@@ -399,7 +399,7 @@ def insert(request):
         authors = json.loads(authors)
         for i in range(len(authors)):
             newTmppa = Tmppa()
-            newTmppa.paperid = newPaper
+            # newTmppa.paperid = newPaper
             # print(authors[i]['name'])
             newTmppa.authorname = authors[i]['name']
             newTmppa.authorrank = i+1
@@ -628,7 +628,7 @@ def delete_tmp_paper(request):
         tmp_papers = models.Tmppaper.objects.filter(paperid=paperid)
         #  若该条记录存在，则删除
         if tmp_papers:
-            tmp_papers.delete(keep_parents=True)
+            tmp_papers.delete()
         # 若不存在，返回错误代码2000
         else:
             back_dic['code'] = 2000
