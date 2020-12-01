@@ -565,6 +565,7 @@ def check(request, paperid):#, paperid):
     authors = models.Tmppa.objects.filter(paperid = paper.paperid)
     author_names = str([_.authorname for _ in authors]).replace("'", '"')
     author_identities = str([_.authoridentity for _ in authors]).replace("'", '"')
+    author_types = str([_.authortype for _ in authors]).replace("'", '"')
     return render(request, 'check.html', locals())
 
 # 主页
