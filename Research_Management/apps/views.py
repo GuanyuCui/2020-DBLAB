@@ -401,7 +401,7 @@ def insert(request):
         authors = json.loads(authors)
         for i in range(len(authors)):
             newTmppa = Tmppa()
-            newTmppa.paperid = newPaper
+            # newTmppa.paperid = newPaper
             # print(authors[i]['name'])
             newTmppa.authorname = authors[i]['name']
             newTmppa.authorrank = i+1
