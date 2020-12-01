@@ -107,13 +107,13 @@ def handle_uploaded_file(f,filename):
         for chunk in f.chunks():
             destination.write(chunk)
 
-def download(request):
-    file = open('data/4.2011-Personalized News Recommendation A Review and an Experimental Investigation.pdf', 'rb')
+def download(request,paperID):
+    file = open('data/{}.pdf'.format(paperID), 'rb')
     response = HttpResponse(file)
 
     #设置头信息，告诉浏览器这是个文件
     response['Content-Type'] = 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment;filename="a.pdf"'
+    response['Content-Disposition'] = 'attachment;filename=\"{}.pdf\"'.format(paperID)
 
     return response
 
@@ -140,7 +140,6 @@ def query_process(request):
         
         results = Paper.objects
         
-        # 目前只写了是管理员的时候
         if request.user.is_staff:
             # print(results)
 
@@ -190,10 +189,9 @@ def query_process(request):
                 print("results after top queries:{}".format(results))
                     
         else:
-            username = Author.objects.get(authorid=request.user.username)
-            print(username)
-
-            # results = Paper.objects.filter(pa__authorname=request.user.username)
+            user = Author.objects.get(authorid=request.user.username)
+            results = Paper.objects.filter(pa__authorname=user.name)
+            print("current user:{}, user name:{}, results after name query:{}".format(user,user.name,results))
             
             if queries[0]['value']:
                 for idx,query in enumerate(queries):
@@ -221,8 +219,8 @@ def query_process(request):
                             results = (results|result).distinct()
                 
                 print("results after top queries:{}".format(results))
-        
-        # 如果查到一半就变空集, 那就没了
+
+        # 如果查到一半就变空集, 那就不用继续查
         if results:
             # 处理日期的query时, 用户可以只填写一边的日期
             # time queries:
@@ -630,7 +628,7 @@ def delete_tmp_paper(request):
         tmp_papers = models.Tmppaper.objects.filter(paperid=paperid)
         #  若该条记录存在，则删除
         if tmp_papers:
-            tmp_papers.delete()
+            tmp_papers.delete(keep_parents=True)
         # 若不存在，返回错误代码2000
         else:
             back_dic['code'] = 2000

@@ -17,7 +17,7 @@ class UserInfo(AbstractUser):
 
     def __str__(self):
         '''打印时会返回用户名，方便阅读'''
-        return self.username
+        return str(self.username)
 
 class Author(models.Model):
     authorid = models.CharField(db_column='AuthorID', primary_key=True, max_length=12)  # Field name made lowercase.
@@ -29,7 +29,7 @@ class Author(models.Model):
 
     def __str__(self):
         '''打印时会返回用户名，方便阅读'''
-        return (self.authorid, self.name)
+        return "(authorID:{}, authorName:{})".format(self.authorid, self.name)
 
 
 class Conferjournal(models.Model):
