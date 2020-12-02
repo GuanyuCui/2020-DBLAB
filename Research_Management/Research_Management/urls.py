@@ -45,7 +45,7 @@ urlpatterns = [
     url(r'download/',views.download, name="download"),
     url(r'^set_password/',views.set_password),
     url(r'delete_tmp_paper', views.delete_tmp_paper),
-    url(r'export', views.some_view),
+    url(r'^export/(?P<paperids>[\w\D]*)/', views.export),
 
     #
     #

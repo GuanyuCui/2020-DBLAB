@@ -24,7 +24,8 @@ create table Paper(
 	StartPage integer not null,
 	EndPage integer not null,
     Keywords varchar(100),
-    ConferenceLocation varchar(50),
+    ConferenceCountry varchar(50),
+    ConferenceCity varchar(50),
     PaperType varchar(10) not null,
     Language char(1), -- E or C
     foreign key(ConferJournalName) references ConferJournal(Name)
@@ -52,7 +53,8 @@ create table tmpPaper(
 	StartPage integer not null,
 	EndPage integer not null,
     Keywords varchar(100),
-    ConferenceLocation varchar(50),
+    ConferenceCountry varchar(50),
+    ConferenceCity varchar(50),
     PaperType varchar(10) not null, -- 正刊 专刊 增刊 长文Oral 长文Poster 短文Oral 短文Poster Demo
     Language char(1), -- E or C
     foreign key(CommitAuthorID) references Author(AuthorID),

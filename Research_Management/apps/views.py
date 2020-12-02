@@ -6,7 +6,10 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 
-from django.db.models import Q,F
+from django.db.models import Q
+
+# deprecated
+# from apps.myforms import ExportForm
 
 import json
 import csv
@@ -122,46 +125,55 @@ def download(request,paperID):
 
     return response
 
-def export(request):
-    if request.method == 'GET':
-
-        export_list = json.loads(request.GET['paperids'])
+def export(request, paperids):
+    # if request.method == 'POST':
+        # export_form = ExportForm(request.POST)
+        # if export_form.is_valid():
+            # export_list = json.loads(export_form.cleaned_data['paperids'])
+    if paperids:
+        export_list = json.loads(paperids)
 
         response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
-        
-        writer = csv.writer(response)
+        response['Content-Disposition'] = 'attachment; filename="output.csv"'
+        response.write(u'\ufeff'.encode('utf8'))
+
+        writer = csv.writer(response,dialect='excel')
         writer.writerow(export_refer)
 
         for paperid in export_list:
             paper = Paper.objects.get(paperid=paperid)
-            authors = Pa.objects.filter(paperid=paperid)
+            authors = Pa.objects.filter(paperid=paperid).order_by("authorrank")
             authors_str = ';'.join([i.authorname for i in authors])
             author_frst = authors.get(authorrank=1, authoridentity='普通作者')
+            try:
+                author_tele = authors.get(authoridentity="通讯作者")
+                author_tele_name = author_tele.authorname
+                author_tele_type = author_tele.authortype
+            except:
+                author_tele_name = ''
+                author_tele_type = ''
             page_span = str(paper.startpage) + '~' + str(paper.endpage)
 
             if paper.conferorjournal == 'C':
-                # 区分举办国家和城市
                 writer.writerow([
                     paper.title, paper.conferjournalname.abbreviation, paper.conferjournalname,
                     paper.conferjournalname.ruclevel, paper.conferjournalname.ccflevel, confer_journal_refer[paper.conferorjournal],
-                    paper.publishtime, authors_str, author_frst.authorname, author_frst.authortype,
-                    page_span, '', '', '', paper.conferencelocation, papertype_detail_refer[paper.papertype],
+                    paper.publishtime.strftime("%Y-%m-%d"), authors_str, author_frst.authorname, author_frst.authortype,
+                    author_tele_name, author_tele_type, 
+                    page_span, '', '', '', paper.conferencecountry, paper.conferencecity, papertype_detail_refer[paper.papertype],
                     papertype_repr_refer[paper.papertype]
                 ])
-
-        return response
-
-def some_view(request):
-    # Create the HttpResponse object with the appropriate CSV header.
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
-
-    writer = csv.writer(response)
-    writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
-    writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
-    
-    return response
+            elif paper.conferorjournal == 'J':
+                writer.writerow([
+                    paper.title, paper.conferjournalname.abbreviation, paper.conferjournalname,
+                    paper.conferjournalname.ruclevel, paper.conferjournalname.ccflevel, confer_journal_refer[paper.conferorjournal],
+                    paper.publishtime.strftime("%Y-%m-%d"), authors_str, author_frst.authorname, author_frst.authortype,
+                    author_tele_name, author_tele_type, 
+                    page_span, paper.volume, paper.issue, paper.papertype, '', '', ''
+                ])
+        return response 
+    else:
+        return render(request, 'errors.html')
 
 def query_process(request):
     """ 处理query
@@ -340,6 +352,7 @@ def query_process(request):
             rank_query_str = "results.filter({})".format(rank_query)
             results = eval(rank_query_str)
             print("results after rank quries:{}".format(results))
+
         if results:
             back_dic = {'draw':1, "recordsTotal": len(results)}
             # results = results.values('paperid','title','conferjournalname','publishtime')
@@ -349,6 +362,8 @@ def query_process(request):
             back_dic = {'draw':1, 'recordsTotal': 0, 'error': '无搜索结果！', 'data': '[]'}
         print(back_dic)
         return JsonResponse(back_dic)
+    else:
+        render(request,'erros.html')
 
 def errors(request):
     return render(request, 'errors.html', locals())

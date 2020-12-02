@@ -6,6 +6,9 @@
 
 <a href="download">点我下载</a>
 
-{% for a in results %}
-<h1>a.title</h1>
-{% endfor %}
+<form action="/your-name/" method="post">
+{% csrf_token %}
+    <label for="your_name">Your name: </label>
+    <input type="hidden" name="your_name" value="{{ current_name }}">
+    <input type="submit" value="OK">
+</form>

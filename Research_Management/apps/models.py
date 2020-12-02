@@ -74,7 +74,8 @@ class Paper(models.Model):
     startpage = models.IntegerField(db_column='StartPage')  # Field name made lowercase.
     endpage = models.IntegerField(db_column='EndPage')  # Field name made lowercase.
     keywords = models.CharField(db_column='Keywords', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    conferencelocation = models.CharField(db_column='ConferenceLocation', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    conferencecountry = models.CharField(db_column='ConferenceCountry', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    conferencecity = models.CharField(db_column='ConferenceCity', max_length=50, blank=True, null=True)  # Field name made lowercase.
     papertype = models.CharField(db_column='PaperType', max_length=10)  # Field name made lowercase.
     language = models.CharField(db_column='Language', max_length=1, blank=True, null=True)  # Field name made lowercase.
 
@@ -112,7 +113,8 @@ class Tmppaper(models.Model):
     startpage = models.IntegerField(db_column='StartPage')  # Field name made lowercase.
     endpage = models.IntegerField(db_column='EndPage')  # Field name made lowercase.
     keywords = models.CharField(db_column='Keywords', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    conferencelocation = models.CharField(db_column='ConferenceLocation', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    conferencecountry = models.CharField(db_column='ConferenceCountry', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    conferencecity = models.CharField(db_column='ConferenceCity', max_length=50, blank=True, null=True)  # Field name made lowercase.
     papertype = models.CharField(db_column='PaperType', max_length=10)  # Field name made lowercase.
     language = models.CharField(db_column='Language', max_length=1, blank=True, null=True)  # Field name made lowercase.
 
