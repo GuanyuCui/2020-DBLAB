@@ -173,6 +173,10 @@ def query_process(request):
     """
     if request.method == 'POST':
         data = request.POST
+        
+        if "is_first" in data:
+            back_dic = {'draw': 1, 'recordsTotal': 0, 'data': '[]'}
+            return JsonResponse(back_dic)
 
         queries =json.loads(data['queries'])
         authorIdentity = json.loads(data['authorIdentity'])
@@ -337,14 +341,13 @@ def query_process(request):
             results = eval(rank_query_str)
             print("results after rank quries:{}".format(results))
         if results:
-            back_dic = {'url':'','code':1000}
+            back_dic = {'draw':1, "recordsTotal": len(results)}
             # results = results.values('paperid','title','conferjournalname','publishtime')
             results = json.dumps([{'paperid':i.paperid,'title':i.title,'conferjournalname':i.conferjournalname.name,'publishtime':str(i.publishtime)} for i in (results)])
-            back_dic['results'] = results
-            # print(results)
+            back_dic['data'] = results
         else:
-            back_dic = {'url':'','code':2000}
-
+            back_dic = {'draw':1, 'recordsTotal': 0, 'error': '无搜索结果！', 'data': '[]'}
+        print(back_dic)
         return JsonResponse(back_dic)
 
 def errors(request):
