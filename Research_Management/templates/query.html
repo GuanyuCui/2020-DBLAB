@@ -396,6 +396,7 @@
 
 
 <script>
+    
     function sum(arr) {
         return eval(arr.join("+"));
     };
@@ -413,7 +414,9 @@
 
         window.location.href = "/export/"+url;
     })
-
+    // paperid全局变量，是一个列表
+    var paperid_list;
+    // 表格变量
     var table;
     table = $('#query_table').DataTable({
         // deferLoading: -1,
@@ -426,9 +429,17 @@
             },
             // dataSrc: '',
             dataSrc: function (mydata) {
-                console.log(JSON.parse(mydata.data));
-
-                return JSON.parse(mydata.data);
+                // console.log(JSON.parse(mydata.data));
+                console.log(1);
+                paperid_list = [];
+                data = JSON.parse(mydata.data);
+                // console.log(data);
+                if (mydata.recordsTotal != 0) {
+                    for (var i = 0; i < data.length; i ++) {
+                        paperid_list.push(data[i].paperid);
+                    }
+                }
+                return data;
             },
             error: function () {
                 window.alert('数据加载出现错误！');
@@ -439,8 +450,9 @@
             targets: -1,
             render: function (data, type, full, meta) {
                 console.log(data);
-
-                return "<a label='paperid' href='/detail/" + data.paperid + "' class='btn btn-default' role='button' value='" + data.paperid + "'>详情</a>"
+                detail_button = "<a label='paperid' href='/detail/" + data.paperid + "' class='btn btn-default' role='button' value='" + data.paperid + "'>详情</a>";
+                export_button = "<a label='paperid' href='/export/[" + data.paperid + "]' class='btn btn-success' role='button' value='" + data.paperid + "'>导出</a>";
+                return detail_button + export_button;
             }
         }],
         columns: [
