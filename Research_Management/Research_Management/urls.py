@@ -42,7 +42,7 @@ urlpatterns = [
     # API
 
     url(r'^get_code/',views.get_code),
-    url(r'download/',views.download, name="download"),
+    url(r'^download/(?P<paperid>[0-9]+)/',views.download, name="download"),
     url(r'^set_password/',views.set_password),
     url(r'delete_tmp_paper', views.delete_tmp_paper),
     url(r'^export/(?P<paperids>[\w\D]*)/', views.export),
