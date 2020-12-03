@@ -526,6 +526,8 @@ def modify(request, paperid):
     endpage = paper.endpage
     papertype = paper.papertype
     language = paper.language
+    confercountry = paper.conferencecountry
+    confercity = paper.conferencecity
 
     authors = models.Tmppa.objects.filter(paperid = paper.paperid)
     author_names = str([_.authorname for _ in authors]).replace("'", '"')
@@ -628,6 +630,8 @@ def check(request, paperid):#, paperid):
     endpage = paper.endpage
     papertype = paper.papertype
     language = paper.language
+    confercountry = paper.conferencecountry
+    confercity = paper.conferencecity
 
     authors = models.Tmppa.objects.filter(paperid = paper.paperid)
     author_names = str([_.authorname for _ in authors]).replace("'", '"')
