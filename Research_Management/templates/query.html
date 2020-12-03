@@ -354,9 +354,8 @@
 
         </div>
         <div class="panel panel-info">
-            <div class="panel-heading">
-                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 查询结果
-                {% comment %} <input id="export" name="paperids" type="hidden" value=""> {% endcomment %}
+            <div class="panel-heading clearfix">
+                <span class="glyphicon glyphicon-th-list" style="margin-top: 5px;" aria-hidden="true"></span> 查询结果
                 <button id="export" href="/export/" class="btn btn-success pull-right">导出到csv</button>
             </div>
             <div class="panel-body">
@@ -401,19 +400,7 @@
         return eval(arr.join("+"));
     };
 
-    $("#export").click( function() {
-        var paperids = new Array;
-        $("[label=\"paperid\"]").each( function() {
-            paperids.push($(this).attr("value"));
-        })
-        if(paperids.length < 1){
-            alert("请查询后再批量导出~");
-            return;
-        }
-        var url = JSON.stringify(paperids);
-
-        window.location.href = "/export/"+url;
-    })
+    
     // paperid全局变量，是一个列表
     var paperid_list;
     // 表格变量
@@ -468,7 +455,20 @@
         }
     });
 
-    
+    $("#export").click( function() {
+        var paperids = new Array;
+        console.log(paperid_list);
+        $("[label=\"paperid\"]").each( function() {
+            paperids.push($(this).attr("value"));
+        })
+        if(paperids.length < 1){
+            alert("请查询后再批量导出~");
+            return;
+        }
+        var url = JSON.stringify(paperid_list);
+
+        window.location.href = "/export/"+url;
+    })
 
     // 提交query
     $('#commit').click(function () {
@@ -642,7 +642,6 @@
         table.ajax.url('/process_q/').load();
 
         gatherPaperID();
-        console.log($("[label=\"paperid\"]").eq(0).attr('value'));
 
         /*$.ajax({
             url: '/process_q/',

@@ -115,13 +115,13 @@ def handle_uploaded_file(f,filename):
         for chunk in f.chunks():
             destination.write(chunk)
 
-def download(request,paperID):
-    file = open('data/{}.pdf'.format(paperID), 'rb')
+def download(request,paperid):
+    file = open('data/{}.pdf'.format(paperid), 'rb')
     response = HttpResponse(file)
 
     #设置头信息，告诉浏览器这是个文件
     response['Content-Type'] = 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment;filename=\"{}.pdf\"'.format(paperID)
+    response['Content-Disposition'] = 'attachment;filename=\"{}.pdf\"'.format(paperid)
 
     return response
 
@@ -360,7 +360,7 @@ def query_process(request):
             back_dic['data'] = results
         else:
             back_dic = {'draw':1, 'recordsTotal': 0, 'error': '无搜索结果！', 'data': '[]'}
-        print(back_dic)
+        # print(back_dic)
         return JsonResponse(back_dic)
     else:
         render(request,'erros.html')
