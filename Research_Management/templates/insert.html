@@ -373,7 +373,7 @@
             dic.identity = identities.eq(i).val();
             // 是否校内
             dic.type = authorTypes.eq(i).val();
-            if (authorTypes == "本院教师")
+            if (authorTypes.eq(i).val() == "本院教师")
                 teacherCount++;
             authors.push(dic);
         }
