@@ -342,6 +342,15 @@
             return;
         }
 
+        if (!$('#c_country').val() && $("input:radio:checked").eq(1).val() == 'conference') {
+            alert("ALERT: 未填写会议举办国家!");
+            return;
+        }
+        if (!$('#c_city').val() && $("input:radio:checked").eq(1).val() == 'conference') {
+            alert("ALERT: 未填写会议举办城市!");
+            return;
+        }
+
         if (volume) {
             // data.volume = volume;
             // data.issue = issue;
@@ -464,9 +473,13 @@
         html += '<div class="row">';
         html += '<div>';
         html += '<label class="form-inline" style="margin-left: 18px;">';
-        html += '<em style="color: red;margin-right: 5px;">*</em>会议举办地址：';
-        html += '<input type="text" id="cjname" class="form-control" required="required"';
-        html += 'style="width:578px; margin-right: 18px"></label>';
+        html += '<em style="color: red;margin-right: 5px;">*</em>会议举办国家：';
+        html += '<input type="text" id="c_country" class="form-control" required="required"';
+        html += 'style="width:235px; margin-right: 5px"></label>';
+        html += '<label class="form-inline" style="margin-left: 18px;">';
+        html += '<em style="color: red;margin-right: 5px;">*</em>举办城市：';
+        html += '<input type="text" id="c_city" class="form-control" required="required"';
+        html += 'style="width:240px; margin-right: 18px"></label>';
         html += '</div>';
         html += '</div>';
         html += '</div>';
