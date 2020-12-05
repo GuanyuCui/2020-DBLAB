@@ -688,7 +688,8 @@ def check(request, paperid):#, paperid):
 
         insertPaper.papertype = data['cjtype']
         insertPaper.publishtime = data['date']
-        insertPaper.conferencelocation = data['Conferencelocation']
+        insertPaper.conferencecountry = data['Conferencecountry']
+        insertPaper.conferencecity = data['Conferencecity']
         insertPaper.startpage = data['page_1']
         insertPaper.endpage = data['page_2']
         # 会议没有卷期

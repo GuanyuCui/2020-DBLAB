@@ -593,7 +593,7 @@
         data.append('is_first', '1')      
 
         $.ajax({
-            url:'/process/',
+            url:'/check/{{ paper.paperid }}/',
             async: false,
             type:'post',
             data:data,
@@ -612,7 +612,7 @@
                         data.set('is_first', '0');
                         console.log(data.get('is_first'));
                         $.ajax({
-                            url: '/process/',
+                            url: '/check/{{ paper.paperid }}/',
                             async: false,
                             type: 'post',
                             data: data,
