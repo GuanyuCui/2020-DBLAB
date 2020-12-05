@@ -77,10 +77,9 @@
             <div class="panel-body">
                 <div class="row">
                     <div>
-                        <label class="form-inline" style="margin-left: 18px;"><em
-                                style="color: red;margin-right: 5px;">*</em>BibTex粘贴处：
+                        <label class="form-inline" style="margin-left: 18px;">BibTex粘贴处：
                             <input type="text" id="Bibtex" name="Bibtex" class="form-control"
-                                style="width:570px; margin-right: 18px"></label>
+                                style="width:580px; margin-right: 18px"></label>
                         <input style="left:2px" class="btn btn-success" href="#" rel="external nofollow" type="button"
                             id="BibtexCommit" value="自动填充" style="margin-left:445px">
                     </div>
@@ -98,7 +97,7 @@
                         <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
                         <input type="radio" name="language_type" value="Chinese"
                             style="margin-right: 10px;margin-left: 10px;" checked />中文
-                        <input type="radio" name="language_type" value="English"
+                        <input type="radio" name="language_type" value="English" id="English"
                             style="margin-right: 10px;margin-left: 10px;">英文
 
                     </div>
@@ -311,6 +310,21 @@
             success: function (response) {
                 if (response.code == 1000) {
                     alert("自动填充成功，请检查信息");
+                    $("#English").click();
+                    $("#title").val(response.title);
+                    $("#cjname").val(response.conferjournalname);
+                    if (response.conferorjournal == "J")
+                    {
+                        $("#journal").click();
+                        $("#volume").val(response.volume);
+                        $("#issue").val(response.issue);
+                        
+                    }
+                    else{
+                        $("#conference").click();
+                    }
+                    $("#page_1").val(response.startpage);
+                    $("#page_2").val(response.endpage);
                     // window.location.href = response.url;
                 } else {
                     // alert("Post not handled properly");
@@ -321,23 +335,7 @@
     });
 
     // 查询出来的内容显示一下
-    $(function(){
-        $("#title").val('{{title}}');
-        $("#cjname").val('{{conferjournalname}}');
-        if ('{{conferorjournal}}' == "J")
-        {
-            $("#journal").click();
-            $("#volume").val('{{volume}}');
-            $("#issue").val('{{issue}}');
-            $("#page_1").val('{{startpage}}');
-            $("#page_2").val('{{endpage}}');
-        }
-        else{
-            $("#conference").click();
-        }
-
-    });
-
+   
     $('#commit').click(function () {
         var data = new FormData();
         // 标题

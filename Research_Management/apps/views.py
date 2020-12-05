@@ -11,7 +11,7 @@ from django.db.models import Q
 # deprecated
 # from apps.myforms import ExportForm
 import re
-import bibtexparser as bp
+import bibtexparser
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import convert_to_unicode
 
@@ -454,19 +454,29 @@ def logout(request):
     return redirect('/index/')
 
 def bibtex(request):
+    print('in bibtex funtion')
     if request.method == 'POST':
         # 可以设定重定向的url
         back_dic = {'url':'/home/','code':1000}
         data = request.POST
-        bibfile = data['bibtex']
-        print(bibfile)
+        bibtex_str = data['bibtex']
+        print(bibtex_str)
         parser = BibTexParser()  # 声明解析器类
         parser.customization = convert_to_unicode  # 将BibTeX编码强制转换为UTF编码
-        bibdata = bp.load(bibfile, parser = parser)  # 通过bp.load()加载
+        # parser.ignore_nonstandard_types = False
+        # parser.homogenize_fields = False
+        # parser.common_strings = False
+        bibdata = bibtexparser.loads(bibtex_str, parser)
 
-        volume = bibdata.entries[0]['volume']
-        issue = bibdata.entries[0]['number']
+
+        print ('DEBUG 1')
+        print(bibdata.entries[0]['title'])
         title = bibdata.entries[0]['title'].replace("\n", " ")
+        title = ' '.join(title.split())
+        print(title)   
+
+        #title = bibdata.entries[0]['title'].replace("\t", " ")
+
         pages = bibdata.entries[0]['pages']
         matchObj = re.match( r'(.*)--(.*)', pages, re.M|re.I)
         if matchObj:
@@ -476,6 +486,8 @@ def bibtex(request):
             endpage = matchObj.group(2)
         else:
             print ("No match!!")
+            startpage = 0
+            endpage = 0
 
         biburl = bibdata.entries[0]['biburl']
         print(biburl)
@@ -485,15 +497,34 @@ def bibtex(request):
             print ("matchObj.group(2) : ", matchObj2.group(3))
             CorJ = matchObj2.group(2)
             conferjournalabb = matchObj2.group(3)
-            cJobj = Conferjournal.objects.filter(pa__abbreviation = conferjournalabb.upper())
-            conferjournalname = cJobj.conferjournalname
+            cJobj = Conferjournal.objects.get(abbreviation = 'sigir')
+            conferjournalname = cJobj.name
             if (CorJ == 'journals'):
                 conferorjournal = 'J'
             else:
                 conferorjournal = 'C'
         else:
+            conferorjournal = None
+            conferjournalname = None
             print ("No match in biburl")
+        
+        if conferorjournal == 'J':
+            volume = bibdata.entries[0]['volume']
+            issue = bibdata.entries[0]['number']
+        else:
+            volume = None
+            issue = None
             
+        results = {'volume': volume, 
+            'issue': issue,
+            'title': title,
+            'startpage': startpage,
+            'endpage': endpage,
+            'conferorjournal':conferorjournal,
+            'code': 1000,
+            'conferjournalname':conferjournalname
+        }
+        return JsonResponse(results)
 
 
 # 添加
@@ -537,6 +568,11 @@ def insert(request):
         try:
             newPaper.volume = data['volume']
             newPaper.issue = data['issue']
+        except:
+            pass
+        try:
+            newPaper.conferencecountry = data['conferencecountry']
+            newPaper.conferencecity = data['conferencecity']
         except:
             pass
         newPaper.save()
