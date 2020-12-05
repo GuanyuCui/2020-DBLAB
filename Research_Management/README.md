@@ -99,7 +99,6 @@ data_post = {
 
 ### 前后端
 1. insert页
-   - [ ] （最后再做）确认信息
    - [x] （AUTO field解决？）用全局变量维护paperid有问题, 要不然新插入的会覆盖原来插入的
    - [x] 提交论文的前端按钮偏移
    - [x] keywords (不管)
@@ -108,6 +107,7 @@ data_post = {
    - [x] （请后端做一下，谢谢）插入成功后页面的跳转
    - [x] 向autofield插入数据了, 那里得改
    - [ ] autoincrease无法回退就会一直加
+      - SQL 语句该字段改成 bigint
    - [x] 各种页面头顶的scripts啥的一堆链接那都是啥？
       - 引入了外部js导致向临时表插入时会访问两遍insert/, 导致加入两条数据
       - 而且这些js要联网下载, 很难受
@@ -128,7 +128,7 @@ data_post = {
 1. 临时表
    - [x] paper临时表不要有外码
    - [x] 临时pa表加author type
-   - [ ] 增加check, 保证pa表的作者名一定在author表中有对应
+   - [ ] 增加check, 保证pa表的作者名（如果是本院教师或学生）一定在author表中有对应
 
 2. 基本表
    - [x] conferorjournal需要存么？
@@ -164,7 +164,8 @@ data_post = {
 1. 登录页
    - [x] 验证码改4位
 2. 用户相关
-   - [ ] 给张老师一个id, createsuperuser给他自己一个账号
+   - [x] 给张老师一个id
+      - createsuperuser创建一个账号
    - [ ] 主页上显示用户的名字？
 
 ### 代码结构
