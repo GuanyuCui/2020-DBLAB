@@ -588,10 +588,13 @@
         }
 
 
-        data.append('csrfmiddlewaretoken', '{{ csrf_token }}');        
+        data.append('csrfmiddlewaretoken', '{{ csrf_token }}');  
+        // 判断是否是第一次发送ajax
+        data.append('is_first', '1')      
 
         $.ajax({
             url:'/process/',
+            async: false,
             type:'post',
             data:data,
             csrfmiddlewaretoken: '{{ csrf_token }}',
@@ -602,7 +605,34 @@
             success:function (response) {
                 if (response.code == 1000){
             //        window.location.href = response.url
-                }else{
+                }
+                else if (response.code == 2000) {
+                    var is_confirm = window.confirm("存在重名项论文，是否确认审核");
+                    if (is_confirm == true) {
+                        data.set('is_first', '0');
+                        console.log(data.get('is_first'));
+                        $.ajax({
+                            url: '/process/',
+                            async: false,
+                            type: 'post',
+                            data: data,
+                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                            // 发送文件 需要修改两个参数
+                            contentType: false,
+                            processData: false,
+                            success: function (inner_response) {
+                                if (inner_response.code == 1000) {
+                                    alert("添加成功! 即将跳转回主页~");
+                                    window.location.href = inner_response.url;
+                                } else {
+                                    console.log(inner_response);
+                                    alert("Post not handled properly");
+                                }
+                            }
+                        })
+                    }
+                }
+                else{
                     alert("fuck");
                 }
             }

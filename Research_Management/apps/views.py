@@ -509,8 +509,9 @@ def insert(request):
         # 判断是否是第一次发送ajax
         if data['is_first'] == '1':
             # 判断是否存在重名项
-            is_title_same = models.Paper.objects.filter(title=data['title'])
-            if is_title_same:
+            is_paper_title_same = models.Paper.objects.filter(title=data['title'])
+            is_tmppaper_title_same = models.Tmppaper.objects.filter(title=data['title'])
+            if is_paper_title_same or is_tmppaper_title_same:
                 back_dic['code'] = 2000
                 return JsonResponse(back_dic)
 
@@ -620,6 +621,14 @@ def check(request, paperid):#, paperid):
         # 可以设定重定向的url
         back_dic = {'url':'','code':1000}
         data = request.POST
+        # 判断是否是第一次发送ajax
+        if data['is_first'] == '1':
+            # 判断是否存在重名项
+            is_paper_title_same = models.Paper.objects.filter(title=data['title'])
+            is_tmppaper_title_same = models.Tmppaper.objects.filter(title=data['title'])
+            if is_paper_title_same or is_tmppaper_title_same:
+                back_dic['code'] = 2000
+                return JsonResponse(back_dic)
         insertPaper = Paper() # 实例化插入表
 
         print("username")
