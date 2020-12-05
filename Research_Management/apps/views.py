@@ -76,8 +76,6 @@ def createuser(request):
         return JsonResponse(back_dic)
     return render(request, 'createuser.html', locals())
 
-# def update_password(request):
-
 @login_required
 def set_password(request):
     if request.is_ajax():
@@ -185,12 +183,31 @@ def api_dropbox(request):
     """
     if request.method == 'POST':
         query = request.POST
-        if query.field == 'authorname':
-            results = Author.objects.filter(name=query.term)
-            results = json.dumps([{'id':index, 'authorname':result.name} for index,result in enumerate(results)])
-        if query.field == 'conferjournal':
-            results = Conferjournal.objects.filter(name)
+        print(query, type(query))
 
+        if query['field'] == '作者姓名':
+            results = Author.objects.filter(name__contains=query['term'])
+            results = [i.name for i in results]
+            results = json.dumps(results)
+            
+        elif query['field'] == '期刊/会议名称':
+            results1 = Conferjournal.objects.filter(name__icontains=query['term'])
+            results2 = Conferjournal.objects.filter(abbreviation__icontains=query['term'])
+            results = [i.name for i in results1.union(results2)]
+            results = json.dumps(results)
+
+        elif query['field'] == '论文题目':
+            results = Paper.objects.filter(title__icontains=query['term'])
+            results = [i.title for i in results]
+            results = json.dumps(results)
+        else:
+            back_dic = {'results': "", 'code':3000}
+            return JsonResponse(back_dic)
+
+        print(results)
+
+        back_dic = {'results': results, 'code':1000}
+        return JsonResponse(back_dic)
 
 def query_process(request):
     """ 处理query
@@ -248,7 +265,7 @@ def query_process(request):
                         if key == 'pa__authorname':
                                 result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
                         else:
-                            result = eval("Paper.objects.filter({}__contains=\"{}\").distinct()".format(key,value))
+                            result = eval("Paper.objects.filter({}__icontains=\"{}\").distinct()".format(key,value))
                         results = result
 
                     # 如果还有别的条件
@@ -261,7 +278,7 @@ def query_process(request):
                             if key == 'pa__authorname':
                                 result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
                             else:
-                                result = eval("Paper.objects.filter({}__contains=\"{}\").distinct()".format(key,value))
+                                result = eval("Paper.objects.filter({}__icontains=\"{}\").distinct()".format(key,value))
                             results = results&result
 
                         # or做并
@@ -269,7 +286,7 @@ def query_process(request):
                             if key == 'pa__authorname':
                                 result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
                             else:
-                                result = eval("Paper.objects.filter({}__contains=\"{}\").distinct()".format(key,value))                            
+                                result = eval("Paper.objects.filter({}__icontains=\"{}\").distinct()".format(key,value))                            
                             results = (results|result).distinct()
 
                 print("results after top queries:{}".format(results))

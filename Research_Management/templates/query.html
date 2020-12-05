@@ -7,6 +7,11 @@
 <script src="{% static 'bootstrap/js/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'bootstrap/js/dataTables.bootstrap.min.js' %}"></script>
 
+{% comment %} 下拉菜单 {% endcomment %}
+{% comment %} <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> {% endcomment %}
+
 {% endblock %}
 
 {% block content %}
@@ -147,8 +152,8 @@
                                             {% endif %}
                                         </select>
                                     </div>
-                                    <input id="inputText" type="text" class="form-control" label="value"
-                                        placeholder="请输入...">
+                                    <input label="dropbox" id="dropbox" type="text" class="form-control" name="0"
+                                        placeholder="请输入..." onpropertychange="dropbox(event)" oninput="dropbox(event)">
                                 </div>
                             </div>
 
@@ -395,11 +400,48 @@
 
 
 <script>
-    
     function sum(arr) {
         return eval(arr.join("+"));
     };
 
+    function dropbox(e){
+        var data = new Object;
+        data.field = $(e.target).prev().children().val()
+        data.term = $(e.target).val()
+        data.csrfmiddlewaretoken = '{{ csrf_token }}';
+        $.ajax({
+            url: '/api_dropbox/',
+            type: 'post',
+            data: data,
+
+            success: function (response){
+                if (response.code == 1000){
+                    var target = $(e.target);
+                    var availableTags = JSON.parse(response.results);
+                    console.log(availableTags);
+                    target.autocomplete({
+                        source: availableTags
+                    });
+                }
+            }
+        })
+    };
+
+    $(function() {
+    var availableTags = [
+        "ActionScript",
+        "AppleScript",
+        "Asp",
+        "BASIC",
+        "C",
+        "C++",
+        "Clojure",
+        "COBOL"
+        ];
+        $( "#dropbox" ).autocomplete({
+        source: availableTags
+        });
+    });
     
     // paperid全局变量，是一个列表
     var paperid_list;
@@ -417,7 +459,6 @@
             // dataSrc: '',
             dataSrc: function (mydata) {
                 // console.log(JSON.parse(mydata.data));
-                console.log(1);
                 paperid_list = [];
                 data = JSON.parse(mydata.data);
                 // console.log(data);
@@ -709,7 +750,7 @@
         html += '{% endif %}';
         html += '</select>';
         html += '</div>';
-        html += '<input type="text" class="form-control" label="value" placeholder="请输入...">';
+        html += '<input label="dropbox" type="text" class="form-control" value="0" placeholder="请输入..." onpropertychange="aa(event)" oninput="aa(event)">';
         html += '<div class="input-group-btn">';
         html += '<div class="input-group-append">';
         html += '<button id="removeRow" type="button" class="btn btn-danger">  删  除  </button>';
