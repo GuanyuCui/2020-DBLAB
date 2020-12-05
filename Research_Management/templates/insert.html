@@ -320,6 +320,24 @@
 
     });
 
+    // 查询出来的内容显示一下
+    $(function(){
+        $("#title").val('{{title}}');
+        $("#cjname").val('{{conferjournalname}}');
+        if ('{{conferorjournal}}' == "J")
+        {
+            $("#journal").click();
+            $("#volume").val('{{volume}}');
+            $("#issue").val('{{issue}}');
+            $("#page_1").val('{{startpage}}');
+            $("#page_2").val('{{endpage}}');
+        }
+        else{
+            $("#conference").click();
+        }
+
+    });
+
     $('#commit').click(function () {
         var data = new FormData();
         // 标题
