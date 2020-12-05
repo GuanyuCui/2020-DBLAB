@@ -152,8 +152,8 @@
                                             {% endif %}
                                         </select>
                                     </div>
-                                    <input label="dropbox" id="dropbox" type="text" class="form-control" name="0"
-                                        placeholder="请输入..." onpropertychange="dropbox(event)" oninput="dropbox(event)">
+                                    <input label="dropbox"  type="text" class="form-control" id="test"
+                                        placeholder="请输入..." onpropertychange="dropbox(event)" oninput="dropbox(event)" />
                                 </div>
                             </div>
 
@@ -404,10 +404,10 @@
         return eval(arr.join("+"));
     };
 
-    function dropbox(e){
+    function dropbox(event){
         var data = new Object;
-        data.field = $(e.target).prev().children().val()
-        data.term = $(e.target).val()
+        data.field = $(event.target).prev().children().val()
+        data.term = $(event.target).val()
         data.csrfmiddlewaretoken = '{{ csrf_token }}';
         $.ajax({
             url: '/api_dropbox/',
@@ -416,12 +416,12 @@
 
             success: function (response){
                 if (response.code == 1000){
-                    var target = $(e.target);
+                    var target = $(event.target);
                     var availableTags = JSON.parse(response.results);
                     console.log(availableTags);
-                    target.autocomplete({
-                        source: availableTags
-                    });
+                    //target.autocomplete({
+                    //    source: availableTags
+                    //});
                 }
             }
         })
@@ -438,8 +438,8 @@
         "Clojure",
         "COBOL"
         ];
-        $( "#dropbox" ).autocomplete({
-        source: availableTags
+        $( "#test" ).autocomplete({
+            source: availableTags
         });
     });
     
@@ -750,7 +750,7 @@
         html += '{% endif %}';
         html += '</select>';
         html += '</div>';
-        html += '<input label="dropbox" type="text" class="form-control" value="0" placeholder="请输入..." onpropertychange="aa(event)" oninput="aa(event)">';
+        html += '<input label="dropbox" type="text" class="form-control" name="0" placeholder="请输入..." onpropertychange="dropbox(event)" oninput="dropbox(event)">';
         html += '<div class="input-group-btn">';
         html += '<div class="input-group-append">';
         html += '<button id="removeRow" type="button" class="btn btn-danger">  删  除  </button>';
