@@ -33,7 +33,7 @@ authoridentity_refer = ['第一作者','通讯作者','其他作者']
 export_refer = ['论文题目','发表刊物简称','发表刊物全称','刊物在学校的等级','刊物在CCF的等级','刊物类型','发表时间','全部作者名字','第一作者姓名','第一作者类型','通讯作者姓名','通讯作者类型','论文页码起止范围','卷','期','正刊还是增刊','举办国家','举办城市','长文/短文/demo','oral/poster']
 
 condition_refer = {'AND':'&','OR':'|','':''}
-key_refer = {'期刊/会议名称':'conferjournalname','论文题目':'title','作者姓名':'pa__authorname'}
+key_refer = {'期刊/会议名称':'conferjournalname__name','论文题目':'title','作者姓名':'pa__authorname'}
 confer_journal_refer = {'C':'会议','J':'期刊'}
 papertype_detail_refer = {'长文Oral':'长文','长文Poster':'长文','短文Oral':'短文','短文Poster':'短文','Demo':'Demo'}
 papertype_repr_refer = {'长文Oral':'Oral','长文Poster':'Poster','短文Oral':'Oral','短文Poster':'Poster'}
@@ -179,6 +179,19 @@ def export(request, paperids):
     else:
         return render(request, 'errors.html')
 
+def api_dropbox(request):
+    """
+        相应下拉框的查询
+    """
+    if request.method == 'POST':
+        query = request.POST
+        if query.field == 'authorname':
+            results = Author.objects.filter(name=query.term)
+            results = json.dumps([{'id':index, 'authorname':result.name} for index,result in enumerate(results)])
+        if query.field == 'conferjournal':
+            results = Conferjournal.objects.filter(name)
+
+
 def query_process(request):
     """ 处理query
 
@@ -232,7 +245,10 @@ def query_process(request):
 
                     # 获取第一个条件
                     if idx == 0:
-                        result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
+                        if key == 'pa__authorname':
+                                result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
+                        else:
+                            result = eval("Paper.objects.filter({}__contains=\"{}\").distinct()".format(key,value))
                         results = result
 
                     # 如果还有别的条件
@@ -242,14 +258,19 @@ def query_process(request):
 
                         # and做交
                         if condition == 'AND':
-                            result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
+                            if key == 'pa__authorname':
+                                result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
+                            else:
+                                result = eval("Paper.objects.filter({}__contains=\"{}\").distinct()".format(key,value))
                             results = results&result
 
                         # or做并
                         if condition == 'OR':
-                            result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
+                            if key == 'pa__authorname':
+                                result = eval("Paper.objects.filter({}=\"{}\").distinct()".format(key,value))
+                            else:
+                                result = eval("Paper.objects.filter({}__contains=\"{}\").distinct()".format(key,value))                            
                             results = (results|result).distinct()
-                
 
                 print("results after top queries:{}".format(results))
                     
@@ -438,6 +459,7 @@ def bibtex(request):
         back_dic = {'url':'/home/','code':1000}
         data = request.POST
         bibfile = data['bibtex']
+        print(bibfile)
         parser = BibTexParser()  # 声明解析器类
         parser.customization = convert_to_unicode  # 将BibTeX编码强制转换为UTF编码
         bibdata = bp.load(bibfile, parser = parser)  # 通过bp.load()加载
@@ -471,7 +493,7 @@ def bibtex(request):
                 conferorjournal = 'C'
         else:
             print ("No match in biburl")
-        
+            
 
 
 # 添加

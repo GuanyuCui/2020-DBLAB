@@ -45,8 +45,9 @@ urlpatterns = [
     url(r'^download/(?P<paperid>[0-9]+)/',views.download, name="download"),
     url(r'^set_password/',views.set_password),
     url(r'delete_tmp_paper', views.delete_tmp_paper),
-    url(r'^export/(?P<paperids>[\w\D]*)/', views.export),
-
+    url(r'export/(?P<paperids>[\w\D]*)/', views.export),
+    url(r'bibtex/', views.bibtex),
+    # url(r'search/', )
     #
     #
 

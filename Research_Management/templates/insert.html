@@ -299,14 +299,14 @@
 <script>
     // 试了一下
     $('#BibtexCommit').click(function () {
-        data.append('bibtex', $("#Bibtex").val());
+        var data = new Object;
+        data.bibtex = $("#Bibtex").val();
+        data.csrfmiddlewaretoken = '{{csrf_token}}';
         $.ajax({
             url: '/bibtex/',
             type: 'post',
             data: data,
             csrfmiddlewaretoken: '{{ csrf_token }}',
-            contentType: false,
-            processData: false,
 
             success: function (response) {
                 if (response.code == 1000) {
