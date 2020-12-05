@@ -47,13 +47,13 @@
     $(function () {
         var picker1 = $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',
-            locale: moment.locale('zh-cn'),
+            //locale: moment.locale('zh-cn'),
             //minDate: '2016-7-1'
         });
     });
     $('#datetimepicker1').datetimepicker({
         format: 'YYYY-MM-DD',
-        locale: moment.locale('zh-cn'),
+        //locale: moment.locale('zh-cn'),
         defaultDate: "1990-1-1"
     });
 
@@ -123,6 +123,7 @@
         }
 
         // 发布日期
+        console.log('{{publishtime}}');
         $("#date").val('{{publishtime}}');
 
         var author_names = JSON.parse('{{author_names|safe}}');
@@ -544,6 +545,8 @@
             alert("ALERT: 未填写会议举办城市!");
             return;
         }
+        data.append('conferencecountry', $('#c_country').val());
+        data.append('conferencecity', $('#c_city').val());
 
         if(volume){
             // data.volume = volume;
@@ -593,7 +596,7 @@
         data.append('is_first', '1')      
 
         $.ajax({
-            url:'/check/{{ paper.paperid }}/',
+            url:'/check/0/',
             async: false,
             type:'post',
             data:data,
@@ -612,7 +615,7 @@
                         data.set('is_first', '0');
                         console.log(data.get('is_first'));
                         $.ajax({
-                            url: '/check/{{ paper.paperid }}/',
+                            url: '/check/0/',
                             async: false,
                             type: 'post',
                             data: data,

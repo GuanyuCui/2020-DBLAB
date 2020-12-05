@@ -56,13 +56,13 @@
     $(function () {
         var picker1 = $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',
-            locale: moment.locale('zh-cn'),
+            //locale: moment.locale('zh-cn'),
             //minDate: '2016-7-1'
         });
     });
     $('#datetimepicker1').datetimepicker({
         format: 'YYYY-MM-DD',
-        locale: moment.locale('zh-cn'),
+        //locale: moment.locale('zh-cn'),
         defaultDate: "1990-1-1"
     });
 </script>
@@ -479,7 +479,7 @@
                 } 
                 // code 1000: 有重名项，询问是否确认提交
                 else if (response.code == 2000) {
-                    
+
                     var is_confirm = window.confirm("存在重名项论文，是否确认提交");
                     if (is_confirm == true) {
                         data.set('is_first', '0');

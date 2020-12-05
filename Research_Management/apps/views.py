@@ -688,8 +688,11 @@ def check(request, paperid):#, paperid):
 
         insertPaper.papertype = data['cjtype']
         insertPaper.publishtime = data['date']
-        insertPaper.conferencecountry = data['Conferencecountry']
-        insertPaper.conferencecity = data['Conferencecity']
+        try:
+            insertPaper.conferencecountry = data['counferencecountry']
+            insertPaper.conferencecity = data['conferencecity']
+        except:
+            pass
         insertPaper.startpage = data['page_1']
         insertPaper.endpage = data['page_2']
         # 会议没有卷期
@@ -709,7 +712,7 @@ def check(request, paperid):#, paperid):
         for i in range(len(authors)):
             newPa = Pa()
             newAuthor = Author()
-            newPa.paperid = insertPaper.paperid
+            newPa.paperid = insertPaper
             print(authors[i]['name'])
             newPa.authorname = authors[i]['name']
             newPa.authorrank = i+1
