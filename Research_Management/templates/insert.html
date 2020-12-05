@@ -20,6 +20,10 @@
         width: 35% !important;
     }
 
+    .col-xs-3 {
+        width: 25% !important;
+    }
+
     .upload-wrap {
         position: relative;
         display: inline-block;
@@ -70,6 +74,19 @@
                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 添加项目(
                 <em style="color: red;">*</em>为必填项）
             </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div>
+                        <label class="form-inline" style="margin-left: 18px;"><em
+                                style="color: red;margin-right: 5px;">*</em>BibTex粘贴处：
+                            <input type="text" id="Bibtex" name="Bibtex" class="form-control"
+                                style="width:570px; margin-right: 18px"></label>
+                        <input style="left:2px" class="btn btn-success" href="#" rel="external nofollow" type="button"
+                            id="BibtexCommit" value="自动填充" style="margin-left:445px">
+                    </div>
+                </div>
+            </div>
+
 
             <div class="panel-body">
                 <div class="row">
@@ -225,7 +242,7 @@
                                         </thead>
                                         <tbody id="inputFormRow">
                                             <tr>
-                                                
+
                                                 <td>
                                                     <select id="人员类型" class="form-control" label="authortype"
                                                         style="width:110px; ">
@@ -247,7 +264,7 @@
                                                 </td>
 
                                                 <td>
-                                                    
+
                                                 </td>
 
                                             </tr>
@@ -281,6 +298,28 @@
 
 <script>
     // 试了一下
+    $('#BibtexCommit').click(function () {
+        data.append('bibtex', $("#Bibtex").val());
+        $.ajax({
+            url: '/bibtex/',
+            type: 'post',
+            data: data,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            contentType: false,
+            processData: false,
+
+            success: function (response) {
+                if (response.code == 1000) {
+                    alert("自动填充成功，请检查信息");
+                    // window.location.href = response.url;
+                } else {
+                    // alert("Post not handled properly");
+                }
+            }
+        })
+
+    });
+
     $('#commit').click(function () {
         var data = new FormData();
         // 标题
@@ -342,6 +381,13 @@
             return;
         }
 
+        if (volume) {
+            // data.volume = volume;
+            // data.issue = issue;
+            data.append('volume', $("#volume").val());
+            data.append('issue', $("#issue").val());
+        }
+
         if (!$('#c_country').val() && $("input:radio:checked").eq(1).val() == 'conference') {
             alert("ALERT: 未填写会议举办国家!");
             return;
@@ -350,13 +396,9 @@
             alert("ALERT: 未填写会议举办城市!");
             return;
         }
+        data.append('conferencecountry', $('#c_country').val());
+        data.append('conferencecity', $('#c_city').val());
 
-        if (volume) {
-            // data.volume = volume;
-            // data.issue = issue;
-            data.append('volume', $("#volume").val());
-            data.append('issue', $("#issue").val());
-        }
 
         var authorNames = $("input[label=\"authorname\"]");
         var authorTypes = $("select[label=\"authortype\"]");
@@ -431,7 +473,7 @@
         html += '<div id="inputFormRow">';
         html += '<table class="table table-striped" style="table-layout:fixed;">';
         html += '<tbody>';
-        html += '<tr>';                                    
+        html += '<tr>';
         html += '<td>';
         html +=
             '<select id="人员类型" class="form-control" label="authortype" style="width:110px">';
@@ -485,7 +527,7 @@
         html += '</div>';
         html += '</div>';
         html += '<div id="c_row">';
-        html += '<div class="col-xs-2">';
+        html += '<div class="col-xs-3">';
         html += '<div class="panel panel-info">';
         html += '<div class="panel-heading"><em style="color: red;margin-right:5px;">*</em>页码范围</div>';
         html += '<div class="panel-body">';
@@ -638,8 +680,6 @@
     $(document).on('click', '#removeRow', function () {
         $(this).closest('#inputFormRow').remove();
     });
-
-
 </script>
 
 

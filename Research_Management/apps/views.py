@@ -10,6 +10,10 @@ from django.db.models import Q
 
 # deprecated
 # from apps.myforms import ExportForm
+import re
+import bibtexparser as bp
+from bibtexparser.bparser import BibTexParser
+from bibtexparser.customization import convert_to_unicode
 
 import json
 import csv
@@ -427,6 +431,66 @@ def logout(request):
     # 删除用户session信息
     auth.logout(request)  # request.session.flush()
     return redirect('/index/')
+
+def bibtex(request):
+    '''@article{DBLP:journals/tpds/WanDLGZO20,
+  author    = {Bo Wan and
+               Jiale Dang and
+               Zhetao Li and
+               Hongfang Gong and
+               Feng Zhang and
+               Sangyoon Oh},
+  title     = {Modeling Analysis and Cost-Performance Ratio Optimization of Virtual
+               Machine Scheduling in Cloud Computing},
+  journal   = {{IEEE} Trans. Parallel Distributed Syst.},
+  volume    = {31},
+  number    = {7},
+  pages     = {1518--1532},
+  year      = {2020},
+  url       = {https://doi.org/10.1109/TPDS.2020.2968913},
+  doi       = {10.1109/TPDS.2020.2968913},
+  timestamp = {Fri, 02 Oct 2020 14:40:02 +0200},
+  biburl    = {https://dblp.org/rec/journals/tpds/WanDLGZO20.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}'''
+    if request.method == 'POST':
+        # 可以设定重定向的url
+        back_dic = {'url':'/home/','code':1000}
+        data = request.POST
+        bibfile = data['bibtex']
+        parser = BibTexParser()  # 声明解析器类
+        parser.customization = convert_to_unicode  # 将BibTeX编码强制转换为UTF编码
+        bibdata = bp.load(bibfile, parser = parser)  # 通过bp.load()加载
+
+        volume = bibdata.entries[0]['volume']
+        issue = bibdata.entries[0]['number']
+        title = bibdata.entries[0]['title'].replace("\n", " ")
+        pages = bibdata.entries[0]['pages']
+        matchObj = re.match( r'(.*)--(.*)', pages, re.M|re.I)
+        if matchObj:
+            print ("matchObj.group(1) : ", matchObj.group(1))
+            print ("matchObj.group(2) : ", matchObj.group(2))
+            startPage = matchObj.group(1)
+            endPage = matchObj.group(2)
+        else:
+            print ("No match!!")
+
+        biburl = bibdata.entries[0]['biburl']
+        print(biburl)
+        matchObj2 = re.match( r'(.*)rec/(.*)/(.*)/(.*)', biburl, re.M|re.I)
+        if matchObj:
+            print ("matchObj.group(2) : ", matchObj2.group(2))
+            print ("matchObj.group(2) : ", matchObj2.group(3))
+            CorJ = matchObj2.group(2)
+            nameAbb = matchObj2.group(3)
+            if (CorJ == 'journals'):
+                conferorjournal = 'J'
+            else:
+                conferorjournal = 'C'
+        else:
+            print ("No match in biburl")
+        
+
 
 # 添加
 @login_required
