@@ -649,7 +649,7 @@ def modify(request, paperid):
     title = paper.title
     conferorjournal = paper.conferorjournal
     conferjournalname = paper.conferjournalname
-    publishtime = paper.publishtime
+    publishtime = str(paper.publishtime)
     volume = paper.volume
     issue = paper.issue
     startpage = paper.startpage
@@ -765,7 +765,7 @@ def check(request, paperid):#, paperid):
     title = paper.title
     conferorjournal = paper.conferorjournal
     conferjournalname = paper.conferjournalname
-    publishtime = paper.publishtime
+    publishtime = str(paper.publishtime)
     volume = paper.volume
     issue = paper.issue
     startpage = paper.startpage

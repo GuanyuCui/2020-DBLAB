@@ -47,13 +47,13 @@
     $(function () {
         var picker1 = $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD',
-            //locale: moment.locale('zh-cn'),
+            locale: moment.locale('zh-cn'),
             //minDate: '2016-7-1'
         });
     });
     $('#datetimepicker1').datetimepicker({
         format: 'YYYY-MM-DD',
-        //locale: moment.locale('zh-cn'),
+        locale: moment.locale('zh-cn'),
         defaultDate: "1990-1-1"
     });
 
@@ -123,7 +123,6 @@
         }
 
         // 发布日期
-        console.log('{{publishtime}}');
         $("#date").val('{{publishtime}}');
 
         var author_names = JSON.parse('{{author_names|safe}}');
