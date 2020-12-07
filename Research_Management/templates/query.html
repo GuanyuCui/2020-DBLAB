@@ -8,9 +8,9 @@
 <script src="{% static 'bootstrap/js/dataTables.bootstrap.min.js' %}"></script>
 
 {% comment %} 下拉菜单 {% endcomment %}
-{% comment %} <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> {% endcomment %}
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% comment %} <script src="https://code.jquery.com/jquery-1.12.4.js"></script> {% endcomment %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 {% endblock %}
 
@@ -152,8 +152,8 @@
                                             {% endif %}
                                         </select>
                                     </div>
-                                    <input label="value"  type="text" class="form-control" id="test"
-                                        placeholder="请输入..." onpropertychange="dropbox(event)" oninput="dropbox(event)" />
+                                    <input label="value"  type="text" class="form-control"
+                                        placeholder="请输入..."  />
                                 </div>
                             </div>
 
@@ -404,44 +404,40 @@
         return eval(arr.join("+"));
     };
 
-    function dropbox(event){
+    // 响应input事件
+    $(document).on("input","[label=\"value\"]", function(){
+
+    // })
+    // $('[label=\"value\"]').on('input', function(){
         var data = new Object;
+        var target = $(event.target);
+
+        // 获取选中的查询项
         data.field = $(event.target).prev().children().val()
+        // 获取输入的值
         data.term = $(event.target).val()
+
         data.csrfmiddlewaretoken = '{{ csrf_token }}';
+
         $.ajax({
             url: '/api_dropbox/',
             type: 'post',
             data: data,
+            target: target,
 
             success: function (response){
                 if (response.code == 1000){
-                    var target = $(event.target);
-                    var availableTags = JSON.parse(response.results);
-                    console.log(availableTags);
-                    //target.autocomplete({
-                    //    source: availableTags
-                    //});
+                    
+                    var results = JSON.parse(response.results);
+                    console.log(results);
+
+                    target.autocomplete({
+                       source: results
+                    });
                 }
             }
         })
-    };
-
-    /*$(function() {
-    var availableTags = [
-        "ActionScript",
-        "AppleScript",
-        "Asp",
-        "BASIC",
-        "C",
-        "C++",
-        "Clojure",
-        "COBOL"
-        ];
-        $( "#test" ).autocomplete({
-            source: availableTags
-        });
-    });*/
+    })
     
     // paperid全局变量，是一个列表
     var paperid_list;
@@ -748,7 +744,7 @@
         html += '{% endif %}';
         html += '</select>';
         html += '</div>';
-        html += '<input label="value" type="text" class="form-control" name="0" placeholder="请输入..." onpropertychange="dropbox(event)" oninput="dropbox(event)">';
+        html += '<input label="value" type="text" class="form-control" placeholder="请输入...">';
         html += '<div class="input-group-btn">';
         html += '<div class="input-group-append">';
         html += '<button id="removeRow" type="button" class="btn btn-danger">  删  除  </button>';
