@@ -678,6 +678,8 @@
         $('#newRow').append(html);
     });
 
+    var last_click = 2;//记录上一次是点击的会议(1)还是期刊(2)
+
     //点击会议
     $(document).on('click', '#conference', function () {
 
@@ -731,16 +733,22 @@
         html_1 += '</div>';
         html_1 += '</div>';
 
-        $('#c_row').remove();
-        $('#c_row_1').remove();
-        $('#c_row_2').remove();
-        $('#jj_row').remove();
-        $('#j_row_1').remove();
-        $('#jj_row_1').remove();
-        $('#demo_row').remove();
-        $('#conference_choice').append(html);
-        $('#conference_choice_1').append(html_1);
-        $('#j_row').remove();
+        if(last_click==1){
+            return;
+        }
+        else{
+            $('#c_row').remove();
+            $('#address').remove();
+            $('#c_row_1').remove();
+            $('#jj_row').remove();
+            $('#j_row_1').remove();
+            $('#jj_row_1').remove();
+            $('#demo_row').remove();
+            $('#conference_choice').append(html);
+            $('#conference_choice_1').append(html_1);
+            $('#j_row').remove();
+            last_click = 1;//会议
+        }
 
 
 
@@ -787,16 +795,20 @@
         html_1 += '</div>';
         html_1 += '</div>';
 
-        $('#j_row').remove();
-        $('#j_row_1').remove();
-        $('#c_row_1').remove();
-        $('#c_row_2').remove();
-        $('#jj_row').remove();
-        $('#jj_row_1').remove();
-        $('#demo_row').remove();
-        $('#journal_choice').append(html);
-        $('#journal_choice_1').append(html_1);
-        $('#c_row').remove();
+        if(last_click==2) return;
+        else{
+            $('#j_row').remove();
+            $('#address').remove();
+            $('#j_row_1').remove();
+            $('#c_row_1').remove();
+            $('#jj_row').remove();
+            $('#jj_row_1').remove();
+            $('#demo_row').remove();
+            $('#journal_choice').append(html);
+            $('#journal_choice_1').append(html_1);
+            $('#c_row').remove();
+            last_click=2;
+        }
 
     });
 
