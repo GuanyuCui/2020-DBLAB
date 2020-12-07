@@ -11,6 +11,7 @@ from django.db.models import Q
 # deprecated
 # from apps.myforms import ExportForm
 import re
+import os
 import bibtexparser
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import convert_to_unicode
@@ -36,7 +37,7 @@ condition_refer = {'AND':'&','OR':'|','':''}
 key_refer = {'期刊/会议名称':'conferjournalname__name','论文题目':'title','作者姓名':'pa__authorname'}
 confer_journal_refer = {'C':'会议','J':'期刊'}
 papertype_detail_refer = {'长文Oral':'长文','长文Poster':'长文','短文Oral':'短文','短文Poster':'短文','Demo':'Demo'}
-papertype_repr_refer = {'长文Oral':'Oral','长文Poster':'Poster','短文Oral':'Oral','短文Poster':'Poster'}
+papertype_repr_refer = {'长文Oral':'Oral','长文Poster':'Poster','短文Oral':'Oral','短文Poster':'Poster','Demo':''}
 
 # 设置用户权限的一篇参考博文
 # https://www.cnblogs.com/xuchengcheng1215/p/9457950.html
@@ -113,7 +114,7 @@ def set_password(request):
             return JsonResponse(back_dic)    
 
 def handle_uploaded_file(f,filename):
-    with open('data/%s' % filename, 'wb+') as destination:
+    with open('data/%s.pdf' % filename, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
@@ -593,6 +594,7 @@ def insert(request):
         except:
             pass
         newPaper.save()
+
         ############# insert into tmpPA #######
         authors = data['authors']
         authors = json.loads(authors)
@@ -609,7 +611,7 @@ def insert(request):
         
         # 存储pdf文件, 默认在data/paper.pdf
         paper = request.FILES['paper']
-        paper_name = request.FILES['paper'].name
+        paper_name = 'tmp_{}'.format(newPaper.paperid)
         handle_uploaded_file(paper,paper_name)
         print("insert successfully!")
         return JsonResponse(back_dic)
@@ -665,21 +667,23 @@ def modify(request, paperid):
     author_types = str([_.authortype for _ in authors]).replace("'", '"')
     return render(request, 'modify.html', locals())
 
-# 审核
+# 审核, url传入的paperid是tmppaper里的paperid
 @login_required
 def check(request, paperid):#, paperid):
     if request.method == 'POST':
         #back_dic = {'code': 1000, 'msg': ''}
 
         # 可以设定重定向的url
-        back_dic = {'url':'','code':1000}
+        back_dic = {'url':'/home/','code':1000}
         data = request.POST
         # 判断是否是第一次发送ajax
         if data['is_first'] == '1':
             # 判断是否存在重名项
             is_paper_title_same = models.Paper.objects.filter(title=data['title'])
-            is_tmppaper_title_same = models.Tmppaper.objects.filter(title=data['title'])
-            if is_paper_title_same or is_tmppaper_title_same:
+            # 这里没必要去tmppaper查
+            # is_tmppaper_title_same = models.Tmppaper.objects.filter(title=data['title'])
+            
+            if is_paper_title_same: #or is_tmppaper_title_same:
                 back_dic['code'] = 2000
                 return JsonResponse(back_dic)
         insertPaper = Paper() # 实例化插入表
@@ -752,10 +756,15 @@ def check(request, paperid):#, paperid):
         #   authorType = authors[i]['type']
         
         # 存储pdf文件, 默认在data/paper.pdf
-        paper = request.FILES['paper']
-        paper_name = request.FILES['paper'].name
-        handle_uploaded_file(paper,paper_name)
-        print("save success")
+        try:
+            paper = request.FILES['paper']
+            paper_name = insertPaper.paperid
+            handle_uploaded_file(paper,paper_name)
+            print("save success")
+        except:
+            os.rename('data/tmp_{}.pdf'.format(paperid),'data/{}.pdf'.format(insertPaper.paperid))
+            print("use original uploaded pdf")
+
         return JsonResponse(back_dic)
         
     # else:

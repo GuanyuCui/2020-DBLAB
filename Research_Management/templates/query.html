@@ -152,7 +152,7 @@
                                             {% endif %}
                                         </select>
                                     </div>
-                                    <input label="dropbox"  type="text" class="form-control" id="test"
+                                    <input label="value"  type="text" class="form-control" id="test"
                                         placeholder="请输入..." onpropertychange="dropbox(event)" oninput="dropbox(event)" />
                                 </div>
                             </div>
@@ -427,7 +427,7 @@
         })
     };
 
-    $(function() {
+    /*$(function() {
     var availableTags = [
         "ActionScript",
         "AppleScript",
@@ -441,7 +441,7 @@
         $( "#test" ).autocomplete({
             source: availableTags
         });
-    });
+    });*/
     
     // paperid全局变量，是一个列表
     var paperid_list;
@@ -682,8 +682,6 @@
         table.settings()[0].ajax.data = data;
         table.ajax.url('/process_q/').load();
 
-        gatherPaperID();
-
         /*$.ajax({
             url: '/process_q/',
             type: 'post',
@@ -750,7 +748,7 @@
         html += '{% endif %}';
         html += '</select>';
         html += '</div>';
-        html += '<input label="dropbox" type="text" class="form-control" name="0" placeholder="请输入..." onpropertychange="dropbox(event)" oninput="dropbox(event)">';
+        html += '<input label="value" type="text" class="form-control" name="0" placeholder="请输入..." onpropertychange="dropbox(event)" oninput="dropbox(event)">';
         html += '<div class="input-group-btn">';
         html += '<div class="input-group-append">';
         html += '<button id="removeRow" type="button" class="btn btn-danger">  删  除  </button>';

@@ -228,7 +228,7 @@
             </div>
 
             <div class="panel-body">
-                <div class="row">
+                <div class="row" id="paperid_reminder" value={{paperid}}>
                     <div>
                         <label class="form-inline" style="margin-left: 18px;"><em style="color: red;margin-right: 5px;">*</em>论文标题：
                             <input type="text" id="title" name="title" class="form-control" style="width:600px; margin-right: 18px"></label>
@@ -459,10 +459,13 @@
                                     <input class="file-ele" type="file" id="file" value="上传文件" file-model="image"
                                         name="image" nv-file-select uploader="uploader" multiple />
                                     <div class="file-open"><em class="icon icon-upload"></em>&nbsp;上传电子版</div>
+
+                                    
                                 </div>
+                                <a class="btn btn-primary" href="/download/tmp_{{ paperid }}" rel="external nofollow" role="button" style="margin-lename='paperid'ft: 400px;">下载电子版</a>
                             </div>
                             <div class="col-md-1">
-                                <input style="left:2px" class="btn btn-success" href="#" rel="external nofollow" type="button"
+                                <input style="left:2px" class="btn btn-success" rel="external nofollow" type="button"
                                     id="commit" value="提交" style="margin-left:445px">
                             </div>
                         </div>
@@ -577,10 +580,10 @@
             }
         }
         
-        if(!$('#file').val()){
-            alert("ALERT: 未选择文件!");
-            return;
-        }
+        // if(!$('#file').val()){
+        //    alert("ALERT: 未选择文件!");
+        //    return;
+        // }
         // data.authors = authors;
         data.append('authors',JSON.stringify(authors));
         data.append('paper', $("#file")[0].files[0]);
@@ -592,10 +595,14 @@
 
         data.append('csrfmiddlewaretoken', '{{ csrf_token }}');  
         // 判断是否是第一次发送ajax
-        data.append('is_first', '1')      
+        data.append('is_first', '1')
+
+        // 解析url
+        url = '/check/' + $("#paperid_reminder").attr('value') + '/'
+        console.log(url);
 
         $.ajax({
-            url:'/check/0/',
+            url:url,
             async: false,
             type:'post',
             data:data,
@@ -606,7 +613,7 @@
 
             success:function (response) {
                 if (response.code == 1000){
-            //        window.location.href = response.url
+                    window.location.href = response.url
                 }
                 else if (response.code == 2000) {
                     var is_confirm = window.confirm("存在重名项论文，是否确认审核");
@@ -614,7 +621,7 @@
                         data.set('is_first', '0');
                         console.log(data.get('is_first'));
                         $.ajax({
-                            url: '/check/0/',
+                            url: url,
                             async: false,
                             type: 'post',
                             data: data,
