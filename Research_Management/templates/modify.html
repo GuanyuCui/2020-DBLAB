@@ -257,7 +257,7 @@
             </div>
 
             <div class="panel-body">
-                <div class="row">
+                <div class="row" id="paperid_reminder" value={{ paperid }}>
 
                     <div id="jj_row">
                         <div class="col-xs-2">
@@ -460,6 +460,7 @@
                                         name="image" nv-file-select uploader="uploader" multiple />
                                     <div class="file-open"><em class="icon icon-upload"></em>&nbsp;上传电子版</div>
                                 </div>
+                                <a class="btn btn-primary" href="/download/tmp_{{ paperid }}" rel="external nofollow" role="button" style="margin-lename='paperid'ft: 400px;">下载电子版</a>
                             </div>
                             <div class="col-md-1">
                                 <input style="left:2px" class="btn btn-success" href="#" rel="external nofollow" type="button"
@@ -673,10 +674,10 @@
             }
         }
         
-        if(!$('#file').val()){
-            alert("ALERT: 未选择文件!");
-            return;
-        }
+        // if(!$('#file').val()){
+        //     alert("ALERT: 未选择文件!");
+        //     return;
+        // }
         // data.authors = authors;
         data.append('authors',JSON.stringify(authors));
         data.append('paper', $("#file")[0].files[0]);
@@ -687,9 +688,11 @@
 
 
         data.append('csrfmiddlewaretoken', '{{ csrf_token }}');        
+        
+        var url = '/modify/' + $("#paperid_reminder").attr('value') + '/';
 
         $.ajax({
-            url:'/process/',
+            url:url,
             type:'post',
             data:data,
             csrfmiddlewaretoken: '{{ csrf_token }}',
