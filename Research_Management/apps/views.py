@@ -2,10 +2,8 @@ from os import name
 from django.contrib.auth import get_user
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-
 from django.db.models import Q
 
 # deprecated
@@ -641,7 +639,7 @@ def detail(request, paperid):
 @login_required
 def modify(request, paperid):
     if request.method == 'POST':
-        back_dic = {'code': 1000, 'msg': ''}
+        back_dic = {'code': 1000, 'url':'/home/'}
         
         # 存储pdf文件, 默认在data/paper.pdf
         try:

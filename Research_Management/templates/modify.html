@@ -681,9 +681,10 @@
 
             success:function (response) {
                 if (response.code == 1000){
-            //        window.location.href = response.url
+                    alert("修改成功!");
+                    window.location.href = response.url
                 }else{
-                    alert("fuck");
+                    alert("修改失败!");
                 }
             }
         })
