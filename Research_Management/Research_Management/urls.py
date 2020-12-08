@@ -22,7 +22,6 @@ urlpatterns = [
     #
     # 页面
     
-    url(r'^$', views.test), # 测试
     url(r'^errors/', views.errors),
     url(r'^index/', views.index),
     url(r'^logout/$', views.logout),
@@ -33,7 +32,6 @@ urlpatterns = [
     url(r'^modify/(?P<paperid>[0-9]+)/', views.modify),
     url(r'^query/',views.query),
     url(r'^createuser/', views.createuser),
-    url(r'^test/', views.test),
 
     # 测试上传论文
     url(r'process_q/',views.query_process),

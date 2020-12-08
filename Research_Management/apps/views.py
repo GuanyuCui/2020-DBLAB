@@ -43,13 +43,6 @@ papertype_repr_refer = {'长文Oral':'Oral','长文Poster':'Poster','短文Oral'
 # https://www.cnblogs.com/xuchengcheng1215/p/9457950.html
 # 由于后期需要做出普通用户与管理员的区分
 
-# 测试函数
-def test(request):
-
-    if request.user.is_staff:
-        print('is staff')
-
-    return render(request, 'test.html')
 
 # 注册
 # todo：只有管理员可以注册，因此后期还得加一个if判断
@@ -674,18 +667,18 @@ def check(request, paperid):#, paperid):
         #back_dic = {'code': 1000, 'msg': ''}
 
         # 可以设定重定向的url
-        back_dic = {'url':'/home/','code':1000}
+        back_dic = {'url':'/home/','code': 1000}
         data = request.POST
         # 判断是否是第一次发送ajax
-        if data['is_first'] == '1':
-            # 判断是否存在重名项
-            is_paper_title_same = models.Paper.objects.filter(title=data['title'])
+        # if data['is_first'] == '1':
+           # 判断是否存在重名项
+        is_paper_title_same = models.Paper.objects.filter(title=data['title'])
             # 这里没必要去tmppaper查
             # is_tmppaper_title_same = models.Tmppaper.objects.filter(title=data['title'])
             
-            if is_paper_title_same: #or is_tmppaper_title_same:
-                back_dic['code'] = 2000
-                return JsonResponse(back_dic)
+        if is_paper_title_same: #or is_tmppaper_title_same:
+            back_dic['code'] = 2000
+            return JsonResponse(back_dic)
         insertPaper = Paper() # 实例化插入表
 
         print("username")
