@@ -30,7 +30,7 @@
         <tbody>
             {% for tmp_paper in tmp_papers %}
             <tr id="{{ tmp_paper.paperid }}">
-            <td>tmp_paper.paperid</td>
+            <td>{{ tmp_paper.paperid }}</td>
             <td>{{ tmp_paper.title }}</td>
             <td>{{ tmp_paper.commitauthorid.name }}</td>
             <td>
