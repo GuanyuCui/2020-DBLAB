@@ -43,13 +43,6 @@ papertype_repr_refer = {'长文Oral':'Oral','长文Poster':'Poster','短文Oral'
 # https://www.cnblogs.com/xuchengcheng1215/p/9457950.html
 # 由于后期需要做出普通用户与管理员的区分
 
-# 测试函数
-def test(request):
-
-    if request.user.is_staff:
-        print('is staff')
-
-    return render(request, 'test.html')
 
 # 注册
 # todo：只有管理员可以注册，因此后期还得加一个if判断
