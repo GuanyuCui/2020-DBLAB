@@ -78,8 +78,7 @@
                 <div class="row">
                     <div>
                         <label class="form-inline" style="margin-left: 18px;">BibTex粘贴处：
-                            <textarea style="font-size:8px; width:580px; height:120px; margin-right: 18px">
-                                <input type="text" id="Bibtex" name="Bibtex" class="form-control">
+                            <textarea id="Bibtex" name="Bibtex" style="font-size:8px; width:580px; height:120px; margin-right: 18px">
                             </textarea>
                         </label>
                         <input style="left:2px" class="btn btn-success" href="#" rel="external nofollow" type="button"
@@ -302,6 +301,8 @@
     $('#BibtexCommit').click(function () {
         var data = new Object;
         data.bibtex = $("#Bibtex").val();
+        console.log('bibtex: ')
+        console.log(data.bibtex)
         data.csrfmiddlewaretoken = '{{csrf_token}}';
         $.ajax({
             url: '/bibtex/',
