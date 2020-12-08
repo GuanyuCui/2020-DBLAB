@@ -757,7 +757,10 @@ def check(request, paperid):#, paperid):
         except:
             os.rename('data/tmp_{}.pdf'.format(paperid),'data/{}.pdf'.format(insertPaper.paperid))
             print("use original uploaded pdf")
-
+        
+        # 查询该条记录是否存在
+        tmp_papers = models.Tmppaper.objects.filter(paperid=paperid)
+        tmp_papers.delete()
         return JsonResponse(back_dic)
         
     # else:
