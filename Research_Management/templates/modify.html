@@ -694,22 +694,23 @@
         html += '<tr>';
         html += '<td>';
         html +=
-            '<input id="姓名" class="form-control" label="authorname" placeholder="请输入姓名" type="text" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
+            '<select id="人员类型" class="form-control" label="authortype" style="width:110px">';
+        html += '<option>本院教师</option>';
+        html += '<option>本院学生</option>';
+        html += '<option>其他</option>';
+        html += '</select>';
         html += '</td>';
+
         html += '<td>';
         html +=
-            '<select id="身份" class="form-control" label="identity" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
-        html += '<option value="普通作者">普通作者</option>';
-        html += '<option value="通讯作者">通讯作者</option>';
+            '<select id="身份" class="form-control" label="identity" style="width:110px;">';
+        html += '<option>普通作者</option>';
+        html += '<option>通讯作者</option>';
         html += '</select>';
         html += '</td>';
         html += '<td>';
         html +=
-            '<select id="人员类型" class="form-control" label="authortype" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
-        html += '<option value="本院教师">本院教师</option>';
-        html += '<option value="本院学生">本院学生</option>';
-        html += '<option value="其他">其他</option>';
-        html += '</select>';
+            '<input class="form-control" label="authorname" placeholder="请输入姓名" type="text" style="width:110px;">';
         html += '</td>';
         html += '<td>';
         html += '<button id="removeRow" type="button" class="btn btn-danger">删  除</button>';
