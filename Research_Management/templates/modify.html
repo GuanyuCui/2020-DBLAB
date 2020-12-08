@@ -131,6 +131,7 @@
         var author_types = JSON.parse('{{author_types|safe}}');
 
         $("#姓名").val(author_names[0]);
+        console.log(author_names[0]);
 
         if (author_identities[0] == "普通作者") 
         {
@@ -160,33 +161,11 @@
             html += '<table class="table table-striped" style="table-layout:fixed;">';
             html += '<tbody>';
             html += '<tr>';
-            html += '<td>';
-            html +=
-                '<input id="姓名" class="form-control" label="authorname" placeholder="请输入姓名" type="text" value="'
-            html += author_names[i]
-            html += '" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
-            html += '</td>';
-            html += '<td>';
-            html +=
-                '<select id="身份" class="form-control" label="identity" value="';
-            html += author_identities[i];
-            html += '" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
 
-            if(author_identities[i] == "普通作者")
-                html += '<option value="普通作者" selected="selected">普通作者</option>';
-            else
-                html += '<option value="普通作者">普通作者</option>';
-            
-            if(author_identities[i] == "通讯作者")
-                html += '<option value="通讯作者" selected="selected">通讯作者</option>';
-            else
-                html += '<option value="通讯作者">通讯作者</option>';
-            html += '</select>';
-            html += '</td>';
             html += '<td>';
             html +=
                 '<select id="人员类型" class="form-control" label="authortype"'
-            html += ' style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            html += ' style="width:110px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
 
             if(author_types[i] == "本院教师")
                 html += '<option value="本院教师" selected="selected">本院教师</option>';
@@ -204,6 +183,31 @@
                 html += '<option value="其他">其他</option>';
                 
             html += '</select>';
+            html += '</td>';
+
+            html += '<td>';
+            html +=
+                '<select id="身份" class="form-control" label="identity" value="';
+            html += author_identities[i];
+            html += '" style="width:110px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+
+            if(author_identities[i] == "普通作者")
+                html += '<option value="普通作者" selected="selected">普通作者</option>';
+            else
+                html += '<option value="普通作者">普通作者</option>';
+            
+            if(author_identities[i] == "通讯作者")
+                html += '<option value="通讯作者" selected="selected">通讯作者</option>';
+            else
+                html += '<option value="通讯作者">通讯作者</option>';
+            html += '</select>';
+            html += '</td>';
+            
+            html += '<td>';
+            html +=
+                '<input id="姓名" class="form-control" label="authorname" placeholder="请输入姓名" type="text" value="'
+            html += author_names[i]
+            html += '" style="width:110px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
             html += '</td>';
             html += '<td>';
             html += '<button id="removeRow" type="button" class="btn btn-danger">删除</button>';
@@ -415,7 +419,7 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input class="form-control" type="text" label="authorname"
+                                                    <input id="姓名" class="form-control" type="text" label="authorname"
                                                         style="width:110px;" placeholder="请输入姓名">
                                                 </td>
                                                 <td>
