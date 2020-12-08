@@ -515,7 +515,7 @@ def bibtex(request):
             print ("matchObj.group(2) : ", matchObj2.group(3))
             CorJ = matchObj2.group(2)
             conferjournalabb = matchObj2.group(3)
-            cJobj = Conferjournal.objects.get(abbreviation = 'sigir')
+            cJobj = Conferjournal.objects.get(abbreviation = conferjournalabb)
             conferjournalname = cJobj.name
             if (CorJ == 'journals'):
                 conferorjournal = 'J'
