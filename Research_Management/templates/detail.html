@@ -26,12 +26,12 @@
                 <div class="row">
                     <div>
                         <label class="form-inline" style="margin-left: 18px;" id="paperid" value={{ paper.paperid }}>论文标题：</label> 
-                        <input type="text" class="form-control" style="width:500px; margin-right: 18px" value="{{ paper.title }}" readonly="readonly" />
+                        <input type="text" class="form-control" style="width:100%; margin-right: 18px" value="{{ paper.title }}" readonly="readonly" />
                         <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
                         {% if paper.language == 'C' %}
-                        <input type="text" class="form-control" style="width:500px; margin-right: 18px" value="{{ 中文 }}" readonly="readonly" />
+                        <input type="text" class="form-control" style="width:500px; margin-right: 18px" value="中文" readonly="readonly" />
                         {% else %}
-                        <input type="text" class="form-control" style="width:500px; margin-right: 18px" value="{{ 英文 }}" readonly="readonly" />
+                        <input type="text" class="form-control" style="width:500px; margin-right: 18px" value="英文" readonly="readonly" />
                         {% endif %}
                         <!-- <input type="radio" name="language_type" value="Chinese" style="margin-right: 10px;margin-left: 10px;" readonly="readonly"/>中文
                         <input type="radio" name="language_type" value="English" style="margin-right: 10px;margin-left: 10px;" />英文 -->
