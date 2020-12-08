@@ -391,58 +391,34 @@
                                     <table class="table table-striped" style="table-layout:fixed;">
                                         <thead>
                                             <tr>
-                                                <th>姓名</th>
-                                                <th>身份</th>
                                                 <th>人员类型</th>
+                                                <th>身份</th>
+                                                <th>姓名</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody id="inputFormRow">
                                             <tr>
                                                 <td>
-                                                    <input id="姓名" class="form-control" type="text" label="authorname" style="width:100px;
-                padding:3px 10px;
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-                background-size:13px 13px;
-                appearance:yes;
-                -moz-appearance:yes;
-                -webkit-appearance:yes;
-                " placeholder="请输入姓名">
-                                                </td>
-                                                <td>
-                                                    <select id="身份" class="form-control" label="identity"
-                                                        style="
-                width:100px;
-                padding:3px 10px;
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-                background-size:13px 13px;
-                appearance:yes;
-                -moz-appearance:yes;
-                -webkit-appearance:yes;
-                ">
-                                                        <option id='normal'>普通作者</option>
-                                                        <option id='communicator'>通讯作者</option>
-                                                    </select>
-                                                </td>
-                                                <td>
                                                     <select id="人员类型" class="form-control" label="authortype"
-                                                        style="
-                width:100px;
-                padding:3px 10px;
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-                background-size:13px 13px;
-                appearance:yes;
-                -moz-appearance:yes;
-                -webkit-appearance:yes;
-                ">
-                                                        <option id="teacher">本院教师</option>
-                                                        <option id="student">本院学生</option>
-                                                        <option id="else">其他</option>
+                                                        style="width:110px; ">
+                                                        <option>本院教师</option>
+                                                        <option>本院学生</option>
+                                                        <option>其他</option>
                                                     </select>
                                                 </td>
+
+                                                <td>
+                                                    <select class="form-control" label="identity" style="width:110px;">
+                                                        <option>普通作者</option>
+                                                        <option>通讯作者</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" type="text" label="authorname"
+                                                        style="width:110px;" placeholder="请输入姓名">
+                                                </td>
+                                                
                                                 <td>
                                                 </td>
 
