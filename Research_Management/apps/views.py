@@ -49,7 +49,7 @@ def test(request):
     if request.user.is_staff:
         print('is staff')
 
-    return render(request, 'base.html')
+    return render(request, 'test.html')
 
 # 注册
 # todo：只有管理员可以注册，因此后期还得加一个if判断
