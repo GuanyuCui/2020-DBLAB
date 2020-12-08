@@ -654,6 +654,7 @@
 
         var html = '';
         var html_1 = '';
+        var html_2 = ' ';
         html += '<div id="address">'
         html += '<div class="panel-body">';
         html += '<div class="row">';
@@ -691,11 +692,27 @@
         html_1 += '<div class="panel-heading"><em style="color: red;margin-right: 5px;">*</em>会议论文类型</div>';
         html_1 += '<div class="panel-body">';
         html_1 += '<label class="radio-inline">';
-        html_1 += '<input type="radio" name="c_type" value="长文" id="long_essay">长文</label>';
+        html_1 += '<input type="radio" name="c_type" value="长文" id="long_essay" checked/>长文</label>';
         html_1 += '<label class="radio-inline">';
         html_1 += '<input type="radio" name="c_type" value="短文" id="short_essay">短文</label>';
         html_1 += '<label class="radio-inline">';
-        html_1 += '<input type="radio" name="c_type" value="Demo" id="demo" checked/>Demo</label>';
+        html_1 += '<input type="radio" name="c_type" value="Demo" id="demo">Demo</label>';
+        html_2 += '<div id="demo_row">';
+        html_2 += '<div class="col-md-2">';
+        html_2 += '<div class="panel panel-info">';
+        html_2 += '<div class="panel-heading">展示形式</div>';
+        html_2 += '<div class="panel-body">';
+        html_2 += '<label class="radio-inline">';
+        html_2 += '<input type="radio" name="s_type" value="Oral" checked/>Oral</label>';
+        html_2 += '<br>';
+        html_2 += '<label class="radio-inline">';
+        html_2 += '<input type="radio" name="s_type" value="Oral">Poster</label>';
+        html_2 += '<br>';
+        html_2 += '</div>';
+        html_2 += '</div>';
+        html_2 += '</div>';
+        html_2 += '</div>';
+        html_2 += '</div>';
         html_1 += '</div>';
         html_1 += '</div>';
         html_1 += '</div>';
@@ -712,6 +729,7 @@
             $('#demo_row').remove();
             $('#conference_choice').append(html);
             $('#conference_choice_1').append(html_1);
+            $('#demo_choice').append(html_2);
             $('#j_row').remove();
             last_click = 1; //会议
         }
