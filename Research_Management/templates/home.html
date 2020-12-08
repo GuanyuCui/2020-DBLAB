@@ -21,6 +21,7 @@
     <table class="table table-striped table-bordered" id="check_table">
         <thead>
             <tr>
+            <th>ID</th>
             <th>项目名称</th>
             <th>负责人</th>
             <th>操作</th>
@@ -29,6 +30,7 @@
         <tbody>
             {% for tmp_paper in tmp_papers %}
             <tr id="{{ tmp_paper.paperid }}">
+            <td>tmp_paper.paperid</td>
             <td>{{ tmp_paper.title }}</td>
             <td>{{ tmp_paper.commitauthorid.name }}</td>
             <td>
