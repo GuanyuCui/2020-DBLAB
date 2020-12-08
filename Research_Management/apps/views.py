@@ -674,18 +674,18 @@ def check(request, paperid):#, paperid):
         #back_dic = {'code': 1000, 'msg': ''}
 
         # 可以设定重定向的url
-        back_dic = {'url':'/home/','code':1000}
+        back_dic = {'url':'/home/','code': 1000}
         data = request.POST
         # 判断是否是第一次发送ajax
-        if data['is_first'] == '1':
-            # 判断是否存在重名项
-            is_paper_title_same = models.Paper.objects.filter(title=data['title'])
+        # if data['is_first'] == '1':
+           # 判断是否存在重名项
+        is_paper_title_same = models.Paper.objects.filter(title=data['title'])
             # 这里没必要去tmppaper查
             # is_tmppaper_title_same = models.Tmppaper.objects.filter(title=data['title'])
             
-            if is_paper_title_same: #or is_tmppaper_title_same:
-                back_dic['code'] = 2000
-                return JsonResponse(back_dic)
+        if is_paper_title_same: #or is_tmppaper_title_same:
+            back_dic['code'] = 2000
+            return JsonResponse(back_dic)
         insertPaper = Paper() # 实例化插入表
 
         print("username")
