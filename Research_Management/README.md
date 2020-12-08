@@ -95,7 +95,7 @@ data_post = {
    - [ ] 默认选中长文 -> wsx
 
 2. query页
-   - [ ] CCF 等级只有 ABC -> zcy
+   - [x] CCF 等级只有 ABC -> zcy
 
 3. detail页
 
@@ -117,7 +117,7 @@ data_post = {
 4. 插入页 
 
 ### 实验报告
-- [ ] ER 图/数据字典的问题 -> zcy
+- [x] ER 图/数据字典的问题 -> zcy
 - [ ] 系统测试部分
    - 登录页 -> cgy
    - 主页 -> cgy
