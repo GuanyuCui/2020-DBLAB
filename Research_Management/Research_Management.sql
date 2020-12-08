@@ -1,5 +1,5 @@
 create table ConferJournal(
-    Name varchar(100) primary key,
+    Name varchar(512) primary key,
     ConferOrJournal char(1) not null,  -- C or J
     Abbreviation varchar(50),
     RUCLevel char(2) not null,
@@ -14,10 +14,10 @@ create table Author(
 );
 
 create table Paper(
-    PaperID integer primary key auto_increment,
-	Title varchar(100) not null,
+    PaperID bigint primary key auto_increment,
+	Title varchar(1024) not null,
     ConferOrJournal char(1) not null,  -- C or J
-	ConferJournalName varchar(100) not null,
+	ConferJournalName varchar(512) not null,
     PublishTime date not null,
     Volume integer,
     Issue integer,
@@ -26,14 +26,14 @@ create table Paper(
     Keywords varchar(100),
     ConferenceCountry varchar(50),
     ConferenceCity varchar(50),
-    PaperType varchar(10) not null,
+    PaperType varchar(20) not null,
     Language char(1), -- E or C
     foreign key(ConferJournalName) references ConferJournal(Name)
 );
 
 create table PA(
-    PAID integer primary key auto_increment,
-    PaperID integer not null,
+    PAID bigint primary key auto_increment,
+    PaperID bigint not null,
     AuthorName varchar(20) not null,
     AuthorRank integer not null,            -- 第几作者
     AuthorIdentity varchar(20) not null,    -- 通讯作者、普通作者
@@ -42,11 +42,11 @@ create table PA(
 );
 
 create table tmpPaper(
-    PaperID integer primary key auto_increment,
+    PaperID bigint primary key auto_increment,
     CommitAuthorID varchar(12) not null,
-	Title varchar(100) not null,
+	Title varchar(1024) not null,
     ConferOrJournal char(1) not null,  -- C or J
-	ConferJournalName varchar(100) not null,
+	ConferJournalName varchar(512) not null,
     PublishTime date not null,
     Volume integer,
     Issue integer,
@@ -55,15 +55,15 @@ create table tmpPaper(
     Keywords varchar(100),
     ConferenceCountry varchar(50),
     ConferenceCity varchar(50),
-    PaperType varchar(10) not null, -- 正刊 专刊 增刊 长文Oral 长文Poster 短文Oral 短文Poster Demo
+    PaperType varchar(20) not null, -- 正刊 专刊 增刊 长文Oral 长文Poster 短文Oral 短文Poster Demo
     Language char(1), -- E or C
     foreign key(CommitAuthorID) references Author(AuthorID),
     foreign key(ConferJournalName) references ConferJournal(Name)
 );
 
 create table tmpPA(
-    PAID integer primary key auto_increment,
-    PaperID integer not null,
+    PAID bigint primary key auto_increment,
+    PaperID bigint not null,
     AuthorName varchar(20) not null,
     AuthorRank integer not null,            -- 第几作者
     AuthorIdentity varchar(20) not null,    -- 通讯作者、普通作者
