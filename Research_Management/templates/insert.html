@@ -78,8 +78,10 @@
                 <div class="row">
                     <div>
                         <label class="form-inline" style="margin-left: 18px;">BibTex粘贴处：
-                            <input type="text" id="Bibtex" name="Bibtex" class="form-control"
-                                style="width:580px; margin-right: 18px"></label>
+                            <textarea style="font-size:8px; width:580px; height:120px; margin-right: 18px">
+                                <input type="text" id="Bibtex" name="Bibtex" class="form-control">
+                            </textarea>
+                        </label>
                         <input style="left:2px" class="btn btn-success" href="#" rel="external nofollow" type="button"
                             id="BibtexCommit" value="自动填充" style="margin-left:445px">
                     </div>
@@ -313,14 +315,12 @@
                     $("#English").click();
                     $("#title").val(response.title);
                     $("#cjname").val(response.conferjournalname);
-                    if (response.conferorjournal == "J")
-                    {
+                    if (response.conferorjournal == "J") {
                         $("#journal").click();
                         $("#volume").val(response.volume);
                         $("#issue").val(response.issue);
-                        
-                    }
-                    else{
+
+                    } else {
                         $("#conference").click();
                     }
                     $("#page_1").val(response.startpage);
@@ -335,7 +335,7 @@
     });
 
     // 查询出来的内容显示一下
-   
+
     $('#commit').click(function () {
         var data = new FormData();
         // 标题
@@ -476,7 +476,7 @@
                 if (response.code == 1000) {
                     alert("添加成功! 即将跳转回主页~");
                     window.location.href = response.url;
-                } 
+                }
                 // code 1000: 有重名项，询问是否确认提交
                 else if (response.code == 2000) {
 
@@ -504,8 +504,7 @@
                             }
                         })
                     }
-                }
-                else {
+                } else {
                     alert("Post not handled properly");
                 }
             }
@@ -553,7 +552,7 @@
         $('#newRow').append(html);
     });
 
-    var last_click = 2;//记录上一次是点击的会议(1)还是期刊(2)
+    var last_click = 2; //记录上一次是点击的会议(1)还是期刊(2)
 
     //点击会议
     $(document).on('click', '#conference', function () {
@@ -606,10 +605,9 @@
         html_1 += '</div>';
         html_1 += '</div>';
 
-        if(last_click==1){
+        if (last_click == 1) {
             return;
-        }
-        else{
+        } else {
             $('#c_row').remove();
             $('#address').remove();
             $('#c_row_1').remove();
@@ -620,9 +618,9 @@
             $('#conference_choice').append(html);
             $('#conference_choice_1').append(html_1);
             $('#j_row').remove();
-            last_click = 1;//会议
+            last_click = 1; //会议
         }
-        
+
     });
 
     //点击期刊
@@ -666,8 +664,8 @@
         html_1 += '</div>';
         html_1 += '</div>';
 
-        if(last_click==2) return;
-        else{
+        if (last_click == 2) return;
+        else {
             $('#j_row').remove();
             $('#address').remove();
             $('#j_row_1').remove();
@@ -678,10 +676,10 @@
             $('#journal_choice').append(html);
             $('#journal_choice_1').append(html_1);
             $('#c_row').remove();
-            last_click=2;
+            last_click = 2;
         }
 
-       
+
 
     });
 
