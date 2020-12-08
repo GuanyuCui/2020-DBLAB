@@ -92,7 +92,7 @@ data_post = {
 
 ### 前后端
 1. insert页
-   - [ ] autoincrease无法回退就会一直加
+   - [x] autoincrease无法回退就会一直加
       - 检查当表为空，重新设置起点为1
       - SQL 语句该字段改成 bigint -> zcy
    - [ ] BibTeX 框大一点
@@ -109,7 +109,7 @@ data_post = {
 ## TODO
 ### 数据库
 1. 临时表
-   - [ ] title 字段太短，需要增长 -> zcy
+   - [x] title 字段太短，需要增长 -> zcy
 
 2. 基本表
 
