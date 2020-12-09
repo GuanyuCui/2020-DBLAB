@@ -67,8 +67,12 @@ def createuser(request):
         if form_obj.is_valid():
             # form_obj.cleaned_data  # {'username':'','password':'','confirm_password':'','email':''}
             clean_data = form_obj.cleaned_data
+            username = clean_data['username']
+            name = clean_data['name']
             clean_data.pop('confirm_password')  #  {'username':'','password':'','email':''}
+            clean_data.pop('name')
             models.UserInfo.objects.create_user(**clean_data)
+            models.Author.objects.create(authorid=username, name=name)
             # 目前想法是注册完之后弹出注册完成的框，不跳转
             # back_dic['url'] = '/login/'
         else:

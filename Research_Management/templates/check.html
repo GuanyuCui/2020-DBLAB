@@ -483,9 +483,9 @@
         var data = new Object;
         data.title = title;
         data.csrfmiddlewaretoken = '{{ csrf_token }}';
-        $ajax({
+        $.ajax({
             url: url,
-            type: post,
+            type: 'post',
             data: data,
             success: function(response) {
                 if (response.code = 2000) {

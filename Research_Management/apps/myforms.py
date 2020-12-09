@@ -13,6 +13,13 @@ class MyRegForm(forms.Form):
                                     'required': '用户名不能为空',
                                 }, widget=forms.widgets.TextInput(attrs={'class': 'form-control'})
                                 )
+    name = forms.CharField(min_length=2, max_length=8, label='姓名',
+                                error_messages={
+                                    'min_length': '姓名不能少于三位',
+                                    'max_length': '姓名不能大于八位',
+                                    'required': '姓名不能为空',
+                                }, widget=forms.widgets.TextInput(attrs={'class': 'form-control'})
+                                )
     password = forms.CharField(min_length=3, max_length=16, label='密码',
                                 error_messages={
                                     'min_length': '密码不能少于三位',
@@ -20,10 +27,10 @@ class MyRegForm(forms.Form):
                                     'required': '密码不能为空',
                                 }, widget=forms.widgets.PasswordInput(attrs={'class': 'form-control'})
                                 )
-    confirm_password = forms.CharField(min_length=3, max_length=8, label='确认密码',
+    confirm_password = forms.CharField(min_length=3, max_length=16, label='确认密码',
                                 error_messages={
                                     'min_length': '确认密码不能少于三位',
-                                    'max_length': '确认密码不能大于八位',
+                                    'max_length': '确认密码不能大于十六位',
                                     'required': '确认密码不能为空',
                                 }, widget=forms.widgets.PasswordInput(attrs={'class': 'form-control'})
                                 )
