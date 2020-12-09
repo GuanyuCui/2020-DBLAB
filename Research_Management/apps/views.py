@@ -2,10 +2,8 @@ from os import name
 from django.contrib.auth import get_user
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-
 from django.db.models import Q
 
 # deprecated
@@ -43,13 +41,6 @@ papertype_repr_refer = {'长文Oral':'Oral','长文Poster':'Poster','短文Oral'
 # https://www.cnblogs.com/xuchengcheng1215/p/9457950.html
 # 由于后期需要做出普通用户与管理员的区分
 
-# 测试函数
-def test(request):
-
-    if request.user.is_staff:
-        print('is staff')
-
-    return render(request, 'test.html')
 
 # 注册
 # todo：只有管理员可以注册，因此后期还得加一个if判断
@@ -122,6 +113,7 @@ def handle_uploaded_file(f,filename):
         for chunk in f.chunks():
             destination.write(chunk)
 
+@login_required
 def download(request,paperid):
     file = open('data/{}.pdf'.format(paperid), 'rb')
     response = HttpResponse(file)
@@ -132,6 +124,7 @@ def download(request,paperid):
 
     return response
 
+@login_required
 def export(request, paperids):
     # if request.method == 'POST':
         # export_form = ExportForm(request.POST)
@@ -182,6 +175,7 @@ def export(request, paperids):
     else:
         return render(request, 'errors.html')
 
+@login_required
 def api_dropbox(request):
     """
         相应下拉框的查询
@@ -214,6 +208,81 @@ def api_dropbox(request):
         back_dic = {'results': results, 'code':1000}
         return JsonResponse(back_dic)
 
+@login_required
+def bibtex(request):
+    print('in bibtex funtion')
+    if request.method == 'POST':
+        # 可以设定重定向的url
+        back_dic = {'url':'/home/','code':1000}
+        data = request.POST
+        bibtex_str = data['bibtex']
+        print(bibtex_str)
+        parser = BibTexParser()  # 声明解析器类
+        parser.customization = convert_to_unicode  # 将BibTeX编码强制转换为UTF编码
+        # parser.ignore_nonstandard_types = False
+        # parser.homogenize_fields = False
+        # parser.common_strings = False
+        bibdata = bibtexparser.loads(bibtex_str, parser)
+
+
+        print ('DEBUG 1')
+        print(bibdata.entries[0]['title'])
+        title = bibdata.entries[0]['title'].replace("\n", " ")
+        title = ' '.join(title.split())
+        print(title)   
+
+        #title = bibdata.entries[0]['title'].replace("\t", " ")
+
+        pages = bibdata.entries[0]['pages']
+        matchObj = re.match( r'(.*)--(.*)', pages, re.M|re.I)
+        if matchObj:
+            print ("matchObj.group(1) : ", matchObj.group(1))
+            print ("matchObj.group(2) : ", matchObj.group(2))
+            startpage = matchObj.group(1)
+            endpage = matchObj.group(2)
+        else:
+            print ("No match!!")
+            startpage = 0
+            endpage = 0
+
+        biburl = bibdata.entries[0]['biburl']
+        print(biburl)
+        matchObj2 = re.match( r'(.*)rec/(.*)/(.*)/(.*)', biburl, re.M|re.I)
+        if matchObj:
+            print ("matchObj.group(2) : ", matchObj2.group(2))
+            print ("matchObj.group(2) : ", matchObj2.group(3))
+            CorJ = matchObj2.group(2)
+            conferjournalabb = matchObj2.group(3)
+            cJobj = Conferjournal.objects.get(abbreviation = conferjournalabb)
+            conferjournalname = cJobj.name
+            if (CorJ == 'journals'):
+                conferorjournal = 'J'
+            else:
+                conferorjournal = 'C'
+        else:
+            conferorjournal = None
+            conferjournalname = None
+            print ("No match in biburl")
+        
+        if conferorjournal == 'J':
+            volume = bibdata.entries[0]['volume']
+            issue = bibdata.entries[0]['number']
+        else:
+            volume = None
+            issue = None
+            
+        results = {'volume': volume, 
+            'issue': issue,
+            'title': title,
+            'startpage': startpage,
+            'endpage': endpage,
+            'conferorjournal':conferorjournal,
+            'code': 1000,
+            'conferjournalname':conferjournalname
+        }
+        return JsonResponse(results)
+
+@login_required
 def query_process(request):
     """ 处理query
 
@@ -475,80 +544,6 @@ def logout(request):
     auth.logout(request)  # request.session.flush()
     return redirect('/index/')
 
-def bibtex(request):
-    print('in bibtex funtion')
-    if request.method == 'POST':
-        # 可以设定重定向的url
-        back_dic = {'url':'/home/','code':1000}
-        data = request.POST
-        bibtex_str = data['bibtex']
-        print(bibtex_str)
-        parser = BibTexParser()  # 声明解析器类
-        parser.customization = convert_to_unicode  # 将BibTeX编码强制转换为UTF编码
-        # parser.ignore_nonstandard_types = False
-        # parser.homogenize_fields = False
-        # parser.common_strings = False
-        bibdata = bibtexparser.loads(bibtex_str, parser)
-
-
-        print ('DEBUG 1')
-        print(bibdata.entries[0]['title'])
-        title = bibdata.entries[0]['title'].replace("\n", " ")
-        title = ' '.join(title.split())
-        print(title)   
-
-        #title = bibdata.entries[0]['title'].replace("\t", " ")
-
-        pages = bibdata.entries[0]['pages']
-        matchObj = re.match( r'(.*)--(.*)', pages, re.M|re.I)
-        if matchObj:
-            print ("matchObj.group(1) : ", matchObj.group(1))
-            print ("matchObj.group(2) : ", matchObj.group(2))
-            startpage = matchObj.group(1)
-            endpage = matchObj.group(2)
-        else:
-            print ("No match!!")
-            startpage = 0
-            endpage = 0
-
-        biburl = bibdata.entries[0]['biburl']
-        print(biburl)
-        matchObj2 = re.match( r'(.*)rec/(.*)/(.*)/(.*)', biburl, re.M|re.I)
-        if matchObj:
-            print ("matchObj.group(2) : ", matchObj2.group(2))
-            print ("matchObj.group(2) : ", matchObj2.group(3))
-            CorJ = matchObj2.group(2)
-            conferjournalabb = matchObj2.group(3)
-            cJobj = Conferjournal.objects.get(abbreviation = conferjournalabb)
-            conferjournalname = cJobj.name
-            if (CorJ == 'journals'):
-                conferorjournal = 'J'
-            else:
-                conferorjournal = 'C'
-        else:
-            conferorjournal = None
-            conferjournalname = None
-            print ("No match in biburl")
-        
-        if conferorjournal == 'J':
-            volume = bibdata.entries[0]['volume']
-            issue = bibdata.entries[0]['number']
-        else:
-            volume = None
-            issue = None
-            
-        results = {'volume': volume, 
-            'issue': issue,
-            'title': title,
-            'startpage': startpage,
-            'endpage': endpage,
-            'conferorjournal':conferorjournal,
-            'code': 1000,
-            'conferjournalname':conferjournalname
-        }
-        return JsonResponse(results)
-
-
 # 添加
 @login_required
 def insert(request):
@@ -615,6 +610,7 @@ def insert(request):
         
         # 存储pdf文件, 默认在data/paper.pdf
         paper = request.FILES['paper']
+        print(paper)
         paper_name = 'tmp_{}'.format(newPaper.paperid)
         handle_uploaded_file(paper,paper_name)
         print("insert successfully!")
@@ -647,7 +643,18 @@ def detail(request, paperid):
 @login_required
 def modify(request, paperid):
     if request.method == 'POST':
-        back_dic = {'code': 1000, 'msg': ''}
+        back_dic = {'code': 1000, 'url':'/home/'}
+        
+        # 存储pdf文件, 默认在data/paper.pdf
+        try:
+            paper = request.FILES['paper']
+            paper_name = 'tmp_{}'.format(paperid)
+            handle_uploaded_file(paper,paper_name)
+            print("save success")
+            
+        except:
+            print("use original uploaded pdf")
+
         return JsonResponse(back_dic)
 
     # 从临时表查询出来数据
@@ -764,11 +771,16 @@ def check(request, paperid):#, paperid):
             paper = request.FILES['paper']
             paper_name = insertPaper.paperid
             handle_uploaded_file(paper,paper_name)
+            os.remove('data/tmp_{}.pdf'.format(paperid))
             print("save success")
+            
         except:
             os.rename('data/tmp_{}.pdf'.format(paperid),'data/{}.pdf'.format(insertPaper.paperid))
             print("use original uploaded pdf")
-
+        
+        # 查询该条记录是否存在
+        tmp_papers = models.Tmppaper.objects.filter(paperid=paperid)
+        tmp_papers.delete()
         return JsonResponse(back_dic)
         
     # else:
@@ -859,6 +871,7 @@ def delete_tmp_paper(request):
         #  若该条记录存在，则删除
         if tmp_papers:
             tmp_papers.delete()
+            os.remove('data/tmp_{}.pdf'.format(paperid))
         # 若不存在，返回错误代码2000
         else:
             back_dic['code'] = 2000

@@ -263,13 +263,7 @@
                                 </div>
                                 <div class="col-md-4" for="select">CCF：</div>
                                 <label class="checkbox-inline">
-                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFAP" type="checkbox" name="rankType" value="option1">A+
-                                </label>
-                                <label class="checkbox-inline">
                                     <input onclick="checkCancelAll('rankAll','rankType')" id="CCFA" type="checkbox" name="rankType" value="option2">A
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFAM" type="checkbox" name="rankType" value="option3">A-
                                 </label>
                                 <label class="checkbox-inline">
                                     <input onclick="checkCancelAll('rankAll','rankType')" id="CCFB" type="checkbox" name="rankType" value="option3">B
@@ -280,13 +274,7 @@
                                 <br>
                                 <div class="col-md-4" for="select">CCF中文：</div>
                                 <label class="checkbox-inline">
-                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFChinaAP" type="checkbox" name="rankType" value="option1">A+
-                                </label>
-                                <label class="checkbox-inline">
                                     <input onclick="checkCancelAll('rankAll','rankType')" id="CCFChinaA" type="checkbox" name="rankType" value="option2">A
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input onclick="checkCancelAll('rankAll','rankType')" id="CCFChinaAM" type="checkbox" name="rankType" value="option3">A-
                                 </label>
                                 <label class="checkbox-inline">
                                     <input onclick="checkCancelAll('rankAll','rankType')" id="CCFChinaB" type="checkbox" name="rankType" value="option3">B
@@ -582,28 +570,28 @@
 
 
         var CCFRank = new Array();
-        var CCFAP = document.getElementById('CCFAP');
+        // var CCFAP = document.getElementById('CCFAP');
         var CCFA = document.getElementById('CCFA');
-        var CCFAM = document.getElementById('CCFAM');
+        // var CCFAM = document.getElementById('CCFAM');
         var CCFB = document.getElementById('CCFB');
         var CCFC = document.getElementById('CCFC');
         CCFRank[0] = 0, CCFRank[1] = 0, CCFRank[2] = 0, CCFRank[3] = 0, CCFRank[4] = 0;
-        if (CCFAP.checked) CCFRank[0] = 1;
+        // if (CCFAP.checked) CCFRank[0] = 1;
         if (CCFA.checked) CCFRank[1] = 1;
-        if (CCFAM.checked) CCFRank[2] = 1;
+        // if (CCFAM.checked) CCFRank[2] = 1;
         if (CCFB.checked) CCFRank[3] = 1;
         if (CCFC.checked) CCFRank[4] = 1;
 
         var CCFChinaRank = new Array();
-        var CCFChinaAP = document.getElementById('CCFChinaAP');
+        // var CCFChinaAP = document.getElementById('CCFChinaAP');
         var CCFChinaA = document.getElementById('CCFChinaA');
-        var CCFChinaAM = document.getElementById('CCFChinaAM');
+        // var CCFChinaAM = document.getElementById('CCFChinaAM');
         var CCFChinaB = document.getElementById('CCFChinaB');
         var CCFChinaC = document.getElementById('CCFChinaC');
         CCFChinaRank[0] = 0, CCFChinaRank[1] = 0, CCFChinaRank[2] = 0, CCFChinaRank[3] = 0, CCFChinaRank[4] = 0;
-        if (CCFChinaAP.checked) CCFChinaRank[0] = 1;
+        // if (CCFChinaAP.checked) CCFChinaRank[0] = 1;
         if (CCFChinaA.checked) CCFChinaRank[1] = 1;
-        if (CCFChinaAM.checked) CCFChinaRank[2] = 1;
+        // if (CCFChinaAM.checked) CCFChinaRank[2] = 1;
         if (CCFChinaB.checked) CCFChinaRank[3] = 1;
         if (CCFChinaC.checked) CCFChinaRank[4] = 1;
 

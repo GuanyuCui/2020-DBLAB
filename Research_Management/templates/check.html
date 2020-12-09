@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<!-- <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
-    rel="stylesheet">
-<script src="https://js.cybozu.cn/momentjs/2.29.1/moment-with-locales.min.js"></script>
-<script src="static/js/moment-with-locales.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script> -->
+{% comment %} 下拉菜单 {% endcomment %}
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% comment %} <script src="https://code.jquery.com/jquery-1.12.4.js"></script> {% endcomment %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <style>
     .col-xs-1 {
         width: 15% !important;
@@ -160,33 +160,11 @@
             html += '<table class="table table-striped" style="table-layout:fixed;">';
             html += '<tbody>';
             html += '<tr>';
-            html += '<td>';
-            html +=
-                '<input id="姓名" class="form-control" label="authorname" placeholder="请输入姓名" type="text" value="'
-            html += author_names[i]
-            html += '" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
-            html += '</td>';
-            html += '<td>';
-            html +=
-                '<select id="身份" class="form-control" label="identity" value="';
-            html += author_identities[i];
-            html += '" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
 
-            if(author_identities[i] == "普通作者")
-                html += '<option value="普通作者" selected="selected">普通作者</option>';
-            else
-                html += '<option value="普通作者">普通作者</option>';
-            
-            if(author_identities[i] == "通讯作者")
-                html += '<option value="通讯作者" selected="selected">通讯作者</option>';
-            else
-                html += '<option value="通讯作者">通讯作者</option>';
-            html += '</select>';
-            html += '</td>';
             html += '<td>';
             html +=
                 '<select id="人员类型" class="form-control" label="authortype"'
-            html += ' style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            html += ' style="width:110px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
 
             if(author_types[i] == "本院教师")
                 html += '<option value="本院教师" selected="selected">本院教师</option>';
@@ -205,6 +183,32 @@
                 
             html += '</select>';
             html += '</td>';
+
+            html += '<td>';
+            html +=
+                '<select id="身份" class="form-control" label="identity" value="';
+            html += author_identities[i];
+            html += '" style="width:110px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+
+            if(author_identities[i] == "普通作者")
+                html += '<option value="普通作者" selected="selected">普通作者</option>';
+            else
+                html += '<option value="普通作者">普通作者</option>';
+            
+            if(author_identities[i] == "通讯作者")
+                html += '<option value="通讯作者" selected="selected">通讯作者</option>';
+            else
+                html += '<option value="通讯作者">通讯作者</option>';
+            html += '</select>';
+            html += '</td>';
+
+            html += '<td>';
+            html +=
+                '<input id="姓名" class="form-control" label="authorname" placeholder="请输入姓名" type="text" value="'
+            html += author_names[i]
+            html += '" style="width:110px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
+            html += '</td>';
+            
             html += '<td>';
             html += '<button id="removeRow" type="button" class="btn btn-danger">删除</button>';
             html += '</td>';
@@ -228,10 +232,10 @@
             </div>
 
             <div class="panel-body">
-                <div class="row" id="paperid_reminder" value={{paperid}}>
+                <div class="row" id="paperid_reminder" value={{ paperid }}>
                     <div>
                         <label class="form-inline" style="margin-left: 18px;"><em style="color: red;margin-right: 5px;">*</em>论文标题：
-                            <input type="text" id="title" name="title" class="form-control" style="width:600px; margin-right: 18px"></label>
+                            <input type="text" id="title" name="title" label="title" class="form-control" style="width:600px; margin-right: 18px"></label>
                         <label class="form-inline" style="margin-left: 18px;">论文语言:</label>
                         <input type="radio" id="lan-cn" name="language_type" value="Chinese"
                             style="margin-right: 10px;margin-left: 10px;" checked />中文
@@ -245,7 +249,7 @@
                 <div class="row">
                     <div>
                         <label class="form-inline" style="margin-left: 18px;"><em style="color: red;margin-right: 5px;">*</em>期刊/会议名称：
-                            <input type="text" id="cjname" class="form-control" required="required" style="width:568px; margin-right: 18px"></label>
+                            <input type="text" id="cjname" label="cjname" class="form-control" required="required" style="width:568px; margin-right: 18px"></label>
                         <label class="form-inline" style="margin-left: 18px;">论文类型:</label>
                         <input type="radio" name="paper_type" value="journal" id="journal"
                             style="margin-right: 10px;margin-left: 10px;" checked />期刊
@@ -391,58 +395,34 @@
                                     <table class="table table-striped" style="table-layout:fixed;">
                                         <thead>
                                             <tr>
-                                                <th>姓名</th>
-                                                <th>身份</th>
                                                 <th>人员类型</th>
+                                                <th>身份</th>
+                                                <th>姓名</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody id="inputFormRow">
                                             <tr>
                                                 <td>
-                                                    <input id="姓名" class="form-control" type="text" label="authorname" style="width:100px;
-                padding:3px 10px;
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-                background-size:13px 13px;
-                appearance:yes;
-                -moz-appearance:yes;
-                -webkit-appearance:yes;
-                " placeholder="请输入姓名">
-                                                </td>
-                                                <td>
-                                                    <select id="身份" class="form-control" label="identity"
-                                                        style="
-                width:100px;
-                padding:3px 10px;
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-                background-size:13px 13px;
-                appearance:yes;
-                -moz-appearance:yes;
-                -webkit-appearance:yes;
-                ">
-                                                        <option id='normal'>普通作者</option>
-                                                        <option id='communicator'>通讯作者</option>
-                                                    </select>
-                                                </td>
-                                                <td>
                                                     <select id="人员类型" class="form-control" label="authortype"
-                                                        style="
-                width:100px;
-                padding:3px 10px;
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-                background-size:13px 13px;
-                appearance:yes;
-                -moz-appearance:yes;
-                -webkit-appearance:yes;
-                ">
-                                                        <option id="teacher">本院教师</option>
-                                                        <option id="student">本院学生</option>
-                                                        <option id="else">其他</option>
+                                                        style="width:110px; ">
+                                                        <option>本院教师</option>
+                                                        <option>本院学生</option>
+                                                        <option>其他</option>
                                                     </select>
                                                 </td>
+
+                                                <td>
+                                                    <select class="form-control" label="identity" style="width:110px;">
+                                                        <option>普通作者</option>
+                                                        <option>通讯作者</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input id="姓名" class="form-control" type="text" label="authorname"
+                                                        style="width:110px;" placeholder="请输入姓名">
+                                                </td>
+
                                                 <td>
                                                 </td>
 
@@ -455,19 +435,18 @@
                         </div>
                         <div class="row">
                             <div class="col-md-5">
-                                <div class="upload-wrap anticon col-md-offset-0" nv-file-drop="" uploader="uploader">
+                                <div class="upload-wrap anticon col-md-offset-9" nv-file-drop="" uploader="uploader">
                                     <input class="file-ele" type="file" id="file" value="上传文件" file-model="image"
                                         name="image" nv-file-select uploader="uploader" multiple />
                                     <div class="file-open"><em class="icon icon-upload"></em>&nbsp;上传电子版</div>
 
                                     
                                 </div>
-                                <a class="btn btn-primary" href="/download/tmp_{{ paperid }}" rel="external nofollow" role="button" style="margin-lename='paperid'ft: 400px;">下载电子版</a>
-                            </div>
-                            <div class="col-md-1">
-                                <input style="left:2px" class="btn btn-success" rel="external nofollow" type="button"
-                                    id="commit" value="提交" style="margin-left:445px">
-                            </div>
+                            </div>           
+                            
+                            <a class="btn btn-info" href="/download/tmp_{{ paperid }}" rel="external nofollow" role="button" style="margin-lename='paperid'ft: 400px;">下载电子版</a>
+                            <input style="left:20px" class="btn btn-success" rel="external nofollow" type="button"
+                                    id="commit" value="提交">
                         </div>
                     </div>
                 </div>
@@ -477,6 +456,105 @@
 </div>
 
 <script>
+    // 论文标题响应input事件
+    $(document).on("input","[label=\"title\"]", function(){
+    // })
+    // $('[label=\"value\"]').on('input', function(){
+        var data = new Object;
+        var target = $(event.target);
+
+        // 获取选中的查询项
+        data.field = '论文题目'
+        // 获取输入的值
+        data.term = $(event.target).val()
+
+        data.csrfmiddlewaretoken = '{{ csrf_token }}';
+        $.ajax({
+            url: '/api_dropbox/',
+            type: 'post',
+            data: data,
+            target: target,
+
+            success: function (response){
+                if (response.code == 1000){
+                    
+                    var results = JSON.parse(response.results);
+                    console.log(results);
+
+                    target.autocomplete({
+                    source: results
+                    });
+                }
+            }
+        })
+    })
+
+    // 期刊会议名称响应input事件
+    $(document).on("input","[label=\"cjname\"]", function(){
+    // })
+    // $('[label=\"value\"]').on('input', function(){
+        var data = new Object;
+        var target = $(event.target);
+
+        // 获取选中的查询项
+        data.field = '期刊/会议名称'
+        // 获取输入的值
+        data.term = $(event.target).val()
+
+        data.csrfmiddlewaretoken = '{{ csrf_token }}';
+        $.ajax({
+            url: '/api_dropbox/',
+            type: 'post',
+            data: data,
+            target: target,
+
+            success: function (response){
+                if (response.code == 1000){
+                    
+                    var results = JSON.parse(response.results);
+                    console.log(results);
+
+                    target.autocomplete({
+                    source: results
+                    });
+                }
+            }
+        })
+    })
+
+    // 作者姓名名称响应input事件
+    $(document).on("input","[label=\"authorname\"]", function(){
+        // })
+        // $('[label=\"value\"]').on('input', function(){
+        var data = new Object;
+        var target = $(event.target);
+
+        // 获取选中的查询项
+        data.field = '作者姓名'
+        // 获取输入的值
+        data.term = $(event.target).val()
+
+        data.csrfmiddlewaretoken = '{{ csrf_token }}';
+        $.ajax({
+            url: '/api_dropbox/',
+            type: 'post',
+            data: data,
+            target: target,
+
+            success: function (response){
+                if (response.code == 1000){
+                    
+                    var results = JSON.parse(response.results);
+                    console.log(results);
+
+                    target.autocomplete({
+                    source: results
+                    });
+                }
+            }
+        })
+    })
+
     $('document').ready(function() {
         var title = $("#title").val();
         var url = '/check/' + $("#paperid_reminder").attr('value') + '/';
@@ -485,7 +563,7 @@
         data.csrfmiddlewaretoken = '{{ csrf_token }}';
         $.ajax({
             url: url,
-            type: 'post',
+            type: 'POST',
             data: data,
             success: function(response) {
                 if (response.code = 2000) {
@@ -674,22 +752,23 @@
         html += '<tr>';
         html += '<td>';
         html +=
-            '<input id="姓名" class="form-control" label="authorname" placeholder="请输入姓名" type="text" style="width:100px; padding:3px 10px;border-top-left-radius: 5pxborder-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes; -moz-appearance:yes;-webkit-appearance:yes;">';
+            '<select id="人员类型" class="form-control" label="authortype" style="width:110px">';
+        html += '<option>本院教师</option>';
+        html += '<option>本院学生</option>';
+        html += '<option>其他</option>';
+        html += '</select>';
         html += '</td>';
+
         html += '<td>';
         html +=
-            '<select id="身份" class="form-control" label="identity" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
+            '<select id="身份" class="form-control" label="identity" style="width:110px;">';
         html += '<option>普通作者</option>';
         html += '<option>通讯作者</option>';
         html += '</select>';
         html += '</td>';
         html += '<td>';
         html +=
-            '<select id="人员类型" class="form-control" label="authortype" style="width:100px;padding:3px 10px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;background-size:13px 13px;appearance:yes;-moz-appearance:yes;-webkit-appearance:yes;">';
-        html += '<option>本院教师</option>';
-        html += '<option>本院学生</option>';
-        html += '<option>其他</option>';
-        html += '</select>';
+            '<input class="form-control" label="authorname" placeholder="请输入姓名" type="text" style="width:110px;">';
         html += '</td>';
         html += '<td>';
         html += '<button id="removeRow" type="button" class="btn btn-danger">删  除</button>';
@@ -698,7 +777,6 @@
         html += '</tbody>';
         html += '</table>';
         html += '</div>';
-
         $('#newRow').append(html);
     });
 
