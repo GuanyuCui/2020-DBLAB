@@ -5,7 +5,7 @@
 ### 用户 
 1. createuser
    - [ ] admin页创建的用户无法在index页登录 -> snl
-   - [ ] 创建用户后，若author表没有，应当插入 -> zpt
+   - [x] 创建用户后，若author表没有，应当插入 -> snl
 
 ### 前后端
 1. 新增页 审核页 修改页
