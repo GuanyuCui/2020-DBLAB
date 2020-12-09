@@ -867,6 +867,7 @@ def delete_tmp_paper(request):
         #  若该条记录存在，则删除
         if tmp_papers:
             tmp_papers.delete()
+            os.remove('data/tmp_{}.pdf'.format(paperid))
         # 若不存在，返回错误代码2000
         else:
             back_dic['code'] = 2000

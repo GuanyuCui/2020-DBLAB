@@ -140,6 +140,7 @@
                         window.alert('删除成功！')
                         console.log($(cur_this).closest('tr').attr('id'))
                         $(cur_this).closest('tr').remove()
+                        window.location.reload()
                     } else {
                         window.alert('删除失败！')
                     }
