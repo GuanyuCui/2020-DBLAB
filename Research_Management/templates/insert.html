@@ -458,7 +458,15 @@
 
         // 会议期刊详细属性
         // data.cjtype = $("input:radio:checked").eq(2).val();
-        data.append('cjtype', $("input:radio:checked").eq(2).val());
+        if($("input:radio:checked").eq(1).val() == '期刊')
+        {
+            data.append('cjtype', $("input:radio:checked").eq(2).val());
+        }
+        else
+        {
+            data.append('cjtype', $("input:radio:checked").eq(2).val() + $("input:radio:checked").eq(3).val());
+            console.log($("input:radio:checked").eq(2).val() + $("input:radio:checked").eq(3).val());
+        }
         // 日期
         // data.date = $("#date").val();
         if (!$('#date').val()) {

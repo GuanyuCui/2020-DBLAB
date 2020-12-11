@@ -683,7 +683,7 @@ def modify(request, paperid):
 def check(request, paperid):#, paperid):
     if request.method == 'POST':
         #back_dic = {'code': 1000, 'msg': ''}
-
+        print('fuck')
         # 可以设定重定向的url
         back_dic = {'url':'/home/','code': 1000}
         data = request.POST
