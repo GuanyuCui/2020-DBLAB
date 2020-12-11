@@ -109,6 +109,8 @@ def set_password(request):
             return JsonResponse(back_dic)    
 
 def handle_uploaded_file(f,filename):
+    if not os.path.exists('data'):
+        os.mkdir('data')
     with open('data/%s.pdf' % filename, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
@@ -175,6 +177,8 @@ def export(request, paperids):
     else:
         return render(request, 'errors.html')
 
+
+
 @login_required
 def api_dropbox(request):
     """
@@ -206,6 +210,21 @@ def api_dropbox(request):
         print(results)
 
         back_dic = {'results': results, 'code':1000}
+        return JsonResponse(back_dic)
+
+@login_required
+def api_checkTitle(request):
+    back_dic = {'code':1000 }
+    if request.method == 'POST':
+        title = request.POST['title']
+        results = Paper.objects.filter(title=title)
+        print(results,len(results))
+
+        if len(results) > 0:
+            back_dic['code'] = 2000
+            return JsonResponse(back_dic)
+        
+        print(back_dic)
         return JsonResponse(back_dic)
 
 @login_required
@@ -597,16 +616,19 @@ def insert(request):
         ############# insert into tmpPA #######
         authors = data['authors']
         authors = json.loads(authors)
-        for i in range(len(authors)):
+
+        for i,author in enumerate(authors):
             newTmppa = Tmppa()
             newTmppa.paperid = newPaper
             # print(authors[i]['name'])
-            newTmppa.authorname = authors[i]['name']
+            newTmppa.authorname = author['name']
+
+            newTmppa.authoridentity = author['identity']
             newTmppa.authorrank = i+1
-            newTmppa.authoridentity = authors[i]['identity']
-            newTmppa.authortype = authors[i]['type']
+
+            newTmppa.authortype = author['type']
             newTmppa.save()
-            #newTmppa.authortype = authors[i]['type']
+            #newTmppa.authortype = author['type']
         
         # 存储pdf文件, 默认在data/paper.pdf
         paper = request.FILES['paper']
@@ -644,6 +666,54 @@ def detail(request, paperid):
 def modify(request, paperid):
     if request.method == 'POST':
         back_dic = {'code': 1000, 'url':'/home/'}
+
+        data = request.POST
+
+        paper = Tmppaper.objects.get(paperid=paperid)
+        paper.title = data['title']
+
+        Conferjournal_obj = Conferjournal.objects.get(name = data['cjname'])   
+        paper.conferjournalname = Conferjournal_obj
+
+        if data['language'] == 'English':
+            paper.language = 'E'
+        else:
+            paper.language = 'C'
+        if data['cj'] == 'journal':
+            paper.conferorjournal = 'J'
+        else:
+            paper.conferorjournal = 'C'
+        paper.papertype = data['cjtype']
+        paper.publishtime = data['date']
+        paper.startpage = data['page_1']
+        paper.endpage = data['page_2']
+        try:
+            paper.volume = data['volume']
+            paper.issue = data['issue']
+        except:
+            pass
+        try:
+            paper.conferencecountry = data['conferencecountry']
+            paper.conferencecity = data['conferencecity']
+        except:
+            pass
+        paper.save()
+
+        authors_origin = Tmppa.objects.filter(paperid=paperid)
+        authors_origin.delete()
+
+        authors = data['authors']
+        authors = json.loads(authors)
+
+        for i,author in enumerate(authors):
+            newTmppa = Tmppa()
+            newTmppa.paperid = paper
+            # print(authors[i]['name'])
+            newTmppa.authorname = author['name']
+            newTmppa.authoridentity = author['identity']
+            newTmppa.authorrank = i+1
+            newTmppa.authortype = author['type']
+            newTmppa.save()
         
         # 存储pdf文件, 默认在data/paper.pdf
         try:

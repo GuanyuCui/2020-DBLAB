@@ -46,6 +46,7 @@ urlpatterns = [
     url(r'export/(?P<paperids>[\w\D]*)/', views.export),
     url(r'bibtex/', views.bibtex),
     url(r'api_dropbox/', views.api_dropbox),
+    url(r'api_checkTitle/', views.api_checkTitle),
     #
     #
 

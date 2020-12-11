@@ -577,6 +577,7 @@
         // 会议还是期刊
         // data.cj = $("input:radio:checked").eq(1).val();
         data.append('cj',$("input:radio:checked").eq(1).val());
+
         
         // 会议期刊详细属性
         // data.cjtype = $("input:radio:checked").eq(2).val();
@@ -622,6 +623,11 @@
         if (!$('#c_city').val() && $("input:radio:checked").eq(1).val() == 'conference') {
             alert("ALERT: 未填写会议举办城市!");
             return;
+        }
+
+        if($("input:radio:checked").eq(1).val() == 'conference'){
+            data.append('conferencecountry',$('#c_country').val());
+            data.append('conferencecity',$('#c_city').val());
         }
 
         if(volume){

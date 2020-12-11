@@ -557,7 +557,7 @@
 
     $('document').ready(function() {
         var title = $("#title").val();
-        var url = '/check/' + $("#paperid_reminder").attr('value') + '/';
+        var url = '/api_checkTitle/';
         var data = new Object;
         data.title = title;
         data.csrfmiddlewaretoken = '{{ csrf_token }}';
@@ -566,7 +566,8 @@
             type: 'POST',
             data: data,
             success: function(response) {
-                if (response.code = 2000) {
+                console.log(response);
+                if (response.code == 2000) {
                     alert("存在重名论文！请小心审核！");
                 }
             }
