@@ -587,7 +587,7 @@ def insert(request):
                 return JsonResponse(back_dic)
 
         newPaper = Tmppaper() # 实例化数据表
-        commitAuthor_obj = Author.objects.get(authorid = request.user.username)   
+        commitAuthor_obj = Author.objects.get(authorid = request.user.username)
         newPaper.commitauthorid = commitAuthor_obj
         newPaper.title = data['title']
 
@@ -757,7 +757,6 @@ def modify(request, paperid):
 def check(request, paperid):#, paperid):
     if request.method == 'POST':
         #back_dic = {'code': 1000, 'msg': ''}
-        print('fuck')
         # 可以设定重定向的url
         back_dic = {'url':'/home/','code': 1000}
         data = request.POST
