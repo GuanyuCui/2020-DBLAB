@@ -242,47 +242,51 @@ def bibtex(request):
         # parser.homogenize_fields = False
         # parser.common_strings = False
         bibdata = bibtexparser.loads(bibtex_str, parser)
-
-
-        print ('DEBUG 1')
-        print(bibdata.entries[0]['title'])
-        title = bibdata.entries[0]['title'].replace("\n", " ")
-        title = ' '.join(title.split())
-        print(title)   
-
-        #title = bibdata.entries[0]['title'].replace("\t", " ")
-
-        pages = bibdata.entries[0]['pages']
-        matchObj = re.match( r'(.*)--(.*)', pages, re.M|re.I)
-        if matchObj:
-            print ("matchObj.group(1) : ", matchObj.group(1))
-            print ("matchObj.group(2) : ", matchObj.group(2))
-            startpage = matchObj.group(1)
-            endpage = matchObj.group(2)
-        else:
-            print ("No match!!")
+        try:
+            title = bibdata.entries[0]['title'].replace("\n", " ")
+            title = ' '.join(title.split())
+        except:
+            pass
+        try:
+            pages = bibdata.entries[0]['pages']
+            matchObj = re.match( r'(.*)--(.*)', pages, re.M|re.I)
+            if matchObj:
+                print ("matchObj.group(1) : ", matchObj.group(1))
+                print ("matchObj.group(2) : ", matchObj.group(2))
+                startpage = matchObj.group(1)
+                endpage = matchObj.group(2)
+            else:
+                print ("No match!!")
+                startpage = 0
+                endpage = 0
+        except:
             startpage = 0
             endpage = 0
 
-        biburl = bibdata.entries[0]['biburl']
-        print(biburl)
-        matchObj2 = re.match( r'(.*)rec/(.*)/(.*)/(.*)', biburl, re.M|re.I)
-        if matchObj:
-            print ("matchObj.group(2) : ", matchObj2.group(2))
-            print ("matchObj.group(2) : ", matchObj2.group(3))
-            CorJ = matchObj2.group(2)
-            conferjournalabb = matchObj2.group(3)
-            cJobj = Conferjournal.objects.get(abbreviation = conferjournalabb)
-            conferjournalname = cJobj.name
-            if (CorJ == 'journals'):
-                conferorjournal = 'J'
+        try:
+            biburl = bibdata.entries[0]['biburl']
+            matchObj2 = re.match( r'(.*)rec/(.*)/(.*)/(.*)', biburl, re.M|re.I)
+            if matchObj2:
+                print ("matchObj.group(2) : ", matchObj2.group(2))
+                print ("matchObj.group(2) : ", matchObj2.group(3))
+                CorJ = matchObj2.group(2)
+                if (CorJ == 'journals'):
+                    conferorjournal = 'J'
+                else:
+                    conferorjournal = 'C'
+                conferjournalabb = matchObj2.group(3)
+                try:
+                    cJobj = Conferjournal.objects.get(abbreviation = conferjournalabb)
+                    conferjournalname = cJobj.name
+                except:
+                    conferjournalname = None
             else:
-                conferorjournal = 'C'
-        else:
+                conferorjournal = None
+                conferjournalname = None
+        except:
             conferorjournal = None
             conferjournalname = None
-            print ("No match in biburl")
-        
+
         if conferorjournal == 'J':
             volume = bibdata.entries[0]['volume']
             issue = bibdata.entries[0]['number']
