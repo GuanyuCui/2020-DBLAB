@@ -1,7 +1,4 @@
 {% extends 'base.html' %}
-
-
-
 {% block content %}
 <!-- 
 {% comment %} 下拉菜单 {% endcomment %}
@@ -189,7 +186,7 @@
                     <div class="col-md-3">
                         <div class="panel panel-info">
                             <div class="panel-heading"><em style="color: red;">*</em>
-                                论文发布日期
+                                论文正式发表日期
                             </div>
                             <div class="panel-body">
                                 <div class='col-sm-12'>
@@ -469,10 +466,12 @@
             data.append('cjtype', $("input:radio:checked").eq(2).val() + $("input:radio:checked").eq(3).val());
             console.log($("input:radio:checked").eq(2).val() + $("input:radio:checked").eq(3).val());
         }
+        
+
         // 日期
         // data.date = $("#date").val();
         if (!$('#date').val()) {
-            alert("ALERT: 未选择论文发布日期!");
+            alert("ALERT: 未选择论文正式发表日期!");
             return;
         }
         data.append('date', $("#date").val());
@@ -717,7 +716,7 @@
         html_2 += '<input type="radio" name="s_type" value="Oral" checked/>Oral</label>';
         html_2 += '<br>';
         html_2 += '<label class="radio-inline">';
-        html_2 += '<input type="radio" name="s_type" value="Oral">Poster</label>';
+        html_2 += '<input type="radio" name="s_type" value="Poster">Poster</label>';
         html_2 += '<br>';
         html_2 += '</div>';
         html_2 += '</div>';
@@ -1072,7 +1071,7 @@
         html += '<input type="radio" name="s_type" value="Oral" checked/>Oral</label>';
         html += '<br>';
         html += '<label class="radio-inline">';
-        html += '<input type="radio" name="s_type" value="Oral">Poster</label>';
+        html += '<input type="radio" name="s_type" value="Poster">Poster</label>';
         html += '<br>';
         html += '</div>';
         html += '</div>';
@@ -1097,7 +1096,7 @@
         html += '<input type="radio" name="s_type" value="Oral" checked/>Oral</label>';
         html += '<br>';
         html += '<label class="radio-inline">';
-        html += '<input type="radio" name="s_type" value="Oral">Poster</label>';
+        html += '<input type="radio" name="s_type" value="Poster">Poster</label>';
         html += '<br>';
         html += '</div>';
         html += '</div>';

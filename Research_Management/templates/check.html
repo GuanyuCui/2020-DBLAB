@@ -123,7 +123,7 @@
             $("#c_city").val('{{confercity}}');
         }
 
-        // 发布日期
+        // 正式发表日期
         $("#date").val('{{publishtime}}');
 
         var author_names = JSON.parse('{{author_names|safe}}');
@@ -353,7 +353,7 @@
                     <div class="col-md-3">
                         <div class="panel panel-info">
                             <div class="panel-heading"><em style="color: red;">*</em>
-                                论文发布日期
+                                论文正式发表日期
                             </div>
                             <div class="panel-body">
                                 <div class='col-sm-12'>
@@ -601,11 +601,20 @@
         
         // 会议期刊详细属性
         // data.cjtype = $("input:radio:checked").eq(2).val();
-        data.append('cjtype',$("input:radio:checked").eq(2).val());
+        if($("input:radio:checked").eq(1).val() == '期刊')
+        {
+            data.append('cjtype', $("input:radio:checked").eq(2).val());
+        }
+        else
+        {
+            data.append('cjtype', $("input:radio:checked").eq(2).val() + $("input:radio:checked").eq(3).val());
+            console.log($("input:radio:checked").eq(2).val() + $("input:radio:checked").eq(3).val());
+        }        
+        
         // 日期
         // data.date = $("#date").val();
         if(!$('#date').val()){
-            alert("ALERT: 未选择论文发布日期!");
+            alert("ALERT: 未选择论文正式发表日期!");
             return;
         }
         data.append('date',$("#date").val());

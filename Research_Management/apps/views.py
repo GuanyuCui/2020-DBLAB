@@ -211,6 +211,8 @@ def api_dropbox(request):
 
         back_dic = {'results': results, 'code':1000}
         return JsonResponse(back_dic)
+    else:
+        return render(request,'404.html',locals())
 
 @login_required
 def api_checkTitle(request):
@@ -459,12 +461,16 @@ def query_process(request):
             # 7: demo
             # paper type queries:
             q_pt = []
+            print(paperType)
             for idx in range(8):
                 if paperType[idx] == 1:
                     papertype = papertype_refer[idx]
+                    
                     q_pt.append("Q(papertype=\"%s\")" % papertype)
             
             papertype_query = '|'.join(q_pt)
+            print(papertype_query)
+
             papertype_query_str = "results.filter({})".format(papertype_query)
             results = eval(papertype_query_str)
             print("results after paper type queries:{}".format(results))
@@ -760,16 +766,13 @@ def check(request, paperid):#, paperid):
         # 可以设定重定向的url
         back_dic = {'url':'/home/','code': 1000}
         data = request.POST
+        
         # 判断是否是第一次发送ajax
         # if data['is_first'] == '1':
            # 判断是否存在重名项
-        is_paper_title_same = models.Paper.objects.filter(title=data['title'])
             # 这里没必要去tmppaper查
             # is_tmppaper_title_same = models.Tmppaper.objects.filter(title=data['title'])
-            
-        if is_paper_title_same: #or is_tmppaper_title_same:
-            back_dic['code'] = 2000
-            return JsonResponse(back_dic)
+
         insertPaper = Paper() # 实例化插入表
 
         print("username")
@@ -793,8 +796,9 @@ def check(request, paperid):#, paperid):
 
         insertPaper.papertype = data['cjtype']
         insertPaper.publishtime = data['date']
+        print(data)
         try:
-            insertPaper.conferencecountry = data['counferencecountry']
+            insertPaper.conferencecountry = data['conferencecountry']
             insertPaper.conferencecity = data['conferencecity']
         except:
             pass
@@ -821,6 +825,7 @@ def check(request, paperid):#, paperid):
             print(authors[i]['name'])
             newPa.authorname = authors[i]['name']
             newPa.authorrank = i+1
+            newPa.authortype = authors[i]['type']
             newPa.authoridentity = authors[i]['identity']
             newPa.save()
             #若为校外人员，则插入一条新的Author记录
@@ -831,7 +836,6 @@ def check(request, paperid):#, paperid):
                 newAuthor.authorid = newPa.authorname
                 newAuthor.save()
             
-            #newPa.authortype = authors[i]['type']
         
 
         #for i in range(len(authors)):

@@ -29,7 +29,6 @@ from apps import views
 urlpatterns = [
     #
     # 页面
-    
     url(r'^errors/', views.errors),
     url(r'^index/', views.index),
     url(r'^logout/$', views.logout),
