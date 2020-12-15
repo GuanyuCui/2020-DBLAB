@@ -55,17 +55,19 @@
                                 <br>
                                 ISSN：{{ conferjournal.issn }}
                                 <br>
-                                期刊等级：{{ conferjournal.ccflevel }}
                                 {% else %}
-                                <br>
                                 发布会议：{{ conferjournal.name }}
                                 <br>
                                 会议举办国家：{{ paper.conferencecountry }}
                                 <br>
                                 会议举办城市：{{ paper.conferencecity }}
                                 <br>
-                                会议等级：{{ conferjournal.ccflevel }}
                                 {% endif %}
+                                RUC等级：{{ conferjournal.ruclevel }}
+                                <br>
+                                CCF等级：{{ conferjournal.ccflevel }}
+                                <br>
+                                CCF中文等级：{{ conferjournal.ccfchinalevel }}
                             </div>
                         </div>
                     </div>

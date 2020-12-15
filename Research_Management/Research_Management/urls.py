@@ -1,3 +1,11 @@
+'''
+Description: 
+Author: rainym00d
+Github: https://github.com/rainym00d
+Date: 2020-12-13 15:38:54
+LastEditors: rainym00d
+LastEditTime: 2020-12-15 18:09:19
+'''
 """Research_Management URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -51,4 +59,5 @@ urlpatterns = [
     #
 
     url(r'^admin/', admin.site.urls),
+    
 ]
