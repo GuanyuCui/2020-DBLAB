@@ -4,7 +4,7 @@ Author: rainym00d
 Github: https://github.com/rainym00d
 Date: 2020-12-13 15:38:54
 LastEditors: rainym00d
-LastEditTime: 2020-12-15 18:09:19
+LastEditTime: 2020-12-15 18:49:15
 '''
 """Research_Management URL Configuration
 
@@ -55,9 +55,9 @@ urlpatterns = [
     url(r'bibtex/', views.bibtex),
     url(r'api_dropbox/', views.api_dropbox),
     url(r'api_checkTitle/', views.api_checkTitle),
+    
     #
     #
 
     url(r'^admin/', admin.site.urls),
-    
 ]
