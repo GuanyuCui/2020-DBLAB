@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
     <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.min.js' %}"></script>
 
+    <script src="{% static 'bootstrap/js/jquery-ui.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/jquery-ui.css' %}">
+
     {% block css %}
 
     {% endblock %}
@@ -39,16 +42,16 @@
             <ul class="nav navbar-nav">
                 {% if request.user.is_authenticated %}
                 <li class="active"><a href="/home"> 主页 <span class="sr-only">(current)</span></a></li>
-                <li><a href="/insert">添加项目</a></li>
-                <li><a href="/query">查询导出已有项目</a></li>
+                <li><a href="/insert">添加论文</a></li>
+                <li><a href="/query">查询导出已有论文</a></li>
                     {% if request.user.is_staff %}
                         <li><a href="/createuser">创建新用户</a></li>
                     {% endif %}
                 {% else %}
                 <!-- 注意! 为调试方便，暂时允许不登录查看页面 -->
                 <li class="active"><a href="/index"> 主页 <span class="sr-only">(current)</span></a></li>
-                <li><a href="/index">添加项目</a></li>
-                <li><a href="/index">查询导出已有项目</a></li>
+                <li><a href="/index">添加论文</a></li>
+                <li><a href="/index">查询导出已有论文</a></li>
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -107,15 +110,15 @@
                 <ul class="nav nav-pills nav-stacked text-center">
                     {% if request.user.is_authenticated %}
                         <li><a style="font-size:16px" href="/home">主页</a></li>
-                        <li><a style="font-size:16px" href="/insert">添加项目</a></li>
-                        <li><a style="font-size:16px" href="/query">查询导出已有项目</a></li>
+                        <li><a style="font-size:16px" href="/insert">添加论文</a></li>
+                        <li><a style="font-size:16px" href="/query">查询导出已有论文</a></li>
                         {% if request.user.is_staff %}
                             <li><a style="font-size:16px" href="/createuser">创建新用户</a></li>
                         {% endif %}
                     {% else %}
                         <li><a style="font-size:16px" href="/index">主页</a></li>
-                        <li><a style="font-size:16px" href="/index">添加项目</a></li>
-                        <li><a style="font-size:16px" href="/index">查询导出已有项目</a></li>
+                        <li><a style="font-size:16px" href="/index">添加论文</a></li>
+                        <li><a style="font-size:16px" href="/index">查询导出已有论文</a></li>
                     {% endif %}
                 </ul>
             </div>
