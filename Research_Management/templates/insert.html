@@ -457,7 +457,7 @@
 
         // 会议期刊详细属性
         // data.cjtype = $("input:radio:checked").eq(2).val();
-        if($("input:radio:checked").eq(1).val() == '期刊')
+        if($("input:radio:checked").eq(1).val() == 'journal')
         {
             data.append('cjtype', $("input:radio:checked").eq(2).val());
         }
@@ -502,6 +502,11 @@
             return;
         }
 
+        if($("input:radio:checked").eq(1).val() == 'conference'){
+            data.append('conferencecountry',$('#c_country').val());
+            data.append('conferencecity',$('#c_city').val());
+        }
+        
         if (volume) {
             // data.volume = volume;
             // data.issue = issue;
@@ -517,8 +522,6 @@
             alert("ALERT: 未填写会议举办城市!");
             return;
         }
-        data.append('conferencecountry', $('#c_country').val());
-        data.append('conferencecity', $('#c_city').val());
 
 
         var authorNames = $("input[label=\"authorname\"]");

@@ -729,7 +729,8 @@ def modify(request, paperid):
             paper.conferencecountry = data['conferencecountry']
             paper.conferencecity = data['conferencecity']
         except:
-            pass
+            paper.conferencecountry = ''
+            paper.conferencecity = ''
         paper.save()
 
         authors_origin = Tmppa.objects.filter(paperid=paperid)

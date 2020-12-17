@@ -407,16 +407,16 @@
                                                 <td>
                                                     <select id="人员类型" class="form-control" label="authortype"
                                                         style="width:110px; ">
-                                                        <option>本院教师</option>
-                                                        <option>本院学生</option>
-                                                        <option>其他</option>
+                                                        <option id="teacher">本院教师</option>
+                                                        <option id="student">本院学生</option>
+                                                        <option id="else">其他</option>
                                                     </select>
                                                 </td>
 
                                                 <td>
                                                     <select class="form-control" label="identity" style="width:110px;">
-                                                        <option>普通作者</option>
-                                                        <option>通讯作者</option>
+                                                        <option id="normal">普通作者</option>
+                                                        <option id="communicator">通讯作者</option>
                                                     </select>
                                                 </td>
                                                 <td>
@@ -601,7 +601,7 @@
         
         // 会议期刊详细属性
         // data.cjtype = $("input:radio:checked").eq(2).val();
-        if($("input:radio:checked").eq(1).val() == '期刊')
+        if($("input:radio:checked").eq(1).val() == 'journal')
         {
             data.append('cjtype', $("input:radio:checked").eq(2).val());
         }
@@ -653,8 +653,11 @@
             alert("ALERT: 未填写会议举办城市!");
             return;
         }
-        data.append('conferencecountry', $('#c_country').val());
-        data.append('conferencecity', $('#c_city').val());
+        
+        if($("input:radio:checked").eq(1).val() == 'conference'){
+            data.append('conferencecountry',$('#c_country').val());
+            data.append('conferencecity',$('#c_city').val());
+        }
 
         if(volume){
             // data.volume = volume;
