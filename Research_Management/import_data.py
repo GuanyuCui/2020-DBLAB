@@ -40,4 +40,5 @@ def import_author(file_path):
             print("Error in : insert into author values(\"%s\",\"%s\");" % (v['职工号'],v['姓名']))
 
 if __name__ == "__main__":
+    import_confer('static/basic-data/conferences.csv')
     import_author('static/basic-data/authors.csv')

@@ -16,6 +16,7 @@ from bibtexparser.customization import convert_to_unicode
 
 import json
 import csv
+import pandas
 from apps import myforms
 from apps import models
 from apps.models import Paper
@@ -41,6 +42,28 @@ papertype_repr_refer = {'长文Oral':'Oral','长文Poster':'Poster','短文Oral'
 # https://www.cnblogs.com/xuchengcheng1215/p/9457950.html
 # 由于后期需要做出普通用户与管理员的区分
 
+@login_required
+def api_createUser(request):
+    """
+        依据基本数据创建教师用户
+    """
+    if not request.user.is_staff:
+        return render(request,'404.html',locals())
+    
+    data = pandas.read_csv('static/basic-data/authors.csv')
+    data = data.drop_duplicates(subset=['职工号'])
+    data = data.dropna(subset=['职工号'],how='any')
+
+    # 使用 cursor() 方法创建一个游标对象 cursor
+
+    for i,v in data.iterrows():
+        user = {'username':v['职工号'],'password':'123'}
+        try:
+            models.UserInfo.objects.create_user(**user)
+        except:
+            print("{} already exists!".format(user['username']))
+
+    return HttpResponse("Create User Succeed!")
 
 # 注册
 # todo：只有管理员可以注册，因此后期还得加一个if判断

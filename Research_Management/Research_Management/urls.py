@@ -54,6 +54,7 @@ urlpatterns = [
     url(r'bibtex/', views.bibtex),
     url(r'api_dropbox/', views.api_dropbox),
     url(r'api_checkTitle/', views.api_checkTitle),
+    url(r'api_createUser/', views.api_createUser),
     
     #
     #
