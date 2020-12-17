@@ -33,7 +33,9 @@
                         {% else %}
                         <input type="text" class="form-control" style="width:500px; margin-right: 18px" value="英文" readonly="readonly" />
                         {% endif %}
-                        {{paper.papertype}}
+                        <label class="form-inline" style="margin-left: 18px;">论文类型:</label>
+                        <input type="text" class="form-control" style="width:500px; margin-right: 18px" value={{paper.papertype}} readonly="readonly" />
+                        
                         <!-- <input type="radio" name="language_type" value="Chinese" style="margin-right: 10px;margin-left: 10px;" readonly="readonly"/>中文
                         <input type="radio" name="language_type" value="English" style="margin-right: 10px;margin-left: 10px;" />英文 -->
                     </div>
